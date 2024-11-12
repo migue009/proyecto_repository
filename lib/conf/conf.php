@@ -2,8 +2,9 @@
 <?php
 $host /*puede ser server*/= "localhost"; /*servidor*/
 $user = "postgres";/*Usuario*/
-$pass = "kenita123";/*contrasena*/
+$pass = "123";/*contrasena*/
 $database = "proyecto";/*BaseDeDatos*/
 $port = "5432";/*Puerto*/
+//no se
 
 ?>
