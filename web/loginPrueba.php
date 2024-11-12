@@ -15,7 +15,7 @@
 <div class="contenedor">
     <div class="wrapper">
         <form action="<?php echo getUrl("Acceso","Acceso","login", false, "ajax"); ?>" method="post" id="form">
-            <h1>Inicia Sesi&oacute;n</h1>
+            <h1>Inicia Sesi&oacute;nnnnnn</h1>
             <div class="input-box">
                 <input type="email" name="user" class="form-control" id="user" placeholder="Enter email" required> 
                 <i class='bx bxs-user'></i>
