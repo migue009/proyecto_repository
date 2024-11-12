@@ -5,6 +5,5 @@ $user = "root";/*Usuario*/
 $pass = "";/*contrasena*/
 $database = "adso571";/*BaseDeDatos*/
 $port = "3306";/*Puerto*/
-//no se
-
+//hola
 ?>
