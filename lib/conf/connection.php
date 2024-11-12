@@ -33,7 +33,7 @@ class Connection{
     }
     /*ESTABLECER LA CONEXION*/
     private function connect(){//host, user, pass, database
-        $this->link=pg_connect("host=$host port=$port dbname=$database user=$user password=$pass");
+        $this->link=mysqli_connect($this->host,$this->user,$this->pass,$this->database);
         /*if($this->link){
             echo "Conexion Exitosa";
         }else{
