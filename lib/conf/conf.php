@@ -5,5 +5,6 @@ $user = "postgres";/*Usuario*/
 $pass = "kenita123";/*contrasena*/
 $database = "proyecto";/*BaseDeDatos*/
 $port = "5432";/*Puerto*/
+//no se
 
 ?>
