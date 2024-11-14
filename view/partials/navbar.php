@@ -44,6 +44,15 @@
                     class="form-control"
                   />
                 </div>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuarios
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="<?php echo getUrl("Administrador","Administrador","getCreate");?>">Registrar Usuarios</a></li>
+                    <li><a class="dropdown-item" href="<?php echo getUrl("Administrador","Administrador","getUsuarios");?>">Consultar Usuarios</a></li>
+                  </ul>
+                </li>
               </nav>
 
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
@@ -368,7 +377,9 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Cerrar sesión</a>
+                        <a class="dropdown-item" href="<?php echo getUrl("Acceso","Acceso","logout");?>">
+                          Cerrar sesion
+                        </a>
                       </li>
                     </div>
                   </ul>
