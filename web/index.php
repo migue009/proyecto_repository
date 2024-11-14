@@ -4,9 +4,10 @@ include_once '../lib/helpers.php';
 //inluimos la cabeza
     include_once '../view/partials/header.php';
     if (!isset($_SESSION['auth'])) {
+        alert('hola');
         redirect('login.php');
-    }
-    echo "<body>";
+    }else{
+        echo "<body>";
         echo "<div class='wrapper'>";
         //incluimos el sidebar
             include_once '../view/partials/sidebar.php';
@@ -28,4 +29,5 @@ include_once '../lib/helpers.php';
         include_once '../view/partials/scripts.php';
     echo "</body>";
     echo "</html>";
+    }
 ?>
