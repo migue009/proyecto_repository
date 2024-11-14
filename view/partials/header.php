@@ -7,7 +7,6 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
     />
-    <link rel="stylesheet" href="login.css">
     <link
       rel="icon"
       href="assets/img/kaiadmin/favicon.ico"
