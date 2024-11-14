@@ -5,7 +5,7 @@
             echo "probando";
         }
         public function getCreate(){
-/*El sistema debe permitir registrar usuarios ingresando un tipo de documento, un número de identificación, primer nombre, segundo nombre, primer apellido, segundo apellido, contraseña, correo electrónico, un número de teléfono celular, una dirección residencial.*/
+        /*El sistema debe permitir registrar usuarios ingresando un tipo de documento, un número de identificación, primer nombre, segundo nombre, primer apellido, segundo apellido, contraseña, correo electrónico, un número de teléfono celular, una dirección residencial.*/
             $obj = new UsuariosModel();
 
             $sql = "SELECT * FROM rol";
@@ -16,76 +16,97 @@
             
         }
 
-        public function postCreate(){
+        public function postCreate() {
             $obj = new UsuariosModel();
-
-
+        
+            // Obtener datos del formulario
             $usu_nombre = $_POST['usu_nombre'];
             $usu_apellido = $_POST['usu_apellido'];
             $usu_correo = $_POST['usu_correo'];
             $usu_clave = $_POST['usu_clave'];
             $rol_id = $_POST['rol_id'];
-
-            $validacion=true;
-            //empty o ==""
-            if(empty($usu_nombre)){
-                $_SESSION['errores'][]="El campo nombre es requerido";
-                $validacion=false;
+            $usu_documento = $_POST['usu_documento'];
+            $usu_tipo_documento = $_POST['usu_tipo_documento'];
+        
+            $validacion = true;
+        
+            // Validación de campos obligatorios
+            if (empty($usu_nombre)) {
+                $_SESSION['errores'][] = "El campo nombre es requerido";
+                $validacion = false;
             }
-            if(empty($usu_apellido)){
-                $_SESSION['errores'][]="El campo apellido es requerido";
-                $validacion=false;
+            if (empty($usu_apellido)) {
+                $_SESSION['errores'][] = "El campo apellido es requerido";
+                $validacion = false;
             }
-            if(empty($usu_correo)){
-                $_SESSION['errores'][]="El campo correo es requerido";
-                $validacion=false;
+            if (empty($usu_correo)) {
+                $_SESSION['errores'][] = "El campo correo es requerido";
+                $validacion = false;
             }
-            if(empty($usu_clave)){
-                $_SESSION['errores'][]="El campo clave es requerido";
-                $validacion=false;
+            if (empty($usu_clave)) {
+                $_SESSION['errores'][] = "El campo clave es requerido";
+                $validacion = false;
             }
-            if(empty($rol_id)){
-                $_SESSION['errores'][]="El campo rol es requerido";
-                $validacion=false;
+            if (empty($rol_id)) {
+                $_SESSION['errores'][] = "El campo rol es requerido";
+                $validacion = false;
+            }
+            if (empty($usu_documento)) {
+                $_SESSION['errores'][] = "El campo documento es requerido";
+                $validacion = false;
+            }
+            if (empty($usu_tipo_documento)) {
+                $_SESSION['errores'][] = "El campo tipo de documento es requerido";
+                $validacion = false;
             }
         
-            if(validarCampoLetras($usu_nombre) == false){
-                $_SESSION['errores'][]="El campo nombre debe contener solo letras";
-                $validacion=false;
+            // Validación de formatos
+            if (validarCampoLetras($usu_nombre) == false) {
+                $_SESSION['errores'][] = "El campo nombre debe contener solo letras";
+                $validacion = false;
             }
-            if(validarCampoLetras($usu_apellido) == false){
-                $_SESSION['errores'][]="El campo apellido debe contener solo letras";
-                $validacion=false;
+            if (validarCampoLetras($usu_apellido) == false) {
+                $_SESSION['errores'][] = "El campo apellido debe contener solo letras";
+                $validacion = false;
             }
-            if(validarCorreo($usu_correo) == false){
-                $_SESSION['errores'][]="El campo correo debe contener letras o numeros y @ y un dominio valido(Ej:gmail.com)";
-                $validacion=false;
+            if (validarCorreo($usu_correo) == false) {
+                $_SESSION['errores'][] = "El campo correo debe contener letras o números y @ y un dominio válido (Ej: gmail.com)";
+                $validacion = false;
             }
-            if(validarClave($usu_clave) == false){
-                $_SESSION['errores'][]="El campo clave debe contener al menos una Mayuscula, una minuscula, un numero, un simbolo y debe tener mas de 8 caracteres)";
-                $validacion=false;
+            if (validarClave($usu_clave) == false) {
+                $_SESSION['errores'][] = "El campo clave debe contener al menos una mayúscula, una minúscula, un número, un símbolo y debe tener más de 8 caracteres";
+                $validacion = false;
             }
-
+            if (validarCampoNumeros($usu_documento) == false) {
+                $_SESSION['errores'][] = "El documento debe contener solo números";
+                $validacion = false;
+            }
+        
+            // Si pasa la validación
             if ($validacion) {
-
+                // Encriptar la contraseña
                 $hashedPassword = password_hash($usu_clave, PASSWORD_DEFAULT);
-
-                $id = $obj->autoIncrement("usu_id","usuario");
-
-                $sql = "INSERT INTO usuario VALUES($id,'$usu_nombre','$usu_apellido','$usu_correo','$hashedPassword','$rol_id',1)";
-                
+        
+                // Obtener ID automáticamente
+                $id = $obj->autoIncrement("usu_id", "usuario");
+        
+                // Insertar en la base de datos
+                $sql = "INSERT INTO usuario (usu_id, usu_nombre, usu_apellido, usu_documento, usu_tipo_documento, usu_correo, usu_clave, rol_id, usu_estado) 
+                        VALUES ($id, '$usu_nombre', '$usu_apellido', '$usu_documento', '$usu_tipo_documento', '$usu_correo', '$hashedPassword', $rol_id, 1)";
+        
                 $ejecutar = $obj->insert($sql);
-
-                if($ejecutar){
-                    redirect(getUrl("Usuarios","Usuarios","getUsuarios"));
-                }else{
-                    echo "se ha presentado un error al insertar";
+        
+                // Verificar si la inserción fue exitosa
+                if ($ejecutar) {
+                    redirect(getUrl("Administrador", "Administrador", "getUsuarios"));
+                } else {
+                    echo "Se ha presentado un error al insertar";
                 }
-            }else{
-                redirect(getUrl("Administrador","Administrador","getCreate"));
+            } else {
+                redirect(getUrl("Administrador", "Administrador", "getCreate"));
             }
-            
         }
+        
 
         public function getUsuarios(){
             $obj = new UsuariosModel();
