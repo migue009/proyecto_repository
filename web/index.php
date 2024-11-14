@@ -3,9 +3,9 @@
 include_once '../lib/helpers.php';
 //inluimos la cabeza
     include_once '../view/partials/header.php';
-    // if (!isset($_SESSION['auth'])) {
-    //     redirect('login.php');
-    // }
+     if (!isset($_SESSION['auth'])) {
+         redirect('login.php');
+     }
     echo "<body>";
         echo "<div class='wrapper'>";
         //incluimos el sidebar

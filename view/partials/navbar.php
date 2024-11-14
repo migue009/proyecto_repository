@@ -40,7 +40,7 @@
                   </div>
                   <input
                     type="text"
-                    placeholder="Search ..."
+                    placeholder="Buscar..."
                     class="form-control"
                   />
                 </div>
@@ -65,7 +65,7 @@
                       <div class="input-group">
                         <input
                           type="text"
-                          placeholder="Search ..."
+                          placeholder="Buscar..."
                           class="form-control"
                         />
                       </div>
@@ -93,7 +93,7 @@
                         class="dropdown-title d-flex justify-content-between align-items-center"
                       >
                         Messages
-                        <a href="#" class="small">Mark all as read</a>
+                        <a href="#" class="small">Marcas todos como leido</a>
                       </div>
                     </li>
                     <li>
@@ -107,12 +107,12 @@
                               />
                             </div>
                             <div class="notif-content">
-                              <span class="subject">Jimmy Denis</span>
-                              <span class="block"> How are you ? </span>
-                              <span class="time">5 minutes ago</span>
+                              <span class="subject">Miguel Cuellar</span>
+                              <span class="block"> Como estas? </span>
+                              <span class="time">Hace 5 minutos</span>
                             </div>
                           </a>
-                          <a href="#">
+                          <!-- <a href="#">
                             <div class="notif-img">
                               <img
                                 src="assets/img/chadengle.jpg"
@@ -124,8 +124,8 @@
                               <span class="block"> Ok, Thanks ! </span>
                               <span class="time">12 minutes ago</span>
                             </div>
-                          </a>
-                          <a href="#">
+                          </a> -->
+                          <!-- <a href="#">
                             <div class="notif-img">
                               <img
                                 src="assets/img/mlane.jpg"
@@ -139,8 +139,8 @@
                               </span>
                               <span class="time">12 minutes ago</span>
                             </div>
-                          </a>
-                          <a href="#">
+                          </a> -->
+                          <!-- <a href="#">
                             <div class="notif-img">
                               <img
                                 src="assets/img/talha.jpg"
@@ -152,15 +152,15 @@
                               <span class="block"> Hi, Apa Kabar ? </span>
                               <span class="time">17 minutes ago</span>
                             </div>
-                          </a>
+                          </a> -->
                         </div>
                       </div>
                     </li>
-                    <li>
+                    <!-- <li>
                       <a class="see-all" href="javascript:void(0);"
                         >See all messages<i class="fa fa-angle-right"></i>
                       </a>
-                    </li>
+                    </li> -->
                   </ul>
                 </li>
                 <li class="nav-item topbar-icon dropdown hidden-caret">
@@ -174,7 +174,7 @@
                     aria-expanded="false"
                   >
                     <i class="fa fa-bell"></i>
-                    <span class="notification">4</span>
+                    <span class="notification">1</span>
                   </a>
                   <ul
                     class="dropdown-menu notif-box animated fadeIn"
@@ -182,7 +182,7 @@
                   >
                     <li>
                       <div class="dropdown-title">
-                        You have 4 new notification
+                        Tienes 1 notificacion
                       </div>
                     </li>
                     <li>
@@ -197,7 +197,7 @@
                               <span class="time">5 minutes ago</span>
                             </div>
                           </a>
-                          <a href="#">
+                          <!-- <a href="#">
                             <div class="notif-icon notif-success">
                               <i class="fa fa-comment"></i>
                             </div>
@@ -230,15 +230,15 @@
                               <span class="block"> Farrah liked Admin </span>
                               <span class="time">17 minutes ago</span>
                             </div>
-                          </a>
+                          </a> -->
                         </div>
                       </div>
                     </li>
-                    <li>
+                    <!-- <li>
                       <a class="see-all" href="javascript:void(0);"
                         >See all notifications<i class="fa fa-angle-right"></i>
                       </a>
-                    </li>
+                    </li> -->
                   </ul>
                 </li>
                 <li class="nav-item topbar-icon dropdown hidden-caret">
