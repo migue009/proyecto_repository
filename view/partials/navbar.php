@@ -40,7 +40,7 @@
                   </div>
                   <input
                     type="text"
-                    placeholder="Buscar..."
+                    placeholder="Buscar.."
                     class="form-control"
                   />
                 </div>
