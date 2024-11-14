@@ -2,10 +2,10 @@
 //incluimos la lib
 include_once '../lib/helpers.php';
 //inluimos la cabeza
+    if (!isset($_SESSION['auth'])) {
+        redirect('login.php');
+    }
     include_once '../view/partials/header.php';
-    // if (!isset($_SESSION['auth'])) {
-    //     redirect('login.php');
-    // }
     echo "<body>";
         echo "<div class='wrapper'>";
         //incluimos el sidebar
