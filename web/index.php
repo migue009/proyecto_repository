@@ -1,7 +1,7 @@
 <?php
 //incluimos la lib
 include_once '../lib/helpers.php';
-//inluimos la cabeza
+//inluimos la cabezaa
     if (!isset($_SESSION['auth'])) {
         redirect('login.php');
     }
