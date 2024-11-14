@@ -40,7 +40,7 @@
                   </div>
                   <input
                     type="text"
-                    placeholder="Buscar..."
+                    placeholder="Buscar.."
                     class="form-control"
                   />
                 </div>
@@ -252,20 +252,19 @@
                   </a>
                   <div class="dropdown-menu quick-actions animated fadeIn">
                     <div class="quick-actions-header">
-                      <span class="title mb-1">Quick Actions</span>
-                      <span class="subtitle op-7">Shortcuts</span>
+                      <span class="title mb-1">Herramientas</span>
                     </div>
                     <div class="quick-actions-scroll scrollbar-outer">
                       <div class="quick-actions-items">
                         <div class="row m-0">
-                          <a class="col-6 col-md-4 p-0" href="#">
+                          <!-- <a class="col-6 col-md-4 p-0" href="#">
                             <div class="quick-actions-item">
                               <div class="avatar-item bg-danger rounded-circle">
                                 <i class="far fa-calendar-alt"></i>
                               </div>
                               <span class="text">Calendar</span>
                             </div>
-                          </a>
+                          </a> -->
                           <a class="col-6 col-md-4 p-0" href="#">
                             <div class="quick-actions-item">
                               <div
@@ -273,18 +272,18 @@
                               >
                                 <i class="fas fa-map"></i>
                               </div>
-                              <span class="text">Maps</span>
+                              <span class="text">Mapas</span>
                             </div>
                           </a>
-                          <a class="col-6 col-md-4 p-0" href="#">
+                          <!-- <a class="col-6 col-md-4 p-0" href="#">
                             <div class="quick-actions-item">
                               <div class="avatar-item bg-info rounded-circle">
                                 <i class="fas fa-file-excel"></i>
                               </div>
                               <span class="text">Reports</span>
                             </div>
-                          </a>
-                          <a class="col-6 col-md-4 p-0" href="#">
+                          </a> -->
+                          <!-- <a class="col-6 col-md-4 p-0" href="#">
                             <div class="quick-actions-item">
                               <div
                                 class="avatar-item bg-success rounded-circle"
@@ -293,8 +292,8 @@
                               </div>
                               <span class="text">Emails</span>
                             </div>
-                          </a>
-                          <a class="col-6 col-md-4 p-0" href="#">
+                          </a> -->
+                          <!-- <a class="col-6 col-md-4 p-0" href="#">
                             <div class="quick-actions-item">
                               <div
                                 class="avatar-item bg-primary rounded-circle"
@@ -303,8 +302,8 @@
                               </div>
                               <span class="text">Invoice</span>
                             </div>
-                          </a>
-                          <a class="col-6 col-md-4 p-0" href="#">
+                          </a> -->
+                          <!-- <a class="col-6 col-md-4 p-0" href="#">
                             <div class="quick-actions-item">
                               <div
                                 class="avatar-item bg-secondary rounded-circle"
@@ -313,7 +312,7 @@
                               </div>
                               <span class="text">Payments</span>
                             </div>
-                          </a>
+                          </a> -->
                         </div>
                       </div>
                     </div>
@@ -336,7 +335,7 @@
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Hizrian</span>
+                      <span class="fw-bold">Carlos</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -351,25 +350,25 @@
                             />
                           </div>
                           <div class="u-text">
-                            <h4>Hizrian</h4>
-                            <p class="text-muted">hello@example.com</p>
+                            <h4>Carlos Cuesta</h4>
+                            <p class="text-muted">carloscacuña2@gmail.com</p>
                             <a
                               href="profile.html"
                               class="btn btn-xs btn-secondary btn-sm"
-                              >View Profile</a
+                              >Ver mi perfil</a
                             >
                           </div>
                         </div>
                       </li>
                       <li>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">My Balance</a>
-                        <a class="dropdown-item" href="#">Inbox</a>
+                        <a class="dropdown-item" href="#">Mi perfil</a>
+                        <!-- <a class="dropdown-item" href="#">My B</a>
+                        <a class="dropdown-item" href="#">Inbox</a> -->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="#">Cerrar sesión</a>
                       </li>
                     </div>
                   </ul>
