@@ -9,10 +9,11 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Usuario</th>
-                <th>Correo</th>
-                <th>Rol</th>
-                <th>Estado</th>
+                <th>Tipo Documento</th>
+                <th>Número Documento</th>
+                <th>Nombre(s)</th>
+                <th>Apellidos</th>
+                <th>Telefono</th>
                 <th>Actualizar</th>
                 <th>Eliminar</th>
 
@@ -25,8 +26,11 @@
                     $texto="";
                     echo "<tr>";
                     echo "<td>".$usu['usu_id']."</td>";
-                    echo "<td>".$usu['usu_nombre']." ".$usu['usu_apellido']."</td>";
-                    echo "<td>".$usu['usu_correo']."</td>";
+                    echo "<td>".$usu['usu_tipo_documento']."</td>";
+                    echo "<td>".$usu['usu_numero_documento']."</td>";
+                    echo "<td>".$usu['usu_primer_nombre']." ".$usu['usu_segundo_nombre']."</td>";
+                    echo "<td>".$usu['usu_primer_apellido']." ".$usu['usu_segundo_apellido']."</td>";
+                    echo "<td>".$usu['usu_telefono']."</td>";
                     echo "<td>".$usu['rol_nombre']."</td>";
                     if($usu['estado_id']==1){
                         $clase="btn btn-danger";

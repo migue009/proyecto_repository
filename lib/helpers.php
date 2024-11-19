@@ -73,7 +73,7 @@
     }
 
     function validarCampoLetras($input){
-        $patron = "/^[a-zA-Z\s]+$/";
+        $patron = "/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/";
         return preg_match($patron,$input) === 1;
     }
 
@@ -85,7 +85,7 @@
 
     
     function validarCorreo($input){
-        $patron = "/^[a-zA-Z][a-zA-Z0-9]{5,29}@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+\.[a-zA-Z]{2,6}$/";
+        $patron = "/^[a-zA-ZñÑ][a-zA-Z0-9ñÑ]{5,29}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/";
         return preg_match($patron,$input) === 1;
     }
 
@@ -99,10 +99,6 @@
         $patronNum = "/[0-9]/";
         $patronsim = "/[!@#$%^&*-_+~]/";
 
-        //regex son funciones que trabajan las expresiones regulares las mas comunes: 
-        //preg_match compara el patron con el input
-        //preg_replace("/palabra/","palabra de cambio",cadena) cambia el la palabra por una de cambio en una cadena
-        //preg_split("/separador comun/", cadena)transforma en un array una cadena de texto separada por un separador comun
         if (preg_match($patronMayus, $input) && preg_match($patronMinus, $input) && preg_match($patronNum, $input) && preg_match($patronsim, $input)){
 
             return true;

@@ -8,10 +8,12 @@
         /*El sistema debe permitir registrar usuarios ingresando un tipo de documento, un número de identificación, primer nombre, segundo nombre, primer apellido, segundo apellido, contraseña, correo electrónico, un número de teléfono celular, una dirección residencial.*/
             $obj = new UsuariosModel();
 
-            $sql = "SELECT * FROM rol";
-
-            $roles = $obj->consult($sql);
+            $sqlRoles = "SELECT * FROM rol";
+            $roles = $obj->consult($sqlRoles);
             
+            $sqlTipoDocu = "SELECT * FROM tipo_documento";
+            $tipoDocu = $obj->consult($sqlTipoDocu);
+
             include_once '../view/usuario/create.php';
             
         }
@@ -20,23 +22,33 @@
             $obj = new UsuariosModel();
         
             // Obtener datos del formulario
-            $usu_nombre = $_POST['usu_nombre'];
-            $usu_apellido = $_POST['usu_apellido'];
-            $usu_correo = $_POST['usu_correo'];
-            $usu_clave = $_POST['usu_clave'];
-            $rol_id = $_POST['rol_id'];
-            $usu_documento = $_POST['usu_documento'];
             $usu_tipo_documento = $_POST['usu_tipo_documento'];
+            $usu_documento = $_POST['usu_documento'];
+            $usu_primer_nombre = $_POST['usu_primer_nombre'];
+            $usu_segundo_nombre = $_POST['usu_segundo_nombre'];
+            $usu_primer_apellido = $_POST['usu_primer_apellido'];
+            $usu_segundo_apellido = $_POST['usu_segundo_apellido'];
+            $usu_clave = $_POST['usu_clave'];
+            $usu_correo = $_POST['usu_correo'];
+            $usu_telefono = $_POST['usu_telefono'];
+            $confirmar_clave = $_POST['confirmar_clave']; 
+            $rol_id = $_POST['rol_id'];
         
             $validacion = true;
-        
-            // Validación de campos obligatorios
-            if (empty($usu_nombre)) {
-                $_SESSION['errores'][] = "El campo nombre es requerido";
+            if ($usu_clave !== $confirmar_clave) {
+                $_SESSION['errores'][] = "Las contraseñas no coinciden.";
                 $validacion = false;
             }
-            if (empty($usu_apellido)) {
-                $_SESSION['errores'][] = "El campo apellido es requerido";
+            if (empty($usu_primer_nombre)) {
+                $_SESSION['errores'][] = "El campo primer nombre es requerido";
+                $validacion = false;
+            }
+            if (empty($usu_primer_apellido)) {
+                $_SESSION['errores'][] = "El campo primer apellido es requerido";
+                $validacion = false;
+            }
+            if (empty($usu_segundo_apellido)) {
+                $_SESSION['errores'][] = "El campo segundo apellido es requerido";
                 $validacion = false;
             }
             if (empty($usu_correo)) {
@@ -60,43 +72,48 @@
                 $validacion = false;
             }
         
-            // Validación de formatos
-            if (validarCampoLetras($usu_nombre) == false) {
-                $_SESSION['errores'][] = "El campo nombre debe contener solo letras";
+            if (validarCampoLetras($usu_primer_nombre) == false) {
+                $_SESSION['errores'][] = "El primer nombre debe contener solo letras";
                 $validacion = false;
             }
-            if (validarCampoLetras($usu_apellido) == false) {
-                $_SESSION['errores'][] = "El campo apellido debe contener solo letras";
+            if (validarCampoLetras($usu_segundo_nombre) == false) {
+                $_SESSION['errores'][] = "El segundo nombre debe contener solo letras";
+                $validacion = false;
+            }
+            if (validarCampoLetras($usu_primer_apellido) == false) {
+                $_SESSION['errores'][] = "El primer apellido debe contener solo letras";
+                $validacion = false;
+            }
+            if (validarCampoLetras($usu_segundo_apellido) == false) {
+                $_SESSION['errores'][] = "El segundo apellido debe contener solo letras";
                 $validacion = false;
             }
             if (validarCorreo($usu_correo) == false) {
-                $_SESSION['errores'][] = "El campo correo debe contener letras o números y @ y un dominio válido (Ej: gmail.com)";
+                $_SESSION['errores'][] = "El correo debe ser válido (ejemplo@dominio.com)";
                 $validacion = false;
             }
             if (validarClave($usu_clave) == false) {
-                $_SESSION['errores'][] = "El campo clave debe contener al menos una mayúscula, una minúscula, un número, un símbolo y debe tener más de 8 caracteres";
+                $_SESSION['errores'][] = "La clave debe contener al menos una mayúscula, una minúscula, un número, un símbolo y más de 8 caracteres";
                 $validacion = false;
             }
             if (validarCampoNumeros($usu_documento) == false) {
                 $_SESSION['errores'][] = "El documento debe contener solo números";
                 $validacion = false;
             }
+            if (validarCampoNumeros($usu_telefono) == false) {
+                $_SESSION['errores'][] = "El teléfono debe contener solo números";
+                $validacion = false;
+            }
         
-            // Si pasa la validación
             if ($validacion) {
-                // Encriptar la contraseña
                 $hashedPassword = password_hash($usu_clave, PASSWORD_DEFAULT);
         
-                // Obtener ID automáticamente
                 $id = $obj->autoIncrement("usu_id", "usuario");
         
-                // Insertar en la base de datos
-                $sql = "INSERT INTO usuario (usu_id, usu_nombre, usu_apellido, usu_documento, usu_tipo_documento, usu_correo, usu_clave, rol_id, usu_estado) 
-                        VALUES ($id, '$usu_nombre', '$usu_apellido', '$usu_documento', '$usu_tipo_documento', '$usu_correo', '$hashedPassword', $rol_id, 1)";
+                $sql = "INSERT INTO usuario VALUES ($id, '$usu_tipo_documento', '$usu_documento', '$usu_primer_nombre', '$usu_segundo_nombre', '$usu_primer_apellido', '$usu_segundo_apellido', '$usu_correo', '$usu_telefono', '$hashedPassword', $rol_id, 1)";
         
                 $ejecutar = $obj->insert($sql);
         
-                // Verificar si la inserción fue exitosa
                 if ($ejecutar) {
                     redirect(getUrl("Administrador", "Administrador", "getUsuarios"));
                 } else {
@@ -111,7 +128,11 @@
         public function getUsuarios(){
             $obj = new UsuariosModel();
 
-            $sql = "SELECT u.*, r.rol_nombre, e.estado_nombre FROM usuario u, rol r, estado e WHERE u.rol_id = r.rol_id AND u.estado_id = e.estado_id ORDER BY u.usu_id ASC";
+            $sql = "SELECT u.*, r.rol_nombre, e.estado_nombre 
+                    FROM usuario u
+                    JOIN rol r ON u.rol_id = r.rol_id
+                    JOIN estado e ON u.estado_id = e.estado_id
+                    ORDER BY u.usu_id ASC";
 
             $usuarios = $obj->consult($sql);
 

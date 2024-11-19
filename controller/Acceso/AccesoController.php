@@ -18,8 +18,8 @@
             if(mysqli_num_rows($usuario)>0){
                 foreach($usuario as $usu){
                     if(password_verify($pass,$usu['usu_clave'])){
-                        $_SESSION['nombre']=$usu['usu_nombre'];
-                        $_SESSION['apellido']=$usu['usu_apellido'];
+                        $_SESSION['nombre']=$usu['usu_primer_nombre'];
+                        $_SESSION['apellido']=$usu['usu_primer_apellido'];
                         $_SESSION['correo']=$usu['usu_correo'];
                         $_SESSION['auth'] = "ok";
 

@@ -21,4 +21,6 @@
         <a target="_blank" href="">Nombre   </a>.
     </div>
     </div>
+    <script src = "js/query.js"></script>
+    <script src = "js/global.js"></script>
 </footer>
