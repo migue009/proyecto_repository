@@ -5,7 +5,7 @@ $(document).ready(function(){
         let mensajes =[];
         // limpia mensajes de error previos
         $('#error').html('');
-    
+        
         //bander para verificar si hay errores
         let esValido = true;
     
@@ -83,7 +83,7 @@ $(document).ready(function(){
             esValido = false;
         }
         
-        const rol = $('#rol_id').val();
+        const rol = $('#rol_id').val().trim();
         
         if (!rol) {
             mensajes.push('El rol es obligatorio.');
