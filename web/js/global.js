@@ -14,7 +14,7 @@ $(document).ready(function(){
         const nombre =$('#primer_nombre').val().trim();
     
         if(!/^[a-zA-Z]+$/.test(nombre)){
-            mensajes.push('El primer nombre debe contener solo letras frontend');
+            mensajes.push('El primer nombre debe contener solo letras hola');
             esValido =false;
         }
 
@@ -121,7 +121,7 @@ $(document).ready(function(){
     $('#primer_nombre').keyup(function() {
         const nombre = $('#primer_nombre').val().trim();
         if(nombre === ""){
-            mostrarError('primer_nombre', 'El primer nombre no puede ir en blanco.');
+            mostrarError('primer_nombre', 'El primer nombre no puede ir en hola.');
         } else {
             if (!/^[a-zA-ZñÑ]+$/.test(nombre)) {
                 mostrarError('primer_nombre', 'El primer nombre debe contener solo letras.');
