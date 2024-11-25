@@ -31,13 +31,34 @@ class MasterModel extends Connection{
     }
 
     public function autoIncrement($field,$table){
-        $sql = "SELECT MAX($field) FROM $table";
+        $sql = "SELECT $field FROM $table ORDER BY $field ASC";
 
         $result = mysqli_query($this->getConnect(),$sql);
 
-        $resp = mysqli_fetch_row($result); //convierte la variable en un arreglo, row contiene en su indice números enteros  y assoc contiene en sus indices palabras claves.
-        
-        return $resp[0]+1;
+        if ($result) {
+            $ids = [];
+
+            while ($row = mysqli_fetch_row($result)) {
+                $ids[] = $row[0];
+            }
+
+            if (empty($ids)) {
+                return 1;
+            }
+
+            $expectedId = 1;
+            foreach ($ids as $id) {
+                if ($id != $expectedId) {
+                    // Encontramos el primer hueco y lo devolvemos.
+                    return $expectedId;
+                }
+                $expectedId++;
+            }
+            return $expectedId;
+        } else {
+            // Si hay un error en la consulta, devolvemos el siguiente ID por defecto.
+            return 1;
+        }
     }
 }
 ?>

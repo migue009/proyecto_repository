@@ -1,109 +1,130 @@
 $(document).ready(function(){
     $('#form').submit(function(event) {
+        
         //Evita el envio del formulario si hay errores
         event.preventDefault();
         let mensajes =[];
         // limpia mensajes de error previos
         $('#error').html('');
         
-        //bander para verificar si hay errores
+        //bandera para verificar si hay errores
         let esValido = true;
-    
-        //validar campo de nombre
-    
-        const nombre =$('#primer_nombre').val().trim();
-    
-        if(!/^[a-zA-Z]+$/.test(nombre)){
-            mensajes.push('El primer nombre debe contener solo letras hola');
-            esValido =false;
+
+        if ($('#primer_nombre').val().trim() === "" || 
+        $('#primer_apellido').val().trim() === "" || 
+        $('#segundo_apellido').val().trim() === "" || 
+        $('#correo').val().trim() === "" || 
+        $('#telefono').val().trim() === "" || 
+        $('#clave').val().trim() === "" || 
+        $('#confirmar_clave').val().trim() === "" || 
+        $('#usu_documento').val().trim() === "" || 
+        $('#carrera').val().trim() === "" || 
+        $('#calle').val().trim() === "" || 
+        $('#numero_adicional').val().trim() === "" || 
+        $('#complemento').val().trim() === "" || 
+        $('#barrio').val().trim() === "") {
+            mensajes.push('Faltan campos por rellenar.');
+            esValido = false;
+        }
+        // Validar el primer nombre
+        const primer_nombre = $('#primer_nombre').val().trim();
+        if (primer_nombre === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primer_nombre)) {
+            esValido = false;
         }
 
-        const segundo_nombre  =$('#segundo_nombre').val().trim();
-    
-        if(segundo_nombre && !/^[a-zA-Z]+$/.test(segundo_nombre )){
-            mensajes.push('El segundo nombre debe contener solo letras');
-            esValido =false;
+        // Validar el segundo nombre
+        const segundo_nombre = $('#segundo_nombre').val().trim();
+        if (segundo_nombre && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundo_nombre)) {
+            esValido = false;
         }
-    
+
+        // Validar el primer apellido
         const primer_apellido = $('#primer_apellido').val().trim();
-       
-        if (!/^[a-zA-Z]+$/.test(primer_apellido)) {
-            mensajes.push('El primer apellido debe contener solo letras.');
+        if (primer_apellido === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primer_apellido)) {
             esValido = false;
         }
 
+        // Validar el segundo apellido
         const segundo_apellido = $('#segundo_apellido').val().trim();
-        
-        if (!/^[a-zA-Z]+$/.test(segundo_apellido)) {
-            mensajes.push('El segundo apellido debe contener solo letras.');
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundo_apellido)) {
             esValido = false;
         }
-        
+
+        // Validar el correo electrónico
         const correo = $('#correo').val().trim();
         const correoRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-       
-        if (!correoRegex.test(correo)) {
-            mensajes.push('El correo debe ser válido (ejemplo@dominio.com).');
+        if (correo === "" || !correoRegex.test(correo)) {
             esValido = false;
         }
 
+        // Validar el teléfono
         const telefono = $('#telefono').val().trim();
-        
-        if (!/^\d{10}$/.test(telefono)) { // Validación para un teléfono de 10 dígitos
-            mensajes.push('El teléfono debe contener solo números y tener 10 dígitos.');
+        if (telefono === "" || !/^\d{10}$/.test(telefono)) {
             esValido = false;
         }
 
+        // Validar la clave
         const clave = $('#clave').val().trim();
         const claveRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d@$!%*?&]{8,}$/;
-        
-        if (!claveRegex.test(clave)) {
-            mensajes.push('La clave debe contener al menos una mayúscula, una minúscula, un número, un símbolo y más de 8 caracteres.');
+        if (clave === "" || !claveRegex.test(clave)) {
             esValido = false;
         }
 
+        // Validar la confirmación de la clave
         const confirmar_clave = $('#confirmar_clave').val().trim();
-       
-        if (clave !== confirmar_clave) {
-            mensajes.push('Las contraseñas no coinciden.');
+        if (confirmar_clave === "" || confirmar_clave !== clave) {
             esValido = false;
         }
 
-        const tipo_documento = $('#usu_tipo_documento').val();
-        
-        if (!tipo_documento) {
-            mensajes.push('El tipo de documento es obligatorio.');
-            esValido = false;
-        }
-
+        // Validar el documento
         const documento = $('#usu_documento').val().trim();
-        
-        if (!/^\d+$/.test(documento)) {
-            mensajes.push('El número de documento debe contener solo números.');
-            esValido = false;
-        }
-        
-        const rol = $('#rol_id').val().trim();
-        
-        if (!rol) {
-            mensajes.push('El rol es obligatorio.');
+        if (documento === "" || !/^\d+$/.test(documento)) {
             esValido = false;
         }
 
-        //Si todo es valido, puedes enviar el formulario o hacer otra
-        if(esValido){
-            // alert('Formulario valido. Enviando datos...');
-            $("#error").fadeOut(500);//desvanecer en tiempo determinado
-            this.submit();
-        }else{
-            // no se utilizan '' comillas simples si no `` se colocan con alt y la tecla al lado del enter que tiene una Ç
-            $('#error').html(mensajes.map(msg=>`${msg}<br>`).join(''));
-            $('#error').removeClass('d-none');
+        // Validar la carrera
+        const carrera = $('#carrera').val().trim();
+        if (carrera === "") {
+            esValido = false;
         }
-    
-        //Correo y contraseña hacerlos investigue e implemente test y regex
-    
-        
+
+        // Validar la calle
+        const calle = $('#calle').val().trim();
+        if (calle === "") {
+            esValido = false;
+        }
+
+        // Validar el número adicional
+        const numero_adicional = $('#numero_adicional').val().trim();
+        if (numero_adicional === "") {
+            esValido = false;
+        }
+
+        // Validar el complemento
+        const complemento = $('#complemento').val().trim();
+        if (complemento === "") {
+            esValido = false;
+        }
+
+        // Validar el barrio
+        const barrio = $('#barrio').val().trim();
+        if (barrio === "") {
+            esValido = false;
+        }
+
+        if (esValido) {
+            // Enviar el formulario
+            $("#error").fadeOut(500);
+            this.submit();
+        } else {
+            // Mostrar errores
+            $('#error').html(mensajes.map(msg => `${msg}<br>`).join(''));
+            $('#error').removeClass('d-none');
+
+            if (mensajes.length === 0) {
+                $('#error').fadeOut(500);
+            }
+        }
     });
 
     function limpiarError(campo) {
@@ -111,32 +132,170 @@ $(document).ready(function(){
         $(`#${campo}`).removeClass('is-invalid'); // Si utilizas clases de validación (opcional)
     }
 
-    // Función para agregar el error en el campo específico
     function mostrarError(campo, mensaje) {
         $(`#error_${campo}`).html(mensaje); // Mostrar el mensaje de error
         $(`#${campo}`).addClass('is-invalid'); // Si quieres que el campo se vea con error
     }
 
-    // Validar los campos mientras el usuario escribe
     $('#primer_nombre').keyup(function() {
-        const nombre = $('#primer_nombre').val().trim();
-        if(nombre === ""){
-            mostrarError('primer_nombre', 'El primer nombre no puede ir en hola.');
+        const primer_nombre = $('#primer_nombre').val().trim();
+        if(primer_nombre === ""){
+            mostrarError('primer_nombre', 'El primer nombre es obligatorio.');
         } else {
-            if (!/^[a-zA-ZñÑ]+$/.test(nombre)) {
+            if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primer_nombre)) {
                 mostrarError('primer_nombre', 'El primer nombre debe contener solo letras.');
             }else{
-            limpiarError('primer_nombre');
+                limpiarError('primer_nombre');
             }
         }
     });
 
     $('#segundo_nombre').keyup(function() {
         const segundo_nombre = $('#segundo_nombre').val().trim();
-        if (segundo_nombre && !/^[a-zA-Z]+$/.test(segundo_nombre)) {
+        if (segundo_nombre === "") {
+            limpiarError('segundo_nombre');
+        } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundo_nombre)) {
             mostrarError('segundo_nombre', 'El segundo nombre debe contener solo letras.');
         } else {
             limpiarError('segundo_nombre');
+        }
+    });
+
+    $('#primer_apellido').keyup(function () {
+        const primer_apellido = $('#primer_apellido').val().trim();
+        if (primer_apellido === "") {
+            mostrarError('primer_apellido', 'El primer apellido es obligatorio.');
+        } else {
+            if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primer_apellido)) {
+                mostrarError('primer_apellido', 'El primer apellido debe contener solo letras.');
+            } else {
+                limpiarError('segundoprimer_apellido_apellido');
+            }
+        }
+    });
+
+    $('#segundo_apellido').keyup(function () {
+        const segundo_apellido = $('#segundo_apellido').val().trim();
+        if (segundo_apellido === "") {
+            mostrarError('segundo_apellido', 'El segundo apellido es obligatorio.');
+        } else {
+            if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundo_apellido)) {
+                mostrarError('segundo_apellido', 'El segundo apellido debe contener solo letras.');
+            } else {
+                limpiarError('segundo_apellido');
+            }
+        }
+    });
+
+    $('#correo').keyup(function () {
+        const correo = $('#correo').val().trim();
+        const correoRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (correo === "") {
+            mostrarError('correo', 'El correo es obligatorio.');
+        } else if (!correoRegex.test(correo)) {
+            mostrarError('correo', 'El correo debe ser válido (ejemplo@dominio.com).');
+        } else {
+            limpiarError('correo');
+        }
+    });
+
+    $('#telefono').keyup(function () {
+        const telefono = $('#telefono').val().trim();
+        if (telefono === "") {
+            mostrarError('telefono', 'El teléfono es obligatorio.');
+        } else if (!/^\d{10}$/.test(telefono)) {
+            mostrarError('telefono', 'El teléfono debe contener solo números y tener 10 dígitos.');
+        } else {
+            limpiarError('telefono');
+        }
+    });
+
+    $('#clave').keyup(function () {
+        const clave = $('#clave').val().trim();
+        const claveRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (clave === "") {
+            mostrarError('clave', 'La clave es obligatoria.');
+        } else if (!claveRegex.test(clave)) {
+            mostrarError('clave', 'La clave debe contener al menos una mayúscula, una minúscula, un número, un símbolo y más de 8 caracteres.');
+        } else {
+            limpiarError('clave');
+        }
+    });
+
+    $('#confirmar_clave').keyup(function () {
+        const confirmar_clave = $('#confirmar_clave').val().trim();
+        const clave = $('#clave').val().trim();
+        if (confirmar_clave === "") {
+            mostrarError('confirmar_clave', 'Debe confirmar la clave.');
+        } else if (confirmar_clave !== clave) {
+            mostrarError('confirmar_clave', 'Las contraseñas no coinciden.');
+        } else {
+            limpiarError('confirmar_clave');
+        }
+    });
+
+    $('#usu_documento').keyup(function () {
+        const documento = $('#usu_documento').val().trim();
+        if (documento === "") {
+            mostrarError('usu_documento', 'El documento es obligatorio.');
+        } else if (!/^\d+$/.test(documento)) {
+            mostrarError('usu_documento', 'El documento debe contener solo números.');
+        } else {
+            limpiarError('usu_documento');
+        }
+    });
+
+    $('#rol_id').change(function () {
+        const rol = $('#rol_id').val().trim();
+        if (rol === "") {
+            mostrarError('rol_id', 'El rol es obligatorio.');
+        } else {
+            limpiarError('rol_id');
+        }
+    });
+
+    $('#carrera').keyup(function () {
+        const carrera = $('#carrera').val().trim();
+        if (carrera === "") {
+            mostrarError('carrera', 'La carrera es obligatoria.');
+        } else {
+            limpiarError('carrera');
+        }
+    });
+
+    $('#calle').keyup(function () {
+        const calle = $('#calle').val().trim();
+        if (calle === "") {
+            mostrarError('calle', 'La calle es obligatoria.');
+        } else {
+            limpiarError('calle');
+        }
+    });
+
+    $('#numero_adicional').keyup(function () {
+        const numero_adicional = $('#numero_adicional').val().trim();
+        if (numero_adicional === "") {
+            mostrarError('numero_adicional', 'El número adicional es obligatorio.');
+        } else {
+            limpiarError('numero_adicional');
+        }
+    });
+
+    $('#complemento').keyup(function () {
+        const complemento = $('#complemento').val().trim();
+        if (complemento === "") {
+            mostrarError('complemento', 'El complemento es obligatorio.');
+        } else {
+            limpiarError('complemento');
+        }
+    });
+
+    $('#barrio').keyup(function () {
+        const barrio = $('#barrio').val().trim();
+        if (barrio === "") {
+            mostrarError('barrio', 'El barrio es obligatorio.');
+        } else {
+            limpiarError('barrio');
         }
     });
     

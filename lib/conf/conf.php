@@ -3,7 +3,7 @@
 $host /*puede ser server*/= "localhost"; /*servidor*/
 $user = "root";/*Usuario*/
 $pass = "";/*contrasena*/
-$database = "projecto";/*BaseDeDatos*/
+$database = "proyecto";/*BaseDeDatos*/
 $port = "3306";/*Puerto*/
 //hola
 ?>
