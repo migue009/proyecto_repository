@@ -13,7 +13,8 @@
       type="image/x-icon"
     />
     <!-- Fonts and icons -->
-     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
     <script src="assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
       WebFont.load({

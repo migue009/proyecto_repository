@@ -152,7 +152,28 @@
 
             $buscar= $_POST['buscar'];
 
-            $sql = "SELECT u.*, r.rol_nombre, e.estado_nombre FROM usuario u, rol r, estado e WHERE u.rol_id = r.rol_id AND u.estado_id =e.estado_id AND (u.usu_nombre LIKE '%$buscar%' OR u.usu_apellido LIKE '%$buscar%' OR u.usu_correo LIKE '%$buscar%') ORDER BY u.usu_id ASC";
+            $sql = "SELECT 
+                        u.usu_id,
+                        u.usu_numero_documento,
+                        u.usu_primer_nombre,
+                        u.usu_segundo_nombre,
+                        u.usu_primer_apellido,
+                        u.usu_segundo_apellido,
+                        u.usu_correo,
+                        u.usu_telefono,
+                        u.usu_clave,
+                        r.rol_nombre,              
+                        td.tipo_doc_nombre,          
+                        u.estado_id
+                    FROM 
+                        usuario u
+                    JOIN rol r ON u.rol_id = r.rol_id      
+                    JOIN tipo_documento td ON u.usu_tipo_documento = td.tipo_doc_id 
+                    WHERE 
+                        u.usu_primer_nombre LIKE :buscar 
+                        OR u.usu_primer_apellido LIKE :buscar 
+                        OR u.usu_correo LIKE :buscar
+                    ORDER BY u.usu_id ASC";
 
             $usuarios = $obj->consult($sql);
 

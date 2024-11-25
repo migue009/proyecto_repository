@@ -23,7 +23,12 @@ $(document).ready(function(){
         $('#numero_adicional').val().trim() === "" || 
         $('#complemento').val().trim() === "" || 
         $('#barrio').val().trim() === "") {
-            mensajes.push('Faltan campos por rellenar.');
+            Swal.fire({
+                icon: 'error',
+                title: '¡Error!',
+                text: 'Faltan campos por rellenar.',
+                confirmButtonText: 'Aceptar'
+            });
             esValido = false;
         }
         // Validar el primer nombre
@@ -113,17 +118,10 @@ $(document).ready(function(){
         }
 
         if (esValido) {
-            // Enviar el formulario
             $("#error").fadeOut(500);
             this.submit();
         } else {
-            // Mostrar errores
-            $('#error').html(mensajes.map(msg => `${msg}<br>`).join(''));
-            $('#error').removeClass('d-none');
-
-            if (mensajes.length === 0) {
-                $('#error').fadeOut(500);
-            }
+            $('#error').fadeOut(500);
         }
     });
 
@@ -169,7 +167,7 @@ $(document).ready(function(){
             if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primer_apellido)) {
                 mostrarError('primer_apellido', 'El primer apellido debe contener solo letras.');
             } else {
-                limpiarError('segundoprimer_apellido_apellido');
+                limpiarError('primer_apellido');
             }
         }
     });
@@ -313,20 +311,6 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on('keyup','#buscar_tarea',function(){
-        let buscar = $(this).val();
-        let url = $(this).attr('data-url');
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: {'buscar_tarea':buscar},
-            success: function(data){
-                $('tbody').html(data);
-            }
-        });
-    });
-
     $(document).on("click","#cambiar_estado_usuario",function(){
         let id = $(this).attr('data-id');
         let url = $(this).attr('data-url');
@@ -341,35 +325,37 @@ $(document).ready(function(){
             }
         });
     });
-    $(document).on("click","#cambiar_estado_tarea",function(){
-        let id = $(this).attr('data-id');
-        let url = $(this).attr('data-url');
-        let tar = $(this).attr('data-tar');
+    // $(document).on("click","#cambiar_estado_tarea",function(){
+    //     let id = $(this).attr('data-id');
+    //     let url = $(this).attr('data-url');
+    //     let tar = $(this).attr('data-tar');
 
-        $.ajax({
-            url: url,
-            data: {id,tar},
-            type: 'POST',
-            success: function(data){
-                $('tbody').html(data);
-            }
-        });
-    });
-    $(document).on("click","#copyList",function(){
-        let listUser = $('#listUser').html();
-        $('#responsables').append(
-            "<div classs='col-md-4 form-group'>"+
-                "<label>Responsable</label>"+
-                "<div class='row'>"+
-                    "<div class ='col-md-10'>"+listUser+"</div>"+
-                    "<div class = 'col-md-2'>"+
-                        "<button class='btn btn-danger' type='button' id='removeList'>x</button>"+
-                    "</div>"+
-                "</div>"+  
-            "</div>" 
-        )
-    });
-    $(document).on("click","#removeList",function(){
-        $(this).parent().parent().parent().remove();
-    });
+    //     $.ajax({
+    //         url: url,
+    //         data: {id,tar},
+    //         type: 'POST',
+    //         success: function(data){
+    //             $('tbody').html(data);
+    //         }
+    //     });
+    // });
+
+    // $(document).on("click","#copyList",function(){
+    //     let listUser = $('#listUser').html();
+    //     $('#responsables').append(
+    //         "<div classs='col-md-4 form-group'>"+
+    //             "<label>Responsable</label>"+
+    //             "<div class='row'>"+
+    //                 "<div class ='col-md-10'>"+listUser+"</div>"+
+    //                 "<div class = 'col-md-2'>"+
+    //                     "<button class='btn btn-danger' type='button' id='removeList'>x</button>"+
+    //                 "</div>"+
+    //             "</div>"+  
+    //         "</div>" 
+    //     )
+    // });
+
+    // $(document).on("click","#removeList",function(){
+    //     $(this).parent().parent().parent().remove();
+    // });
 });
