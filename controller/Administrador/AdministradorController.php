@@ -141,30 +141,51 @@
 
         public function getDelete(){
             $obj = new UsuariosModel();
-
+        
             $usu_id = $_GET['usu_id'];
-
-            $sql = "SELECT * FROM usuario WHERE usu_id = $usu_id";
-            $usuarios = $obj->consult($sql);
-
-            include_once '../view/usuario/delete.php';
-
+            $sql = "SELECT 
+                        u.usu_id,
+                        u.usu_numero_documento,
+                        u.usu_primer_nombre,
+                        u.usu_segundo_nombre,
+                        u.usu_primer_apellido,
+                        u.usu_segundo_apellido,
+                        u.usu_correo,
+                        u.usu_telefono,
+                        u.usu_clave,
+                        r.rol_nombre,              
+                        td.tipo_doc_nombre,          
+                        e.estado_nombre
+                    FROM 
+                        usuario u
+                    JOIN rol r ON u.rol_id = r.rol_id      
+                    JOIN tipo_documento td ON u.usu_tipo_documento = td.tipo_doc_id
+                    JOIN estado e ON u.estado_id = e.estado_id
+                    WHERE u.usu_id = $usu_id";  // Filtramos por el ID del usuario
+        
+            $usuario = $obj->consult($sql);
+        
+            if ($usuario) {
+                include_once '../view/usuario/delete.php';  // Vista para confirmar eliminación
+            } else {
+                echo "No se encontró el usuario con el ID proporcionado.";
+            }
         }
 
         public function postDelete() {
             $obj = new UsuariosModel();
-        
-            $usu_id = $_POST['usu_id'];
-        
-            $sql = "DELETE FROM usuario WHERE usu_id = $usu_id";
-            $ejecutar = $obj->update($sql);
-        
+            
+            $usu_id = $_POST['usu_id']; // Obtener el ID del usuario desde el formulario
+            
+            $sql = "DELETE FROM usuario WHERE usu_id = $usu_id"; // Consulta SQL para eliminar al usuario
+            $ejecutar = $obj->update($sql); // Ejecutar la consulta
+            
             if ($ejecutar) {
-                redirect(getUrl("Usuarios", "Usuarios", "getUsuarios"));
+                redirect(getUrl("Administrador", "Administrador", "getUsuarios")); // Redirigir al listado de usuarios si la eliminación es exitosa
             } else {
-                echo "Se ha presentado un error al eliminar";
+                echo "Se ha presentado un error al eliminar"; // Mostrar error si algo falla
             }
-        }   
+        } 
 
         public function buscar(){
             $obj = new UsuariosModel();
