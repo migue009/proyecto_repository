@@ -1,0 +1,151 @@
+/* Estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Contenedor central del formulario */
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000120;
+    background-position: center;
+}
+
+/* Estructura principal del formulario */
+.wrapper {
+    width: 80%;
+    background: transparent;
+    border: 5px solid rgb(255, 255, 255);
+    backdrop-filter: blur(10px);
+    color: white;
+    border-radius: 4%;
+    padding: 10px 200px;
+}
+
+/* Título del formulario */
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+/* Caja de entrada para cada campo */
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    margin: 10px 0;
+}
+
+/* Estilos de los campos de texto */
+.input-box input,
+.input-box select {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .3);
+    outline: none;
+    border-radius: 30px;
+    font-size: 16px;
+    color: white;
+    padding: 15px 30px;
+    transition: border-color 0.3s;
+}
+
+/* Cambio de borde cuando el campo es enfocado */
+.input-box input:focus,
+.input-box select:focus {
+    border-color: #4CAF50;
+}
+
+/* Estilo para los íconos dentro de los campos */
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: white;
+}
+
+/* Estilos para los mensajes de error debajo de los campos */
+.text-danger {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Botón de acción (registrar) */
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    background: #4CAF50;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover sobre el botón */
+.wrapper .btn:hover {
+    background-color: #45a049;
+}
+
+/* Enlace para la página de inicio de sesión */
+.wrapper .register-link {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 480px) {
+    .wrapper {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .wrapper h1 {
+        font-size: 28px;
+    }
+
+    .input-box input,
+    .input-box select {
+        font-size: 14px;
+    }
+
+    .wrapper .btn {
+        font-size: 14px;
+        height: 40px;
+    }
+}
+
+/* Acomodo de los campos en 2 columnas en pantallas más grandes */
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-row .input-box {
+    width: 48%; /* Ajuste para dos columnas */
+}
