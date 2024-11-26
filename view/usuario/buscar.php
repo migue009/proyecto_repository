@@ -15,15 +15,15 @@ if (is_array($usuarios) || is_object($usuarios)) {
 
         // Lógica para el botón de habilitar/deshabilitar
         if ($usu['estado_id'] == 1) {
-            $clase = "btn btn-danger";
-            $texto = "Inhabilitar";
+            $estadoClase = "text-success";
+            $texto = "habilitado";
         } else if ($usu['estado_id'] == 2) {
-            $clase = "btn btn-success";
-            $texto = "Habilitar";
+            $estadoClase = "text-danger";
+            $texto = "inhabilitado";
         }
 
-        echo "<td>";
-        if (!empty($clase)) echo "<button type='button' class='$clase' id='cambiar_estado_usuario' data-url='" . getUrl("Administrador", "Administrador", "postUpdateStatus", false, "ajax") . "' data-id ='" . $usu['estado_id'] . "' data-user ='" . $usu['usu_id'] . "'>$texto</button>";
+        echo "<td class='$estadoClase'>";
+        echo "$texto";
         echo "</td>";
         echo "<td>"
             . "<a href='" . getUrl("Administrador", "Administrador", "getUpdate", array("usu_id" => $usu['usu_id'])) . "'>"

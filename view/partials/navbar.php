@@ -274,14 +274,34 @@
                               <span class="text">Calendar</span>
                             </div>
                           </a> -->
-                          <a class="col-6 col-md-4 p-0" href="#">
+                          <a class="col-6 col-md-4 p-0" href="index.php">">
                             <div class="quick-actions-item">
                               <div
                                 class="avatar-item bg-warning rounded-circle"
                               >
-                                <i class="fas fa-map"></i>
+                                <i class="fas fa-home"></i>
                               </div>
-                              <span class="text">Mapas</span>
+                              <span class="text">Inicio</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="index.php">">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-warning rounded-circle"
+                              >
+                                <i class="fas fa-home"></i>
+                              </div>
+                              <span class="text">Inicio</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="index.php">">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-warning rounded-circle"
+                              >
+                                <i class="fas fa-home"></i>
+                              </div>
+                              <span class="text">Inicio</span>
                             </div>
                           </a>
                           <!-- <a class="col-6 col-md-4 p-0" href="#">
@@ -344,7 +364,7 @@
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Carlos</span>
+                      <span class="fw-bold"></span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
