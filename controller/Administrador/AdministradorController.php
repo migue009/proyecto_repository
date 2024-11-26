@@ -83,40 +83,59 @@
         
         public function getUpdate(){
             $obj = new UsuariosModel();
-
-            $usu_id = $_GET['usu_id'];
-
-            $sql = "SELECT * FROM usuario WHERE usu_id = $usu_id";
-            $usuarios = $obj->consult($sql);
-
-            $sql = "SELECT * FROM rol";
-            $roles = $obj->consult($sql);
             
-            $sql = "SELECT * FROM estado";
-            $estado = $obj->consult($sql);
-
+            $usu_id = $_GET['usu_id'];
+        
+            $sql = "SELECT * FROM usuario WHERE usu_id = $usu_id";
+            $usuario = $obj->consult($sql);
+            
+            $sqlRoles = "SELECT * FROM rol";
+            $roles = $obj->consult($sqlRoles);
+            
+            $sqlEstado = "SELECT * FROM estado";
+            $estado = $obj->consult($sqlEstado);
+        
+            $sqlTipoDocu = "SELECT * FROM tipo_documento";
+            $tipoDocu = $obj->consult($sqlTipoDocu);
+        
             include_once '../view/usuario/update.php';
-
-
         }
 
         public function postUpdate() {
             $obj = new UsuariosModel();
         
             $usu_id = $_POST['usu_id'];
-            $usu_nombre = $_POST['usu_nombre'];
-            $usu_apellido = $_POST['usu_apellido'];
+            $usu_tipo_documento = $_POST['usu_tipo_documento'];
+            $usu_numero_documento = $_POST['usu_numero_documento'];
+            $usu_primer_nombre = $_POST['usu_primer_nombre'];
+            $usu_segundo_nombre = $_POST['usu_segundo_nombre'];
+            $usu_primer_apellido = $_POST['usu_primer_apellido'];
+            $usu_segundo_apellido = $_POST['usu_segundo_apellido'];
             $usu_correo = $_POST['usu_correo'];
+            $usu_telefono = $_POST['usu_telefono'];
             $rol_id = $_POST['rol_id'];
             $estado_id = $_POST['estado_id'];
-
-            $sql = "UPDATE usuario SET usu_nombre = '$usu_nombre', usu_apellido = '$usu_apellido', usu_id = '$usu_id', rol_id = '$rol_id' , estado_id = '$estado_id' WHERE usu_id = $usu_id";
+        
+            $sql = "UPDATE usuario 
+                    SET 
+                        usu_tipo_documento = '$usu_tipo_documento',
+                        usu_numero_documento = '$usu_numero_documento',
+                        usu_primer_nombre = '$usu_primer_nombre',
+                        usu_segundo_nombre = '$usu_segundo_nombre',
+                        usu_primer_apellido = '$usu_primer_apellido',
+                        usu_segundo_apellido = '$usu_segundo_apellido',
+                        usu_correo = '$usu_correo',
+                        usu_telefono = '$usu_telefono',
+                        rol_id = '$rol_id',
+                        estado_id = '$estado_id'
+                    WHERE usu_id = $usu_id";
+        
             $ejecutar = $obj->update($sql);
         
             if ($ejecutar) {
-                redirect(getUrl("Usuarios", "Usuarios", "getUsuarios"));
+                redirect(getUrl("Administrador", "Administrador", "getUsuarios"));
             } else {
-                echo "Se ha presentado un error al actualizar";
+                echo "Se ha presentado un error al actualizar.";
             }
         }
 
@@ -149,9 +168,7 @@
 
         public function buscar(){
             $obj = new UsuariosModel();
-
-            $buscar= $_POST['buscar'];
-
+            $buscar = $_POST['buscar'];
             $sql = "SELECT 
                         u.usu_id,
                         u.usu_numero_documento,
@@ -170,16 +187,34 @@
                     JOIN rol r ON u.rol_id = r.rol_id      
                     JOIN tipo_documento td ON u.usu_tipo_documento = td.tipo_doc_id 
                     WHERE 
-                        u.usu_primer_nombre LIKE :buscar 
-                        OR u.usu_primer_apellido LIKE :buscar 
-                        OR u.usu_correo LIKE :buscar
+                        u.usu_primer_nombre LIKE '%$buscar%' 
+                        OR u.usu_segundo_nombre LIKE '%$buscar%' 
+                        OR u.usu_primer_apellido LIKE '%$buscar%' 
+                        OR u.usu_segundo_apellido LIKE '%$buscar%' 
+                        OR u.usu_correo LIKE '%$buscar%' 
+                        OR u.usu_numero_documento LIKE '%$buscar%' 
                     ORDER BY u.usu_id ASC";
-
+        
             $usuarios = $obj->consult($sql);
-
-    
-            include_once '../view/usuario/buscar.php';
+            
+            if ($usuarios === false) {
+                // Error en la consulta
+                echo "Hubo un problema con la consulta SQL.";
+            }     
+            // }else {
+            //     // Mostrar los resultados de la consulta (esto es solo para depuración)
+            //     echo "<pre>";
+            //     var_dump($usuarios);  // Mostrar el contenido de los usuarios
+            //     echo "</pre>";
+            // }
+            // Retornar solo el contenido de la tabla
+            if ($usuarios !== false && !empty($usuarios)) {
+                include_once '../view/usuario/buscar.php';
+            } else {
+                echo "No se encontraron usuarios con ese término de búsqueda.";
+            }
         }
+        
 
         public function postUpdateStatus(){
             $obj = new UsuariosModel();

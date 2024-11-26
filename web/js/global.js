@@ -307,6 +307,9 @@ $(document).ready(function(){
             data: {'buscar':buscar},
             success: function(data){
                 $('tbody').html(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al filtrar los resultados:", error);
             }
         });
     });

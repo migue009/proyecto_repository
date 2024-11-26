@@ -12,7 +12,7 @@
     <div class="alert alert-danger d-none" role="alert" id="error">
 
     </div>
-    <form action="<?php echo getUrl('Administrador', 'Administrador', 'postCreate'); ?>" method="post" id="form">
+    <form action="<?php echo getUrl('Administrador', 'Administrador', 'postCreate'); ?>" method="post" id="form" class="p-4 bg-light border rounded shadow-sm">
         <div class="row mt-4">
             <!-- tipo de documento y numero -->
             <div class="col-md-6 mb-3">
