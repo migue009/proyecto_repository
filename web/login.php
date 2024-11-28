@@ -10,7 +10,7 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
     />
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="assets/css/login.css">
     <link
       rel="icon"
       href="assets/img/kaiadmin/favicon.ico"
@@ -41,37 +41,34 @@
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
   </head>
-<?php
-    if(isset($_SESSION['error'])){
-        echo "<div class = 'alert alert-danger' role= 'alert'>";
-        echo $_SESSION['error'];
-        echo"</div>";
-        unset($_SESSION['error']);
-    }
-?>
-
 
 <div class="contenedor">
     <div class="wrapper">
         <form action="<?php echo getUrl("Acceso","Acceso","login", false, "ajax"); ?>" method="post" id="form">
             <h1>Inicia Sesi&oacute;n</h1>
             <div class="input-box">
-                <input type="email" name="user" class="form-control" id="user" placeholder="Enter email" required> 
+                <input type="text" name="user" class="form-control" id="user" placeholder="Enter email" value ="<?php echo isset($_POST['user']) ? $_POST['user'] : ''; ?>"> <!--condición ? valor_si_verdadero : valor_si_falso;-->
                 <i class='bx bxs-user'></i>
+                <?php if (isset($_SESSION['errors']['user'])): ?>
+                  <div class="text-danger"><?php echo $_SESSION['errors']['user']; ?></div>
+                <?php endif; ?>
             </div>
             <div class="input-box">
-                <input type="password" name="pass" class="form-control" id="pass" placeholder="Password" required>
+                <input type="password" name="pass" class="form-control" id="pass" placeholder="Password">
                 <i class='bx bxs-lock-alt'></i>
+                <?php if (isset($_SESSION['errors']['pass'])): ?>
+                    <div class="text-danger"><?php echo $_SESSION['errors']['pass']; ?></div>
+                <?php endif; ?>
             </div>
-            <div class="remember-forgot">
-                <label class = "remember-forgot-text"><input type="checkbox">Recordarme</label>
-                    <a href="#">¿Has olvidado tu contraseña?</a>
+            <div class="remember-forgot mt-5">
+                  <a href="#">¿Has olvidado tu contraseña?</a>
             </div>
             <button type="submit" class="btn">Ingresar</button>
             <div class="register-link">
-                <p>No tienes cuenta? <a href="#">Registrarse</a></p>
+                <p>No tienes cuenta? <a href="registrar.php">Registrarse</a></p>
             </div>
         </form>
+        <?php unset($_SESSION['errors']); ?>
     </div>
 </div>
 
