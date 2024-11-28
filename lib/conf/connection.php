@@ -39,7 +39,7 @@ class Connection{
         /*if($this->link){
             echo "Conexion Exitosa";
         }else{
-            die(mysqli_error($this->link));
+            die('Error de conexión a PostgreSQL: ' . pg_last_error());
         }*/
     }
     /*RETORNAR LA CONEXION*/
