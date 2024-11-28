@@ -1,5 +1,115 @@
 $(document).ready(function(){
-    $('#form').submit(function(event) {
+    $('#form').submit(function (event) {
+        
+        // Evita el envío del formulario si hay errores
+        event.preventDefault();
+        let esValido = true;
+        
+        // Limpiar los mensajes de error previos
+        $('.invalid-feedback').html('');
+        $('.form-control').removeClass('is-invalid');
+        
+        // Validar los campos
+        const primerNombre = $('#primer_nombre').val().trim();
+        if (primerNombre === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primerNombre)) {
+            mostrarError('primer_nombre', 'El primer nombre es obligatorio y debe contener solo letras.');
+            esValido = false;
+        }
+
+        const segundoNombre = $('#segundo_nombre').val().trim();
+        if (segundoNombre && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundoNombre)) {
+            mostrarError('segundo_nombre', 'El segundo nombre debe contener solo letras.');
+            esValido = false;
+        }
+
+        const primerApellido = $('#primer_apellido').val().trim();
+        if (primerApellido === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primerApellido)) {
+            mostrarError('primer_apellido', 'El primer apellido es obligatorio y debe contener solo letras.');
+            esValido = false;
+        }
+
+        const segundoApellido = $('#segundo_apellido').val().trim();
+        if (segundoApellido && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundoApellido)) {
+            mostrarError('segundo_apellido', 'El segundo apellido debe contener solo letras.');
+            esValido = false;
+        }
+
+        const correo = $('#correo').val().trim();
+        const correoRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (correo === "" || !correoRegex.test(correo)) {
+            mostrarError('correo', 'El correo electrónico es obligatorio y no es válido.');
+            esValido = false;
+        }
+
+        const telefono = $('#telefono').val().trim();
+        if (telefono === "" || !/^\d{10}$/.test(telefono)) {
+            mostrarError('telefono', 'El teléfono debe contener 10 dígitos numéricos.');
+            esValido = false;
+        }
+
+        const clave = $('#clave').val().trim();
+        const claveRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (clave === "" || !claveRegex.test(clave)) {
+            mostrarError('clave', 'La clave debe tener al menos 8 caracteres, incluir mayúsculas, números y caracteres especiales.');
+            esValido = false;
+        }
+
+        const confirmarClave = $('#confirmar_clave').val().trim();
+        if (confirmarClave === "" || confirmarClave !== clave) {
+            mostrarError('confirmar_clave', 'Las contraseñas no coinciden.');
+            esValido = false;
+        }
+
+        const documento = $('#usu_documento').val().trim();
+        if (documento === "" || !/^\d+$/.test(documento)) {
+            mostrarError('usu_documento', 'El documento debe contener solo números.');
+            esValido = false;
+        }
+
+        const carrera = $('#carrera').val().trim();
+        if (carrera === "") {
+            mostrarError('carrera', 'La carrera es obligatoria.');
+            esValido = false;
+        }
+
+        const calle = $('#calle').val().trim();
+        if (calle === "") {
+            mostrarError('calle', 'La calle es obligatoria.');
+            esValido = false;
+        }
+
+        const numeroAdicional = $('#numero_adicional').val().trim();
+        if (numeroAdicional === "") {
+            mostrarError('numero_adicional', 'El número adicional es obligatorio.');
+            esValido = false;
+        }
+
+        const complemento = $('#complemento').val().trim();
+        if (complemento === "") {
+            mostrarError('complemento', 'El complemento es obligatorio.');
+            esValido = false;
+        }
+
+        const barrio = $('#barrio').val().trim();
+        if (barrio === "") {
+            mostrarError('barrio', 'El barrio es obligatorio.');
+            esValido = false;
+        }
+
+        // Si es válido, enviar el formulario
+        if (esValido) {
+            this.submit();
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Error!',
+                text: 'Faltan campos por rellenar o hay errores de formato.',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    });
+
+    $('#registrar-admin-form').submit(function(event) {
         
         //Evita el envio del formulario si hay errores
         event.preventDefault();

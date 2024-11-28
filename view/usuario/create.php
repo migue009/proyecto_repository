@@ -9,10 +9,7 @@
     <h3 class="display-4 text-center">Registrar Usuario</h3>
 </div>
 <div class="container mt-5">
-    <div class="alert alert-danger d-none" role="alert" id="error">
-
-    </div>
-    <form action="<?php echo getUrl('Administrador', 'Administrador', 'postCreate'); ?>" method="post" id="form" class="p-4 bg-light border rounded shadow-sm">
+    <form action="<?php echo getUrl('Administrador', 'Administrador', 'postCreate'); ?>" method="post" id="registrar-admin-form" class="p-4 bg-light border rounded shadow-sm">
         <div class="row mt-4">
             <!-- tipo de documento y numero -->
             <div class="col-md-6 mb-3">
