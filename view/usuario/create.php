@@ -15,16 +15,18 @@
             <div class="col-md-6 mb-3">
                 <label for="usu_tipo_documento">Tipo de Documento</label>
                 <select name="usu_tipo_documento" id="usu_tipo_documento" class="form-select">
+                    <option value="">Seleccione...</option>
                     <?php
-                    foreach ($tipoDocu as $tipo) {
-                        echo "<option value='" . $tipo['tipo_doc_id'] . "'>" . $tipo['tipo_doc_nombre'] . "</option>";
-                    }
+                        foreach ($tipoDocu as $tipo) {
+                            echo "<option value='" . $tipo['tipo_documento_id'] . "'>" . $tipo['tip_doc_nombre'] . "</option>";
+                        }
                     ?>
                 </select>
+                <div class="text-danger" id="error_usu_tipo_documento"></div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="usu_documento">Documento</label>
-                <input type="text" id="usu_documento" name="usu_documento" class="form-control" placeholder="Número de documento">
+                <input type="text" id="usu_documento" name="usu_documento" class="form-control" placeholder="N&uacute;mero de documento">
                 <div class="text-danger" id="error_usu_documento"></div>
             </div>
         </div>
@@ -57,13 +59,13 @@
         <div class="row mt-4">
             <!-- Correo y Teléfono -->
             <div class="col-md-6 mb-3">
-                <label for="correo">Correo Electrónico</label>
+                <label for="correo">Correo Electr&oacute;nico</label>
                 <input type="text" id="correo" name="usu_correo" class="form-control" placeholder="correo@ejemplo.com">
                 <div class="text-danger" id="error_correo"></div>
             </div>
             <div class="col-md-6 mb-3">
-                <label for="telefono">Teléfono</label>
-                <input type="text" id="telefono" name="usu_telefono" class="form-control" placeholder="Número de teléfono">
+                <label for="telefono">Tel&eacute;fono</label>
+                <input type="text" id="telefono" name="usu_telefono" class="form-control" placeholder="N&uacute;mero de tel&eacute;fono">
                 <div class="text-danger" id="error_telefono"></div>
             </div>
         </div>
@@ -78,21 +80,38 @@
                 <label for="confirmar_clave">Confirmar Clave</label>
                 <input type="password" id="confirmar_clave" name="confirmar_clave" class="form-control" placeholder="Confirme la clave">
                 <div class="text-danger" id="error_confirmar_clave"></div>
+                </div>
+            </div>
+        <div class="row mt-4">     
+            <!-- genero -->
+            <div class="col-md-6 mb-3">
+                <label for="genero">G&eacute;nero</label>
+                <select name="genero" id="genero" class="form-select">
+                    <option value="">Seleccione...</option>
+                    <?php
+                        foreach ($genero as $gen) {
+                            echo "<option value='" . $gen['sexo_id'] . "'>" . $gen['sexo_nombre'] . "</option>";
+                        }
+                    ?>
+                </select>
+                <div class="text-danger" id="error_genero"></div>
             </div>
             <!-- Rol -->
             <div class="col-md-6 mb-3">
                 <label for="rol_id">Rol</label>
-                <select name="rol_id" class="form-select">
+                <select name="rol_id" id="rol_id"class="form-select">
+                    <option value="">Seleccione...</option>
                     <?php
                     foreach ($roles as $rol) {
                         echo "<option value='" . $rol['rol_id'] . "'>" . $rol['rol_nombre'] . "</option>";
                     }
                     ?>
                 </select>
+                <div class="text-danger" id="error_rol_id"></div>
             </div>
         </div>
         <div class="row mt-4">
-            <h1>Dirección</h1>
+            <h1>Direcci&oacute;n</h1>
             <!-- Carrera -->
             <div class="col-md-3 mb-3">
                 <label for="carrera">Carrera</label>
@@ -107,7 +126,7 @@
             </div>
             <!-- Número Adicional -->
             <div class="col-md-3 mb-3">
-                <label for="numero_adicional">Número Adicional</label>
+                <label for="numero_adicional">N&uacute;mero Adicional</label>
                 <input type="text" id="numero_adicional" name="numero_adicional" class="form-control" placeholder="Ej. 13A o 12-45">
                 <div class="text-danger" id="error_numero_adicional"></div>
             </div>

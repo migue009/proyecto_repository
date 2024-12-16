@@ -20,6 +20,7 @@ include_once '../lib/helpers.php';
                         resolve();
                     }else{
                         include_once '../view/partials/content.php';
+                        echo phpversion();
                     }
                     echo "</div>";
                 echo "</div>";

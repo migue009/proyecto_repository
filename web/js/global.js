@@ -1,113 +1,113 @@
 $(document).ready(function(){
-    $('#form').submit(function (event) {
+    // $('#form').submit(function (event) {
         
-        // Evita el envío del formulario si hay errores
-        event.preventDefault();
-        let esValido = true;
+    //     // Evita el envío del formulario si hay errores
+    //     event.preventDefault();
+    //     let esValido = true;
         
-        // Limpiar los mensajes de error previos
-        $('.invalid-feedback').html('');
-        $('.form-control').removeClass('is-invalid');
+    //     // Limpiar los mensajes de error previos
+    //     $('.invalid-feedback').html('');
+    //     $('.form-control').removeClass('is-invalid');
         
-        // Validar los campos
-        const primerNombre = $('#primer_nombre').val().trim();
-        if (primerNombre === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primerNombre)) {
-            mostrarError('primer_nombre', 'El primer nombre es obligatorio y debe contener solo letras.');
-            esValido = false;
-        }
+    //     // Validar los campos
+    //     const primerNombre = $('#primer_nombre').val().trim();
+    //     if (primerNombre === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primerNombre)) {
+    //         mostrarError('primer_nombre', 'El primer nombre es obligatorio y debe contener solo letras.');
+    //         esValido = false;
+    //     }
 
-        const segundoNombre = $('#segundo_nombre').val().trim();
-        if (segundoNombre && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundoNombre)) {
-            mostrarError('segundo_nombre', 'El segundo nombre debe contener solo letras.');
-            esValido = false;
-        }
+    //     const segundoNombre = $('#segundo_nombre').val().trim();
+    //     if (segundoNombre && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundoNombre)) {
+    //         mostrarError('segundo_nombre', 'El segundo nombre debe contener solo letras.');
+    //         esValido = false;
+    //     }
 
-        const primerApellido = $('#primer_apellido').val().trim();
-        if (primerApellido === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primerApellido)) {
-            mostrarError('primer_apellido', 'El primer apellido es obligatorio y debe contener solo letras.');
-            esValido = false;
-        }
+    //     const primerApellido = $('#primer_apellido').val().trim();
+    //     if (primerApellido === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primerApellido)) {
+    //         mostrarError('primer_apellido', 'El primer apellido es obligatorio y debe contener solo letras.');
+    //         esValido = false;
+    //     }
 
-        const segundoApellido = $('#segundo_apellido').val().trim();
-        if (segundoApellido && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundoApellido)) {
-            mostrarError('segundo_apellido', 'El segundo apellido debe contener solo letras.');
-            esValido = false;
-        }
+    //     const segundoApellido = $('#segundo_apellido').val().trim();
+    //     if (segundoApellido && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundoApellido)) {
+    //         mostrarError('segundo_apellido', 'El segundo apellido debe contener solo letras.');
+    //         esValido = false;
+    //     }
 
-        const correo = $('#correo').val().trim();
-        const correoRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if (correo === "" || !correoRegex.test(correo)) {
-            mostrarError('correo', 'El correo electrónico es obligatorio y no es válido.');
-            esValido = false;
-        }
+    //     const correo = $('#correo').val().trim();
+    //     const correoRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    //     if (correo === "" || !correoRegex.test(correo)) {
+    //         mostrarError('correo', 'El correo electrónico es obligatorio y no es válido.');
+    //         esValido = false;
+    //     }
 
-        const telefono = $('#telefono').val().trim();
-        if (telefono === "" || !/^\d{10}$/.test(telefono)) {
-            mostrarError('telefono', 'El teléfono debe contener 10 dígitos numéricos.');
-            esValido = false;
-        }
+    //     const telefono = $('#telefono').val().trim();
+    //     if (telefono === "" || !/^\d{10}$/.test(telefono)) {
+    //         mostrarError('telefono', 'El teléfono debe contener 10 dígitos numéricos.');
+    //         esValido = false;
+    //     }
 
-        const clave = $('#clave').val().trim();
-        const claveRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d@$!%*?&]{8,}$/;
-        if (clave === "" || !claveRegex.test(clave)) {
-            mostrarError('clave', 'La clave debe tener al menos 8 caracteres, incluir mayúsculas, números y caracteres especiales.');
-            esValido = false;
-        }
+    //     const clave = $('#clave').val().trim();
+    //     const claveRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d@$!%*?&]{8,}$/;
+    //     if (clave === "" || !claveRegex.test(clave)) {
+    //         mostrarError('clave', 'La clave debe tener al menos 8 caracteres, incluir mayúsculas, números y caracteres especiales.');
+    //         esValido = false;
+    //     }
 
-        const confirmarClave = $('#confirmar_clave').val().trim();
-        if (confirmarClave === "" || confirmarClave !== clave) {
-            mostrarError('confirmar_clave', 'Las contraseñas no coinciden.');
-            esValido = false;
-        }
+    //     const confirmarClave = $('#confirmar_clave').val().trim();
+    //     if (confirmarClave === "" || confirmarClave !== clave) {
+    //         mostrarError('confirmar_clave', 'Las contraseñas no coinciden.');
+    //         esValido = false;
+    //     }
 
-        const documento = $('#usu_documento').val().trim();
-        if (documento === "" || !/^\d+$/.test(documento)) {
-            mostrarError('usu_documento', 'El documento debe contener solo números.');
-            esValido = false;
-        }
+    //     const documento = $('#usu_documento').val().trim();
+    //     if (documento === "" || !/^\d+$/.test(documento)) {
+    //         mostrarError('usu_documento', 'El documento debe contener solo números.');
+    //         esValido = false;
+    //     }
 
-        const carrera = $('#carrera').val().trim();
-        if (carrera === "") {
-            mostrarError('carrera', 'La carrera es obligatoria.');
-            esValido = false;
-        }
+    //     const carrera = $('#carrera').val().trim();
+    //     if (carrera === "") {
+    //         mostrarError('carrera', 'La carrera es obligatoria.');
+    //         esValido = false;
+    //     }
 
-        const calle = $('#calle').val().trim();
-        if (calle === "") {
-            mostrarError('calle', 'La calle es obligatoria.');
-            esValido = false;
-        }
+    //     const calle = $('#calle').val().trim();
+    //     if (calle === "") {
+    //         mostrarError('calle', 'La calle es obligatoria.');
+    //         esValido = false;
+    //     }
 
-        const numeroAdicional = $('#numero_adicional').val().trim();
-        if (numeroAdicional === "") {
-            mostrarError('numero_adicional', 'El número adicional es obligatorio.');
-            esValido = false;
-        }
+    //     const numeroAdicional = $('#numero_adicional').val().trim();
+    //     if (numeroAdicional === "") {
+    //         mostrarError('numero_adicional', 'El número adicional es obligatorio.');
+    //         esValido = false;
+    //     }
 
-        const complemento = $('#complemento').val().trim();
-        if (complemento === "") {
-            mostrarError('complemento', 'El complemento es obligatorio.');
-            esValido = false;
-        }
+    //     const complemento = $('#complemento').val().trim();
+    //     if (complemento === "") {
+    //         mostrarError('complemento', 'El complemento es obligatorio.');
+    //         esValido = false;
+    //     }
 
-        const barrio = $('#barrio').val().trim();
-        if (barrio === "") {
-            mostrarError('barrio', 'El barrio es obligatorio.');
-            esValido = false;
-        }
+    //     const barrio = $('#barrio').val().trim();
+    //     if (barrio === "") {
+    //         mostrarError('barrio', 'El barrio es obligatorio.');
+    //         esValido = false;
+    //     }
 
-        // Si es válido, enviar el formulario
-        if (esValido) {
-            this.submit();
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: '¡Error!',
-                text: 'Faltan campos por rellenar o hay errores de formato.',
-                confirmButtonText: 'Aceptar'
-            });
-        }
-    });
+    //     // Si es válido, enviar el formulario
+    //     if (esValido) {
+    //         this.submit();
+    //     } else {
+    //         Swal.default({
+    //             icon: 'error',
+    //             title: '¡Error!',
+    //             text: 'Faltan campos por rellenar o hay errores de formato.',
+    //             confirmButtonText: 'Aceptar'
+    //         });
+    //     }
+    // });
 
     $('#registrar-admin-form').submit(function(event) {
         
@@ -120,48 +120,55 @@ $(document).ready(function(){
         //bandera para verificar si hay errores
         let esValido = true;
 
+        // Verificar si hay campos vacíos
         if ($('#primer_nombre').val().trim() === "" || 
-        $('#primer_apellido').val().trim() === "" || 
-        $('#segundo_apellido').val().trim() === "" || 
-        $('#correo').val().trim() === "" || 
-        $('#telefono').val().trim() === "" || 
-        $('#clave').val().trim() === "" || 
-        $('#confirmar_clave').val().trim() === "" || 
-        $('#usu_documento').val().trim() === "" || 
-        $('#carrera').val().trim() === "" || 
-        $('#calle').val().trim() === "" || 
-        $('#numero_adicional').val().trim() === "" || 
-        $('#complemento').val().trim() === "" || 
-        $('#barrio').val().trim() === "") {
-            Swal.fire({
-                icon: 'error',
-                title: '¡Error!',
-                text: 'Faltan campos por rellenar.',
-                confirmButtonText: 'Aceptar'
-            });
+            $('#primer_apellido').val().trim() === "" || 
+            $('#segundo_apellido').val().trim() === "" || 
+            $('#correo').val().trim() === "" || 
+            $('#telefono').val().trim() === "" || 
+            $('#clave').val().trim() === "" || 
+            $('#confirmar_clave').val().trim() === "" || 
+            $('#usu_documento').val().trim() === "" || 
+            $('#carrera').val().trim() === "" || 
+            $('#calle').val().trim() === "" || 
+            $('#numero_adicional').val().trim() === "" || 
+            $('#complemento').val().trim() === "" || 
+            $('#barrio').val().trim() === "" || 
+            $('#genero').val().trim() === "" || 
+            $('#rol_id').val().trim() === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Advertencia',
+                    text: 'Faltan campos por rellenar.',
+                    confirmButtonText: 'Aceptar'
+                });
             esValido = false;
         }
-        // Validar el primer nombre
+        // Validar el primer nombre (solo letras)
         const primer_nombre = $('#primer_nombre').val().trim();
         if (primer_nombre === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primer_nombre)) {
+            $('#error_primer_nombre').text('El primer nombre solo puede contener letras.');
             esValido = false;
         }
 
-        // Validar el segundo nombre
+        // Validar el segundo nombre (opcional, solo letras)
         const segundo_nombre = $('#segundo_nombre').val().trim();
         if (segundo_nombre && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundo_nombre)) {
+            $('#error_segundo_nombre').text('El segundo nombre solo puede contener letras.');
             esValido = false;
         }
 
-        // Validar el primer apellido
+        // Validar el primer apellido (solo letras)
         const primer_apellido = $('#primer_apellido').val().trim();
         if (primer_apellido === "" || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(primer_apellido)) {
+            $('#error_primer_apellido').text('El primer apellido solo puede contener letras.');
             esValido = false;
         }
 
-        // Validar el segundo apellido
+        // Validar el segundo apellido (opcional, solo letras)
         const segundo_apellido = $('#segundo_apellido').val().trim();
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundo_apellido)) {
+        if (segundo_apellido && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(segundo_apellido)) {
+            $('#error_segundo_apellido').text('El segundo apellido solo puede contener letras.');
             esValido = false;
         }
 
@@ -169,12 +176,14 @@ $(document).ready(function(){
         const correo = $('#correo').val().trim();
         const correoRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         if (correo === "" || !correoRegex.test(correo)) {
+            $('#error_correo').text('El correo electrónico no es válido.');
             esValido = false;
         }
 
         // Validar el teléfono
         const telefono = $('#telefono').val().trim();
         if (telefono === "" || !/^\d{10}$/.test(telefono)) {
+            $('#error_telefono').text('El teléfono debe tener 10 dígitos.');
             esValido = false;
         }
 
@@ -182,48 +191,73 @@ $(document).ready(function(){
         const clave = $('#clave').val().trim();
         const claveRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d@$!%*?&]{8,}$/;
         if (clave === "" || !claveRegex.test(clave)) {
+            $('#error_clave').text('La clave debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y un carácter especial.');
             esValido = false;
         }
 
         // Validar la confirmación de la clave
         const confirmar_clave = $('#confirmar_clave').val().trim();
         if (confirmar_clave === "" || confirmar_clave !== clave) {
+            $('#error_confirmar_clave').text('Las claves no coinciden.');
             esValido = false;
         }
 
         // Validar el documento
         const documento = $('#usu_documento').val().trim();
         if (documento === "" || !/^\d+$/.test(documento)) {
+            $('#error_usu_documento').text('El número de documento solo puede contener números.');
             esValido = false;
         }
 
-        // Validar la carrera
+        // Validar los campos de selección
+        const tipoDocumento = $('#usu_tipo_documento').val();
+        const genero = $('#genero').val();
+        const rolId = $('#rol_id').val();
+
+        if (!tipoDocumento) {
+            $('#error_usu_tipo_documento').text('El tipo de documento es obligatorio.');
+            esValido = false;
+        }
+
+        if (!genero) {
+            $('#error_genero').text('El género es obligatorio.');
+            esValido = false;
+        }
+
+        if (!rolId) {
+            $('#error_rol_id').text('El rol es obligatorio.');
+            esValido = false;
+        }
+
+        // Validar la dirección
         const carrera = $('#carrera').val().trim();
-        if (carrera === "") {
-            esValido = false;
-        }
-
-        // Validar la calle
         const calle = $('#calle').val().trim();
-        if (calle === "") {
-            esValido = false;
-        }
-
-        // Validar el número adicional
         const numero_adicional = $('#numero_adicional').val().trim();
-        if (numero_adicional === "") {
-            esValido = false;
-        }
-
-        // Validar el complemento
         const complemento = $('#complemento').val().trim();
-        if (complemento === "") {
+        const barrio = $('#barrio').val().trim();
+
+        if (carrera === "") {
+            $('#error_carrera').text('La carrera es obligatoria.');
             esValido = false;
         }
 
-        // Validar el barrio
-        const barrio = $('#barrio').val().trim();
+        if (calle === "") {
+            $('#error_calle').text('La calle es obligatoria.');
+            esValido = false;
+        }
+
+        if (numero_adicional === "") {
+            $('#error_numero_adicional').text('El número adicional es obligatorio.');
+            esValido = false;
+        }
+
+        if (complemento === "") {
+            $('#error_complemento').text('El complemento es obligatorio.');
+            esValido = false;
+        }
+
         if (barrio === "") {
+            $('#error_barrio').text('El barrio es obligatorio.');
             esValido = false;
         }
 
@@ -244,6 +278,33 @@ $(document).ready(function(){
         $(`#error_${campo}`).html(mensaje); // Mostrar el mensaje de error
         $(`#${campo}`).addClass('is-invalid'); // Si quieres que el campo se vea con error
     }
+
+    $('#genero').change(function () {
+        const genero = $('#genero').val().trim();
+        if (genero === "") {
+            mostrarError('genero', 'El género es obligatorio.');
+        } else {
+            limpiarError('genero');
+        }
+    });
+
+    $('#usu_tipo_documento').change(function () {
+        const usu_tipo_documento = $('#usu_tipo_documento').val().trim();
+        if (usu_tipo_documento === "") {
+            mostrarError('usu_tipo_documento', 'El tipo de documento es obligatorio.');
+        } else {
+            limpiarError('usu_tipo_documento');
+        }
+    });
+
+    $('#rol_id').change(function () {
+        const rol = $('#rol_id').val().trim();
+        if (rol === "") {
+            mostrarError('rol_id', 'El rol es obligatorio.');
+        } else {
+            limpiarError('rol_id');
+        }
+    });
 
     $('#primer_nombre').keyup(function() {
         const primer_nombre = $('#primer_nombre').val().trim();
@@ -353,15 +414,6 @@ $(document).ready(function(){
         }
     });
 
-    $('#rol_id').change(function () {
-        const rol = $('#rol_id').val().trim();
-        if (rol === "") {
-            mostrarError('rol_id', 'El rol es obligatorio.');
-        } else {
-            limpiarError('rol_id');
-        }
-    });
-
     $('#carrera').keyup(function () {
         const carrera = $('#carrera').val().trim();
         if (carrera === "") {
@@ -438,6 +490,7 @@ $(document).ready(function(){
             }
         });
     });
+    
     // $(document).on("click","#cambiar_estado_tarea",function(){
     //     let id = $(this).attr('data-id');
     //     let url = $(this).attr('data-url');

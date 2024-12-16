@@ -6,106 +6,104 @@
         // }
         public function getRegistrar(){
             $obj = new AccesoModel();
-        
-            // Consulta para obtener los tipos de documento
-            $sqlTipoDocu = "SELECT * FROM tipo_documento";
+
+            $sqlRoles = "SELECT * FROM roles";
+            $roles = $obj->consult($sqlRoles);
+            
+            $sqlTipoDocu = "SELECT * FROM tipos_documentos";
             $tipoDocu = $obj->consult($sqlTipoDocu);
+            
+            $sqlSexo = "SELECT * FROM sexos";
+            $genero = $obj->consult($sqlSexo);
         
-            // Aquí se pasa la variable $tipoDocu a la vista
             include_once '../view/usuario/registrar.php';
         }
         public function registrar(){
             $obj = new AccesoModel();
-        
-            // Obtener los datos del formulario
+            
+            // Obtener datos del formulario
             $usu_tipo_documento = $_POST['usu_tipo_documento'];
-            $usu_documento = $_POST['usu_documento'];  // 'usu_documento' debe coincidir con el nombre del campo del formulario.
+            $usu_documento = $_POST['usu_documento'];
             $usu_primer_nombre = $_POST['usu_primer_nombre'];
             $usu_segundo_nombre = $_POST['usu_segundo_nombre'];
             $usu_primer_apellido = $_POST['usu_primer_apellido'];
             $usu_segundo_apellido = $_POST['usu_segundo_apellido'];
+            $usu_clave = $_POST['usu_clave'];
             $usu_correo = $_POST['usu_correo'];
             $usu_telefono = $_POST['usu_telefono'];
-            $usu_clave = $_POST['usu_clave'];
-            $confirmar_clave = $_POST['confirmar_clave'];
-            $rol_id = 2;  // Asignamos el rol por defecto, por ejemplo, rol_id 2 para usuario regular
-            $estado_id = 1;  // Estado activo (1 significa activo en la base de datos)
+            $confirmar_clave = $_POST['confirmar_clave']; 
+            $genero_id = $_POST['genero'];
             
-            // Si no hay errores, encriptamos la contraseña
-            $hashedPassword = password_hash($usu_clave, PASSWORD_DEFAULT);
-        
-            // Generamos el ID automáticamente
-            $id = $obj->autoIncrement("usu_id", "usuario");
-        
-            // Realizamos la consulta SQL para insertar los datos
-            $sql = "INSERT INTO usuario (
-                        usu_id, 
-                        usu_tipo_documento, 
-                        usu_numero_documento, 
-                        usu_primer_nombre, 
-                        usu_segundo_nombre, 
-                        usu_primer_apellido, 
-                        usu_segundo_apellido, 
-                        usu_correo, 
-                        usu_telefono, 
-                        usu_clave, 
-                        rol_id, 
-                        estado_id
-                    ) VALUES (
-                        $id, 
-                        '$usu_tipo_documento', 
-                        '$usu_documento', 
-                        '$usu_primer_nombre', 
-                        '$usu_segundo_nombre', 
-                        '$usu_primer_apellido', 
-                        '$usu_segundo_apellido', 
-                        '$usu_correo', 
-                        '$usu_telefono', 
-                        '$hashedPassword', 
-                        $rol_id, 
-                        $estado_id
-                    )";
-        
-            // Ejecutamos la consulta
+            // Concatenar dirección
+            $carrera = $_POST['carrera'];
+            $calle = $_POST['calle'];
+            $numero_adicional = $_POST['numero_adicional'];
+            $complemento = $_POST['complemento'];
+            $barrio = $_POST['barrio'];
+            
+            $usu_direccion = "$carrera $calle $numero_adicional $complemento, $barrio";
+            
+            // Generar la sal usando mt_rand (generador de números aleatorios)
+            $salt = '$2y$10$' . substr(md5(mt_rand()), 0, 22) . '$';  // Usando mt_rand() para generar la sal
+            
+            // Encriptar la clave usando crypt
+            $hashedPassword = crypt($usu_clave, $salt);
+            
+            // ID del tipo de documento
+            $tip_doc = $usu_tipo_documento;
+            $rol_id = 2;
+            $est_id = 1;  // Valor predeterminado (esto puede cambiar según tus necesidades)
+            
+            // Crear la consulta SQL
+            $sql = "INSERT INTO usuarios
+                    (tip_doc, usu_num_doc, usu_primer_nom, usu_segundo_nom, 
+                     usu_primer_ape, usu_segundo_ape, usu_correo, usu_num_cel, usu_clave, 
+                     rol_id, sex_id, est_id, usu_momento_creacion, usu_direccion) 
+                    VALUES 
+                    ('$tip_doc', '$usu_documento', '$usu_primer_nombre', '$usu_segundo_nombre', 
+                     '$usu_primer_apellido', '$usu_segundo_apellido', '$usu_correo', '$usu_telefono', 
+                     '$hashedPassword', $rol_id, $genero_id, $est_id, NOW(), '$usu_direccion')";
+            
+            // Ejecutar la consulta
             $ejecutar = $obj->insert($sql);
-        
-            // Verificamos si la inserción fue exitosa
+            
+            // Verificar si la inserción fue exitosa
             if ($ejecutar) {
-                redirect('login.php');
+                redirect(getUrl("Administrador", "Administrador", "getUsuarios"));
             } else {
-                echo "Se ha presentado un error al insertar los datos.";
+                echo "Se ha presentado un error al insertar";
             }
         }
         
         public function login(){
             $obj = new AccesoModel();
-    
+        
             $user = $_POST['user'];
             $pass = $_POST['pass'];
             
-            $errors = [];
-    
+
             if (empty($user)) {
                 $errors['user'] = "El correo es obligatorio.";
             }
-    
+        
             if (empty($pass)) {
                 $errors['pass'] = "La contraseña es obligatoria.";
             }
-    
+        
             if (empty($errors)) {
-                $sql = "SELECT * FROM usuario WHERE usu_correo = '$user'";
+                $sql = "SELECT * FROM usuarios WHERE usu_correo = '$user'";
                 $usuario = $obj->consult($sql);
-    
-                if (mysqli_num_rows($usuario) > 0) {
+        
+                if ($usuario && count($usuario) > 0) { // Si 'consult' devuelve un array de usuarios
                     foreach ($usuario as $usu) {
-                        if(password_verify($pass,$usu['usu_clave'])){
-                            $_SESSION['nombre']=$usu['usu_primer_nombre'];
-                            $_SESSION['apellido']=$usu['usu_primer_apellido'];
-                            $_SESSION['correo']=$usu['usu_correo'];
+                        if (crypt($pass, $usu['usu_clave']) == $usu['usu_clave']) {
+                            $_SESSION['nombre'] = $usu['usu_primer_nom'];
+                            $_SESSION['apellido'] = $usu['usu_primer_ape'];
+                            $_SESSION['correo'] = $usu['usu_correo'];
                             $_SESSION['auth'] = "ok";
-    
+        
                             redirect("index.php"); // Redirige al dashboard
+                            exit;
                         } else {
                             $errors['pass'] = "Contraseña incorrecta.";
                         }
@@ -114,14 +112,13 @@
                     $errors['user'] = "Correo electrónico no registrado.";
                 }
             }
-    
+        
             // Si hay errores, pasar los mensajes de error a la vista de login
             if (!empty($errors)) {
                 // Aquí pasas los errores al login para mostrarlos en los inputs
                 $_SESSION['errors'] = $errors; 
                 redirect("login.php");
             }
-            
         }
         public function logout(){
             session_destroy();

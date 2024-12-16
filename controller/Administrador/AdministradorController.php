@@ -1,26 +1,28 @@
 <?php
     include_once '../model/Usuarios/UsuariosModel.php';
     class AdministradorController{
-        public function test(){
-            echo "probando";
-        }
+        // public function test(){
+        //     echo "probando";
+        // }
         public function getCreate(){
         /*El sistema debe permitir registrar usuarios ingresando un tipo de documento, un número de identificación, primer nombre, segundo nombre, primer apellido, segundo apellido, contraseña, correo electrónico, un número de teléfono celular, una dirección residencial.*/
             $obj = new UsuariosModel();
 
-            $sqlRoles = "SELECT * FROM rol";
+            $sqlRoles = "SELECT * FROM roles";
             $roles = $obj->consult($sqlRoles);
             
-            $sqlTipoDocu = "SELECT * FROM tipo_documento";
+            $sqlTipoDocu = "SELECT * FROM tipos_documentos";
             $tipoDocu = $obj->consult($sqlTipoDocu);
-
+            
+            $sqlSexo = "SELECT * FROM sexos";
+            $genero = $obj->consult($sqlSexo);
             include_once '../view/usuario/create.php';
             
         }
 
         public function postCreate() {
             $obj = new UsuariosModel();
-        
+            
             // Obtener datos del formulario
             $usu_tipo_documento = $_POST['usu_tipo_documento'];
             $usu_documento = $_POST['usu_documento'];
@@ -33,22 +35,50 @@
             $usu_telefono = $_POST['usu_telefono'];
             $confirmar_clave = $_POST['confirmar_clave']; 
             $rol_id = $_POST['rol_id'];
+            $genero_id = $_POST['genero'];
             
+            // Concatenar dirección
+            $carrera = $_POST['carrera'];
+            $calle = $_POST['calle'];
+            $numero_adicional = $_POST['numero_adicional'];
+            $complemento = $_POST['complemento'];
+            $barrio = $_POST['barrio'];
             
-            $hashedPassword = password_hash($usu_clave, PASSWORD_DEFAULT);
-    
-            $id = $obj->autoIncrement("usu_id", "usuario");
-    
-            $sql = "INSERT INTO usuario VALUES ($id, '$usu_tipo_documento', '$usu_documento', '$usu_primer_nombre', '$usu_segundo_nombre', '$usu_primer_apellido', '$usu_segundo_apellido', '$usu_correo', '$usu_telefono', '$hashedPassword', $rol_id, 1)";
-    
+            $usu_direccion = "$carrera $calle $numero_adicional $complemento, $barrio";
+            
+            // Generar la sal usando mt_rand (generador de números aleatorios)
+            $salt = '$2y$10$' . substr(md5(mt_rand()), 0, 22) . '$';  // Usando mt_rand() para generar la sal
+            
+            // Encriptar la clave usando crypt
+            $hashedPassword = crypt($usu_clave, $salt);
+            
+            // ID del tipo de documento
+            $tip_doc = $usu_tipo_documento;
+            
+            $est_id = 1;  // Valor predeterminado (esto puede cambiar según tus necesidades)
+            
+            // Crear la consulta SQL
+            $sql = "INSERT INTO usuarios
+                    (tip_doc, usu_num_doc, usu_primer_nom, usu_segundo_nom, 
+                     usu_primer_ape, usu_segundo_ape, usu_correo, usu_num_cel, usu_clave, 
+                     rol_id, sex_id, est_id, usu_momento_creacion, usu_direccion) 
+                    VALUES 
+                    ('$tip_doc', '$usu_documento', '$usu_primer_nombre', '$usu_segundo_nombre', 
+                     '$usu_primer_apellido', '$usu_segundo_apellido', '$usu_correo', '$usu_telefono', 
+                     '$hashedPassword', $rol_id, $genero_id, $est_id, NOW(), '$usu_direccion')";
+            
+            // Ejecutar la consulta
             $ejecutar = $obj->insert($sql);
-    
+            
+            // Verificar si la inserción fue exitosa
             if ($ejecutar) {
                 redirect(getUrl("Administrador", "Administrador", "getUsuarios"));
             } else {
                 echo "Se ha presentado un error al insertar";
             }
         }
+        
+        
         
 
         public function getUsuarios(){

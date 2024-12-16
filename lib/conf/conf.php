@@ -1,9 +1,8 @@
-<!--1. Configuramos a nuestro host, user, pass, database, port RECUERDER CREAR LA BD-->
 <?php
 $host /*puede ser server*/= "localhost"; /*servidor*/
 $user = "postgres";/*Usuario*/
-$pass = "";/*contrasena*/
-$database = "proyecto";/*BaseDeDatos*/
-$port = "5432";/*Puerto*/
-//hola
+$pass = "sam242005";/*contrasena*/
+$database = "APPorte";/*BaseDeDatos*/
+$port = "5433";/*Puerto*/
+//hola este es el de apache
 ?>

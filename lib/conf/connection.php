@@ -34,13 +34,14 @@ class Connection{
     /*ESTABLECER LA CONEXION*/
     private function connect(){//host, user, pass, database
         //$this->link=mysqli_connect($this->host,$this->user,$this->pass,$this->database);
-        $this->link=pg_connect("host=$this->host port=$this->port dbname=$this->database user=$this->user password=$this->pass");
+        $connectionString = "host=$this->host port=$this->port dbname=$this->database user=$this->user password=$this->pass";
+        $this->link = pg_connect($connectionString);
 
-        /*if($this->link){
-            echo "Conexion Exitosa";
-        }else{
-            die('Error de conexión a PostgreSQL: ' . pg_last_error());
-        }*/
+        // if($this->link){
+        //     echo "Conexion Exitosa";
+        // }else{
+        //     die('Error de conexión a PostgreSQL: ' . pg_last_error());
+        // }
     }
     /*RETORNAR LA CONEXION*/
     public function getConnect(){
