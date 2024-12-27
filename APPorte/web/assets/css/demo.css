@@ -1,0 +1,527 @@
+.sidebar-body-menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-grow: 1;
+}
+
+
+/* Estilo para los enlaces dentro del sidebar */
+.sidebar-body-menu a {
+  font-size: 16px;
+  text-decoration: none;
+}
+
+/* Estilo general para las tarjetas en modo claro */
+.card {
+  border: 1px solid #ddd; /* Borde claro por defecto */
+  border-radius: 100px; /* Bordes redondeados */
+  background-color: #949494; /* Fondo blanco en modo claro */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: all 0.3s ease; /* Transición suave para el cambio de tema */
+}
+body.darkmode .card {
+  background-color: #333; /* Fondo oscuro en modo oscuro */
+  border: 1px solid #444; /* Borde más oscuro en el modo oscuro */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* Sombra más intensa en modo oscuro */
+}
+/* Estilo general para el campo de búsqueda */
+#buscar {
+  background-color: #f8f9fa; /* Fondo claro por defecto */
+  color: #333; /* Color de texto oscuro por defecto */
+  border: 1px solid #ccc; /* Borde claro por defecto */
+  padding: 10px; /* Espaciado interno para el texto */
+  border-radius: 5px; /* Bordes redondeados */
+  width: 100%; /* Ancho completo */
+  transition: all 0.3s ease; /* Transición suave para el cambio */
+}
+
+/* Modo oscuro */
+body.darkmode #buscar {
+  background-color: #444; /* Fondo oscuro en modo oscuro */
+  color: #fff; /* Texto claro en modo oscuro */
+  border: 1px solid #555; /* Borde oscuro en modo oscuro */
+}
+
+body.darkmode #buscar:focus {
+  background-color: #555; /* Fondo más oscuro cuando el campo está enfocado */
+  border-color: #007bff; /* Borde azul para cuando se selecciona */
+  color: #fff; /* Color de texto claro al enfocarse */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra azul para resaltar */
+}
+
+body.darkmode #buscar::placeholder {
+  color: #ffffff; /* Placeholder claro en modo oscuro */
+}
+
+#buscar:focus {
+  border-color: #007bff; /* Borde azul en modo claro cuando se enfoca */
+  outline: none; /* Elimina el borde por defecto del navegador */
+}
+
+
+/* Borde y padding de celdas */
+.table td, .table th {
+  border: 1px solid #ddd; /* Borde claro que no cambia con el tema oscuro */
+  text-align: left;
+  white-space: nowrap; /* Evita que el texto se desborde y cause desplazamiento */
+  overflow: hidden;
+}
+
+/* Estilo para los encabezados de la tabla */
+.table thead th {
+  background-color: #007bff; /* Fondo más claro para los encabezados */
+  color: #ffffff; /* Color de texto blanco */
+}
+
+/* Estilo para las filas de la tabla */
+.users-table tbody tr td {
+  background-color: #f8f9fa; /* Fondo blanco para las celdas */
+  color: #333; /* Color de texto oscuro */
+}
+
+.users-table tbody tr:nth-child(even) td {
+  background-color: #e9ecef; /* Fondo alterno más claro para las filas (par) */
+}
+
+.users-table tbody tr:hover {
+  background-color: #003d7a; /* Fondo cuando el ratón pasa sobre una fila */
+}
+
+/* Modo oscuro - Ajustes de la tabla */
+.darkmode .table td, .darkmode .table th {
+  border: 1px solid #555; /* Borde más oscuro en el modo oscuro */
+  background-color: #333; /* Fondo oscuro para las celdas */
+  color: #ddd; /* Texto claro en el modo oscuro */
+}
+
+.darkmode .users-table thead th {
+  background-color: #52180a3d; /* Fondo más oscuro para los encabezados */
+  color: #EFF0F6; /* Color de texto claro para los encabezados */
+}
+
+.darkmode .users-table tbody tr td {
+  background-color: #2c2f3a; /* Fondo oscuro para las celdas */
+  color: #EFF0F6; /* Color de texto claro para las celdas */
+  border: 2px solid #006b665d; /* Bordes para las celdas */
+}
+
+.darkmode .users-table tbody tr:nth-child(even) td {
+  background-color: #3b434f; /* Fondo alterno para las filas (par) */
+}
+
+.darkmode .users-table tbody tr:hover {
+  background-color: #4d5366; /* Fondo al pasar el ratón por encima de la fila */
+}
+
+/* Estilos para el estado de los usuarios */
+.darkmode .text-success {
+  color: #00ff3c; /* Color verde para el texto de estado habilitado */
+}
+
+.darkmode .text-danger {
+  color: #dc3545; /* Color rojo para el texto de estado inhabilitado */
+}
+
+/* Estilo para los botones de Editar y Eliminar */
+.users-table button {
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+/* Estilo para el botón de cambio de tema */
+.theme-switcher {
+  background-color: #4d0000; /* Fondo más oscuro en modo claro */
+  border: 1px solid #dcdcdc;
+  color: #333; /* Color del texto (si se utiliza texto) */
+}
+
+.theme-switcher .sun-icon,
+.theme-switcher .moon-icon {
+  color: #ffffff; /* Cambiar color de iconos para mayor visibilidad */
+}
+
+/* En modo oscuro */
+.darkmode .theme-switcher {
+  background-color: #0000ffab; /* Fondo oscuro en modo oscuro */
+  border: 1px solid #161624;
+}
+
+
+
+/* El menú del dropdown, inicialmente oculto */
+.dropdown-menu {
+  display: none; /* El dropdown está oculto por defecto */
+  position: absolute; /* Posicionamos el menú debajo del botón */
+  top: 100%; /* Colocamos el menú justo debajo del botón */
+  left: 0; /* Alineamos a la izquierda con el botón */
+  z-index: 1050; /* Asegura que el dropdown se muestra por encima de otros elementos */
+  min-width: 200px; /* Puedes ajustar el tamaño mínimo del menú */
+  background-color: #fff; /* Color de fondo del dropdown */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+  border-radius: 4px; /* Bordes redondeados opcionales */
+  opacity: 0; /* Comienza invisible */
+  visibility: hidden; /* Comienza invisible */
+}
+
+/* Cuando el dropdown se muestra, cambiamos la visibilidad y la opacidad */
+.nav-user-dropdown.show .dropdown-menu {
+  display: block; /* Asegura que el menú se muestre */
+  opacity: 1; /* Lo hace visible */
+  visibility: visible; /* Lo hace visible */
+}
+
+/* Opcional: Un pequeño efecto hover sobre los items */
+.dropdown-item:hover {
+  background-color: #f8f9fa; /* Cambia el color de fondo al pasar el mouse */
+}
+
+/* Estilos para el botón del perfil */
+.nav-user-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Agregar transiciones al botón para una experiencia más suave */
+.nav-user-btn:focus {
+  outline: none;
+}
+
+/* Establecer el margen para asegurar que el contenido no se solape con el sidebar */
+.container {
+  overflow-y: auto;   /* Permite desplazamiento vertical solo en este contenedor */
+  min-height: 5vh;
+  max-height: 70vh;   /* Limita la altura máxima del contenedor */
+  padding-left: 10px;
+  
+}
+html, body {
+  min-height: 100vh;   /* Asegura que el contenido cubra al menos la altura de la ventana */
+}
+
+.dropdown-menu {
+  display: block !important;
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+html {
+  margin: 0;  
+  padding: 0;  
+  overflow-y: hidden;  
+  overflow-x: auto;
+  height: 100%;
+}
+.gg-check {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs, 1));
+  width: 22px;
+  height: 22px;
+  border: 2px solid transparent;
+  border-radius: 100px; }
+  .gg-check::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    left: 3px;
+    top: -1px;
+    width: 6px;
+    height: 10px;
+    border-width: 0 2px 2px 0;
+    border-style: solid;
+    transform-origin: bottom left;
+    transform: rotate(45deg); }
+
+.custom-template {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -325px;
+  width: 325px;
+  height: max-content;
+  display: block;
+  z-index: 1;
+  background: #ffffff;
+  transition: all .3s;
+  z-index: 1003;
+  box-shadow: -1px 1px 20px rgba(69, 65, 78, 0.15);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  transition: all .5s; }
+  .custom-template.open {
+    right: 0px; }
+  .custom-template .custom-toggle {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: #5867dd;
+    top: 50%;
+    left: -45px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    /*border-right: 1px solid #177dff;*/
+    cursor: pointer;
+    color: #ffffff;
+    box-shadow: -5px 5px 20px rgba(69, 65, 78, 0.21); }
+    .custom-template .custom-toggle i {
+      font-size: 20px;
+      animation: 1.3s spin linear infinite; }
+  .custom-template .title {
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    border-top-left-radius: 5px;
+    border-bottom: 1px solid #ebedf2;
+    background: #5867dd; }
+  .custom-template .custom-content {
+    padding: 20px 15px;
+    max-height: calc(100vh - 90px);
+    overflow: auto; }
+  .custom-template .switcher {
+    padding: 5px 0; }
+  .custom-template .switch-block h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    line-height: 1.3;
+    margin-bottom: 0;
+    text-transform: uppercase; }
+  .custom-template .btnSwitch {
+    margin-top: 20px;
+    margin-bottom: 25px; }
+    .custom-template .btnSwitch button {
+      border: 0px;
+      height: 22px;
+      width: 22px;
+      outline: 0;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      padding: 0;
+      border-radius: 50%;
+      border: 2px solid #ededed;
+      position: relative;
+      transition: all .2s; }
+      .custom-template .btnSwitch button:hover {
+        border-color: #0bf; }
+      .custom-template .btnSwitch button.selected {
+        border-color: #0bf;
+        display: inline-flex;
+        align-items: center; }
+      .custom-template .btnSwitch button:not([data-color="white"], [data-color="bg1"], [data-color="bg2"], [data-color="bg3"]) .gg-check:after {
+        border-color: #fff; }
+  .custom-template .img-pick {
+    padding: 4px;
+    min-height: 100px;
+    border-radius: 5px;
+    cursor: pointer; }
+    .custom-template .img-pick img {
+      height: 100%;
+      height: 100px;
+      width: 100%;
+      border-radius: 5px;
+      border: 2px solid transparent; }
+    .custom-template .img-pick:hover img, .custom-template .img-pick.active img {
+      border-color: #177dff; }
+
+.demo .btn, .demo .progress {
+  margin-bottom: 15px !important; }
+.demo .form-check-label, .demo .form-radio-label, .demo .toggle, .demo .btn-group {
+  margin-right: 15px; }
+.demo #slider {
+  margin-bottom: 15px; }
+
+.table-typo tbody > tr > td {
+  border-color: #fafafa; }
+  .table-typo tbody > tr > td:first-child {
+    min-width: 200px;
+    vertical-align: bottom; }
+    .table-typo tbody > tr > td:first-child p {
+      font-size: 14px;
+      color: #333; }
+
+.demo-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  transition: all .2s; }
+  .demo-icon:hover {
+    background-color: #f4f5f8;
+    border-radius: 3px; }
+  .demo-icon .icon-preview {
+    font-size: 1.8rem;
+    margin-right: 10px;
+    line-height: 1;
+    color: #333439; }
+
+body[data-background-color="dark"] .demo-icon .icon-preview {
+  color: #969696; }
+
+.demo-icon .icon-class {
+  font-weight: 300;
+  font-size: 13px;
+  color: #777; }
+
+body[data-background-color="dark"] .demo-icon .icon-class {
+  color: #a9a8a8; }
+
+.form-show-notify .form-control {
+  margin-bottom: 15px; }
+.form-show-notify label {
+  padding-top: 0.65rem; }
+
+.map-demo {
+  height: 300px; }
+
+#instructions li {
+  padding: 5px 0; }
+
+.row-demo-grid {
+  margin-bottom: 15px; }
+  .row-demo-grid [class^="col"] {
+    text-align: center; }
+    .row-demo-grid [class^="col"] .card-body {
+      background: #ddd; }
+
+.btnSwitch button[data-color="white"] {
+  background-color: #fff; }
+.btnSwitch button[data-color="grey"] {
+  background-color: #f1f1f1; }
+.btnSwitch button[data-color="black"] {
+  background-color: #191919; }
+.btnSwitch button[data-color="dark"] {
+  background-color: #1a2035; }
+.btnSwitch button[data-color="blue"] {
+  background-color: #1572E8; }
+.btnSwitch button[data-color="purple"] {
+  background-color: #6861CE; }
+.btnSwitch button[data-color="light-blue"] {
+  background-color: #48ABF7; }
+.btnSwitch button[data-color="green"] {
+  background-color: #31CE36; }
+.btnSwitch button[data-color="orange"] {
+  background-color: #FFAD46; }
+.btnSwitch button[data-color="red"] {
+  background-color: #F25961; }
+.btnSwitch button[data-color="dark2"] {
+  background-color: #1f283e; }
+.btnSwitch button[data-color="blue2"] {
+  background-color: #1269DB; }
+.btnSwitch button[data-color="purple2"] {
+  background-color: #5C55BF; }
+.btnSwitch button[data-color="light-blue2"] {
+  background-color: #3697E1; }
+.btnSwitch button[data-color="green2"] {
+  background-color: #2BB930; }
+.btnSwitch button[data-color="orange2"] {
+  background-color: #FF9E27; }
+.btnSwitch button[data-color="red2"] {
+  background-color: #EA4d56; }
+.btnSwitch button[data-color="bg1"] {
+  background-color: #fafafa; }
+.btnSwitch button[data-color="bg2"] {
+  background-color: #fff; }
+.btnSwitch button[data-color="bg3"] {
+  background-color: #f1f1f1; }
+
+#modalShowcase .btn-close {
+  background: #ff0000;
+  opacity: 0.7;
+  display: flex; }
+  #modalShowcase .btn-close svg {
+    fill: #fff;
+    width: 16px;
+    height: 16px; }
+#modalShowcase .preview-showcase {
+  background: #F1F1F4;
+  border-radius: 8px;
+  padding: 24px 32px;
+  padding-bottom: 0;
+  padding-right: 0;
+  overflow: hidden;
+  transition: all .3s ease; }
+  #modalShowcase .preview-showcase:hover {
+    transform: translateY(-2.5%);
+    background: #e9f6f9; }
+#modalShowcase .preview-title {
+  color: #071437;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 22.750px; }
+#modalShowcase .preview-img {
+  width: 100% !important;
+  height: auto;
+  object-fit: cover;
+  transition: all .3s ease; }
+
+#checkOutMoreDemos {
+  display: flex;
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: #fff;
+  color: #252F4A;
+  font-weight: 600;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 66px;
+  height: 70px;
+  font-size: 12px;
+  box-shadow: -5px 5px 20px rgba(69, 65, 78, 0.21); }
+  #checkOutMoreDemos i {
+    width: 23px;
+    height: 23px;
+    font-size: 16px;
+    margin-bottom: 0.5rem !important;
+    padding-top: 0.25rem !important; }
+  #checkOutMoreDemos:hover {
+    background: #1e2129;
+    color: #fff;
+    opacity: 1;
+    transition: color .2s ease; }
+
+@media screen and (max-width: 1200px) {
+  #modalShowcase .modal-dialog {
+    padding: 3rem !important; } }
+@media screen and (max-width: 550px) {
+  .table-typo tr td {
+    display: flex;
+    align-items: center;
+    word-break: break-word; }
+    .table-typo tr td:first-child p {
+      margin-bottom: 0px; }
+
+  #modalShowcase .modal-dialog {
+    padding: 32px !important; }
+  #modalShowcase h3 {
+    font-size: 16px; }
+  #modalShowcase .preview-showcase {
+    padding: 24px;
+    padding-right: 0;
+    padding-bottom: 0; } }
+@media screen and (max-width: 576px) {
+  .custom-template .custom-content {
+    overflow: auto; }
+
+  .form-show-notify > .text-right, .form-show-validation > .text-right {
+    text-align: left !important; } }
+@media screen and (max-width: 400px) {
+  .custom-template {
+    width: 85% !important;
+    right: -85%; } }
+
+/*# sourceMappingURL=demo.css.map */
