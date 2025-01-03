@@ -5,7 +5,6 @@
                 <img src="../view/partials/apportepng.png" alt="la foto" width="53px" height="65px">
                 <div class="logo-text">
                     <span class="logo-title">APPorte</span>
-                    <span class="logo-subtitle"></span>
                 </div>
             </a>
             <button class="sidebar-toggle transparent-btn" type="button" onclick="toggleSidebar()">

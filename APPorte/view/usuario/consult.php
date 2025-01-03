@@ -4,12 +4,20 @@
     </div>
     <div class="row">
         <div class="col-md-4 mt-4 mb-5">
-            <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Buscar por Nombre o Correo" data-url='<?php echo getUrl("Administrador", "Administrador", "buscar", false, "ajax"); ?>'>
-        </div>
 
+            <span class="input-group-text">
+                <i class="fas fa-search"></i> 
+                <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Buscar por Nombre o Correo" 
+                data-url='<?php echo getUrl("Administrador", "Administrador", "buscar", false, "ajax"); ?>' 
+                aria-label="Buscar por Nombre o Correo">
+            </span>
+        </div>
+        <div class="col-md-4 mt-4 mb-5">
+            <button type="button" class="btn btn-primary" onclick="window.location.href='<?php echo getUrl('Administrador', 'Administrador', 'getCreate'); ?>'">Agregar otro usuario</button>
+        </div>
     </div>
     <div class="table-responsive">
-        <table class="table table-hover table-striped users-table">
+        <table class="table users-table">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -43,17 +51,19 @@
                         echo "<td>" . $usu['usu_primer_ape'] . " " . $usu['usu_segundo_ape'] . "</td>";
                         echo "<td>" . $usu['usu_num_cel'] . "</td>";
                         echo "<td>" . $usu['usu_correo'] . "</td>";
-                        echo "<td>" . $usu['usu_direccion'] . "</td>";
+                        // Mostrar la dirección completa concatenando los campos
+                        $direccion_completa = $usu['usu_carrera'] . ", " . $usu['usu_calle'] . ", " . ($usu['usu_num_adicional'] ? $usu['usu_num_adicional'] . ", " : "") .($usu['usu_complemento'] ? $usu['usu_complemento'] . ", " : "") . $usu['usu_barrio'];
+                        echo "<td>" . $direccion_completa . "</td>";
                         echo "<td>" . $usu['usu_num_cel'] . "</td>";
                         echo "<td>" . $usu['usu_momento_creacion'] . "</td>";
                         echo "<td>" . $usu['rol_nombre'] . "</td>";
                         echo "<td>" . $usu['sexo_nombre'] . "</td>";
 
                         if ($usu['est_id'] == 1) {
-                            $estadoClase = "text-success";
+                            $estadoClase = "text-habilitado";
                             $texto = "habilitado";
                         } else if ($usu['est_id'] == 2) {
-                            $estadoClase = "text-danger";
+                            $estadoClase = "text-inhabilitado";
                             $texto = "inhabilitado";
                         }
 

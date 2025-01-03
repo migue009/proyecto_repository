@@ -293,17 +293,57 @@ $(document).ready(function(){
         }
 
         // Validar el documento (solo números)
+        const tipoDocumento = $('#usu_tipo_documento').val();
         const documento = $('#usu_documento').val().trim();
         if (documento === "") {
-            $('#error_usu_documento').text('El número de documento es obligatorio.');
+            $('#error_usu_documento').text('El documento es obligatorio.');
             esValido = false;
         } else if (!/^\d+$/.test(documento)) {
             $('#error_usu_documento').text('El número de documento solo puede contener números.');
             esValido = false;
+        } else {
+            // Validar según tipo de documento
+            switch (tipoDocumento) {
+                case '1': // Cédula de Ciudadanía
+                    // Debe tener 10 dígitos
+                    if (!/^\d{8,10}$/.test(documento)) {
+                        $('#error_usu_documento').text('La cédula de ciudadanía debe tener 10 dígitos.');
+                        esValido = false;
+                    }
+                    break;
+        
+                case '2': // Tarjeta de Identidad
+                    // Debe tener 10 dígitos
+                    if (!/^\d{8,10}$/.test(documento)) {
+                        $('#error_usu_documento').text('La tarjeta de identidad debe tener 10 dígitos.');
+                        esValido = false;
+                    }
+                    break;
+        
+                case '3': // Cédula de Extranjería
+                    // Debe tener 11 dígitos
+                    if (!/^\d{11}$/.test(documento)) {
+                        $('#error_usu_documento').text('La cédula de extranjería debe tener 11 dígitos.');
+                        esValido = false;
+                    }
+                    break;
+        
+                case '4': // Pasaporte
+                    // Debe tener entre 6 y 9 caracteres alfanuméricos
+                    if (!/^[a-zA-Z0-9]{6,9}$/.test(documento)) {
+                        $('#error_usu_documento').text('El número de pasaporte debe tener entre 6 y 9 caracteres alfanuméricos.');
+                        esValido = false;
+                    }
+                    break;
+        
+                default:
+                    $('#error_usu_tipo_documento').text('Tipo de documento no válido.');
+                    esValido = false;
+                    break;
+            }
         }
 
         // Validar los campos de selección
-        const tipoDocumento = $('#usu_tipo_documento').val();
         const genero = $('#genero').val();
         const rolId = $('#rol_id').val();
 
@@ -381,14 +421,77 @@ $(document).ready(function(){
         }
     });
 
-    $('#usu_tipo_documento').change(function () {
-        const usu_tipo_documento = $('#usu_tipo_documento').val().trim();
-        if (usu_tipo_documento === "") {
-            mostrarError('usu_tipo_documento', 'El tipo de documento es obligatorio.');
+    $('#usu_documento').keyup(function() {
+        const tipoDocumento = $('#usu_tipo_documento').val();
+        const documento = $('#usu_documento').val().trim();
+
+        if (documento === "") {
+            mostrarError('usu_documento', 'El documento es obligatorio.');
+        } else if (tipoDocumento !== '4' && !/^\d+$/.test(documento)) {
+            mostrarError('usu_documento', 'El documento debe contener solo números.');
         } else {
-            limpiarError('usu_tipo_documento');
+            validarDocumento(tipoDocumento, documento);
         }
     });
+
+    // Validar el documento al cambiar el tipo de documento
+    $('#usu_tipo_documento').change(function() {
+        const tipoDocumento = $('#usu_tipo_documento').val();
+        const documento = $('#usu_documento').val().trim();
+        if (documento !== "") {
+            validarDocumento(tipoDocumento, documento);
+        }
+    });
+
+    // Función para validar el documento dependiendo del tipo
+    function validarDocumento(tipoDocumento, documento) {
+        let esValido = true;
+
+        // Validación por tipo de documento
+        switch (parseInt(tipoDocumento)) {
+            case 1: // Cédula de Ciudadanía
+                if (!/^\d{8,10}$/.test(documento)) {
+                    mostrarError('usu_documento', 'La cédula de ciudadanía debe tener 10 dígitos.');
+                    esValido = false;
+                }
+                break;
+
+            case 2: // Tarjeta de Identidad
+                if (!/^\d{8,10}$/.test(documento)) {
+                    mostrarError('usu_documento', 'La tarjeta de identidad debe tener 10 dígitos.');
+                    esValido = false;
+                }
+                break;
+
+            case 3: // Cédula de Extranjería
+                if (!/^\d{11}$/.test(documento)) {
+                    mostrarError('usu_documento', 'La cédula de extranjería debe tener 11 dígitos.');
+                    esValido = false;
+                }
+                break;
+
+            case 4: // Pasaporte
+                if (!/^[a-zA-Z0-9]{6,9}$/.test(documento)) {
+                    mostrarError('usu_documento', 'El número de pasaporte debe tener entre 6 y 9 caracteres alfanuméricos.');
+                    esValido = false;
+                }
+                break;
+
+            default:
+                mostrarError('usu_documento', 'Seleccione un tipo de documento válido.');
+                esValido = false;
+                break;
+        }
+
+        // Si el documento es válido, limpiamos el error
+        if (esValido) {
+            limpiarError('usu_documento');
+            limpiarError('usu_tipo_documento');
+        }
+    }
+
+
+
 
     $('#rol_id').change(function () {
         const rol = $('#rol_id').val().trim();
@@ -496,16 +599,6 @@ $(document).ready(function(){
         }
     });
 
-    $('#usu_documento').keyup(function () {
-        const documento = $('#usu_documento').val().trim();
-        if (documento === "") {
-            mostrarError('usu_documento', 'El documento es obligatorio.');
-        } else if (!/^\d+$/.test(documento)) {
-            mostrarError('usu_documento', 'El documento debe contener solo números.');
-        } else {
-            limpiarError('usu_documento');
-        }
-    });
 
     $('#carrera').keyup(function () {
         const carrera = $('#carrera').val().trim();

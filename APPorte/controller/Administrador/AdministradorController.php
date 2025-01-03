@@ -92,7 +92,7 @@
         public function getUsuarios() {
             $obj = new UsuariosModel();
         
-            // Consulta SQL actualizada para seleccionar todos los campos
+            // Consulta SQL actualizada para seleccionar todos los campos de la tabla usuarios y direccion
             $sql = "SELECT 
                         u.usuario_id, 
                         u.usu_num_doc,
@@ -101,7 +101,6 @@
                         u.usu_primer_ape,
                         u.usu_segundo_ape,
                         u.usu_correo, 
-                        u.usu_direccion, 
                         u.usu_num_cel, 
                         u.usu_clave, 
                         u.est_id,
@@ -109,18 +108,23 @@
                         r.rol_nombre, 
                         td.tip_doc_nombre, 
                         s.sexo_nombre,
-                        e.est_nombre   
+                        e.est_nombre,
+                        d.usu_carrera, 
+                        d.usu_calle, 
+                        d.usu_num_adicional, 
+                        d.usu_complemento, 
+                        d.usu_barrio
                     FROM 
                         usuarios u
                     JOIN roles r ON u.rol_id = r.rol_id      
                     JOIN tipos_documentos td ON u.tip_doc = td.tipo_documento_id
                     JOIN sexos s ON u.sex_id = s.sexo_id  
-                    JOIN estados e ON u.est_id = e.estado_id 
+                    JOIN estados e ON u.est_id = e.estado_id
+                    JOIN direccion d ON u.usu_direccion = d.direccion_id  -- Aquí unimos la tabla direccion
                     ORDER BY u.usuario_id ASC";
         
             // Ejecución de la consulta
             $usuarios = $obj->consult($sql);
-
         
             // Incluye la vista con los usuarios
             include_once '../view/usuario/consult.php';
@@ -128,24 +132,62 @@
         
         public function getUpdateUsuarios(){
             $obj = new UsuariosModel();
-            
+                
+            // Obtener el ID del usuario desde la URL
             $usu_id = $_GET['usu_id'];
             
-            $sql = "SELECT * FROM usuarios WHERE usuario_id = $usu_id";
+            // Consulta para obtener los datos del usuario incluyendo la dirección
+            $sql = "SELECT 
+                        u.usuario_id, 
+                        u.usu_num_doc,
+                        u.usu_primer_nom,
+                        u.usu_segundo_nom,
+                        u.usu_primer_ape,
+                        u.usu_segundo_ape,
+                        u.usu_correo, 
+                        u.usu_num_cel, 
+                        u.usu_clave, 
+                        u.est_id,
+                        u.usu_momento_creacion,
+                        u.usu_direccion,  -- Obtenemos el id de la dirección
+                        r.rol_nombre, 
+                        td.tip_doc_nombre, 
+                        s.sexo_nombre,
+                        e.est_nombre,
+                        d.usu_carrera, 
+                        d.usu_calle, 
+                        d.usu_num_adicional, 
+                        d.usu_complemento, 
+                        d.usu_barrio
+                    FROM 
+                        usuarios u
+                    JOIN roles r ON u.rol_id = r.rol_id      
+                    JOIN tipos_documentos td ON u.tip_doc = td.tipo_documento_id
+                    JOIN sexos s ON u.sex_id = s.sexo_id  
+                    JOIN estados e ON u.est_id = e.estado_id
+                    JOIN direccion d ON u.usu_direccion = d.direccion_id  -- Unimos la tabla direccion
+                    WHERE u.usuario_id = $usu_id";  // Filtrar por el ID de usuario
+            
+            // Ejecutar la consulta
             $usuario = $obj->consult($sql);
-
-            $sqlRoles = "SELECT * FROM estados where tip_est_id = 1";
+        
+            // Obtener los estados
+            $sqlRoles = "SELECT * FROM estados WHERE tip_est_id = 1";
             $estados = $obj->consult($sqlRoles);
 
+            // Obtener los roles
             $sqlRoles = "SELECT * FROM roles";
             $roles = $obj->consult($sqlRoles);
-            
+
+            // Obtener los tipos de documentos
             $sqlTipoDocu = "SELECT * FROM tipos_documentos";
             $tipoDocu = $obj->consult($sqlTipoDocu);
-            
+
+            // Obtener los géneros
             $sqlSexo = "SELECT * FROM sexos";
             $genero = $obj->consult($sqlSexo);
-        
+
+            // Incluir la vista de actualización
             include_once '../view/usuario/update.php';
         }
 

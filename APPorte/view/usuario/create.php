@@ -1,104 +1,145 @@
-<div>
-    <?php
-        foreach($usuario as $usu){
-    ?>
-</div>
-<div class="mt-5">
-    <h3 class="display-4 text-center">Actualizar Usuario</h3>
-</div>
-
-<form action="<?php echo getUrl("Administrador", "Administrador", "postUpdate"); ?>" method="post" class="p-4 bg-light border rounded shadow-sm">
-    <input type="hidden" name="usu_id" value="<?php echo $usu['usu_id']; ?>">
-
-    <div class="row g-3">
-
-        <!-- Tipo de Documento -->
-        <div class="col-md-4">
-            <label for="usu_tipo_documento" class="form-label">Tipo de Documento</label>
-            <select name="usu_tipo_documento" class="form-select">
-                <?php
-                    foreach ($tipoDocu as $tipo) {
-                        $selected = ($usu['usu_tipo_documento'] == $tipo['tipo_doc_id']) ? "selected" : "";
-                        echo "<option value='" . $tipo['tipo_doc_id'] . "' $selected>" . $tipo['tipo_doc_nombre'] . "</option>";
-                    }
-                ?>
-            </select>
+<div class="container card">
+    <div class="mt-5">
+        <h3 class="display-4 text-center main-title">Registrar Usuario</h3>
+    </div>
+    <form action="<?php echo getUrl('Administrador', 'Administrador', 'postCreate'); ?>" method="post" id="registrar-admin-form" class="form">
+        <div class="row mt-4">
+            <!-- tipo de documento y numero -->
+            <div class="col-md-6 mb-3">
+                <label for="usu_tipo_documento" id="label-dark">Tipo de Documento</label>
+                <select name="usu_tipo_documento" id="usu_tipo_documento" class="form-select">
+                    <option value="">Seleccione...</option>
+                    <?php
+                        foreach ($tipoDocu as $tipo) {
+                            echo "<option value='" . $tipo['tipo_documento_id'] . "'>" . $tipo['tip_doc_nombre'] . "</option>";
+                        }
+                    ?>
+                </select>
+                <div class="text-danger" id="error_usu_tipo_documento"></div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="usu_documento" id="label-dark">Documento</label>
+                <input type="text" id="usu_documento" name="usu_documento" class="form-control" placeholder="Número de documento">
+                <div class="text-danger" id="error_usu_documento"></div>
+            </div>
         </div>
-
-        <!-- Número de Documento -->
-        <div class="col-md-4">
-            <label for="usu_numero_documento" class="form-label">Número de Documento</label>
-            <input type="text" name="usu_numero_documento" class="form-control" placeholder="Número de Documento" value="<?php echo $usu['usu_numero_documento']; ?>" required>
+        <div class="row mt-4">
+            <!-- Primer nombre y segundo nombre -->
+            <div class="col-md-6 mb-3">
+                <label for="primer_nombre" id="label-dark">Primer Nombre</label>
+                <input type="text" id="primer_nombre" name="usu_primer_nombre" class="form-control" placeholder="Ingrese el primer nombre">
+                <div class="text-danger" id="error_primer_nombre"></div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="segundo_nombre" id="label-dark">Segundo Nombre</label>
+                <input type="text" id="segundo_nombre" name="usu_segundo_nombre" class="form-control" placeholder="Ingrese el segundo nombre">
+                <div class="text-danger" id="error_segundo_nombre"></div>
+            </div>
         </div>
-
-        <!-- Primer Nombre -->
-        <div class="col-md-4">
-            <label for="usu_primer_nombre" class="form-label">Primer Nombre</label>
-            <input type="text" name="usu_primer_nombre" class="form-control" placeholder="Primer Nombre" value="<?php echo $usu['usu_primer_nombre']; ?>" required>
+        <div class="row mt-4">
+            <!-- Primer apellido y segundo apellido -->
+            <div class="col-md-6 mb-3">
+                <label for="primer_apellido" id="label-dark">Primer Apellido</label>
+                <input type="text" id="primer_apellido" name="usu_primer_apellido" class="form-control" placeholder="Ingrese el primer apellido">
+                <div class="text-danger" id="error_primer_apellido"></div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="segundo_apellido" id="label-dark">Segundo Apellido</label>
+                <input type="text" id="segundo_apellido" name="usu_segundo_apellido" class="form-control" placeholder="Ingrese el segundo apellido">
+                <div class="text-danger" id="error_segundo_apellido"></div>
+            </div>
         </div>
-
-        <!-- Segundo Nombre -->
-        <div class="col-md-4">
-            <label for="usu_segundo_nombre" class="form-label">Segundo Nombre</label>
-            <input type="text" name="usu_segundo_nombre" class="form-control" placeholder="Segundo Nombre" value="<?php echo $usu['usu_segundo_nombre']; ?>">
+        <div class="row mt-4">
+            <!-- Correo y Teléfono -->
+            <div class="col-md-6 mb-3">
+                <label for="correo" id="label-dark">Correo Electrónico</label>
+                <input type="text" id="correo" name="usu_correo" class="form-control" placeholder="correo@ejemplo.com">
+                <div class="text-danger" id="error_correo"></div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="telefono" id="label-dark">Teléfono</label>
+                <input type="text" id="telefono" name="usu_telefono" class="form-control" placeholder="Número de teléfono">
+                <div class="text-danger" id="error_telefono"></div>
+            </div>
         </div>
-
-        <!-- Primer Apellido -->
-        <div class="col-md-4">
-            <label for="usu_primer_apellido" class="form-label">Primer Apellido</label>
-            <input type="text" name="usu_primer_apellido" class="form-control" placeholder="Primer Apellido" value="<?php echo $usu['usu_primer_apellido']; ?>" required>
+        <div class="row mt-4">
+            <!-- Clave y confirmación -->
+            <div class="col-md-6 mb-3">
+                <label for="clave" id="label-dark">Clave</label>
+                <input type="password" id="clave" name="usu_clave" class="form-control" placeholder="Ingrese la clave">
+                <div class="text-danger" id="error_clave"></div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="confirmar_clave" id="label-dark">Confirmar Clave</label>
+                <input type="password" id="confirmar_clave" name="confirmar_clave" class="form-control" placeholder="Confirme la clave">
+                <div class="text-danger" id="error_confirmar_clave"></div>
+            </div>
         </div>
-
-        <!-- Segundo Apellido -->
-        <div class="col-md-4">
-            <label for="usu_segundo_apellido" class="form-label">Segundo Apellido</label>
-            <input type="text" name="usu_segundo_apellido" class="form-control" placeholder="Segundo Apellido" value="<?php echo $usu['usu_segundo_apellido']; ?>">
-        </div>
-
-        <!-- Correo -->
-        <div class="col-md-4">
-            <label for="usu_correo" class="form-label">Correo</label>
-            <input type="email" name="usu_correo" class="form-control" placeholder="Correo" value="<?php echo $usu['usu_correo']; ?>" required>
-        </div>
-
-        <!-- Teléfono -->
-        <div class="col-md-4">
-            <label for="usu_telefono" class="form-label">Teléfono</label>
-            <input type="text" name="usu_telefono" class="form-control" placeholder="Teléfono" value="<?php echo $usu['usu_telefono']; ?>">
-        </div>
-
-        <!-- Rol -->
-        <div class="col-md-4">
-            <label for="rol_id" class="form-label">Rol</label>
-            <select name="rol_id" class="form-select">
-                <?php
+        <div class="row mt-4">
+            <!-- genero -->
+            <div class="col-md-6 mb-3">
+                <label for="genero" id="label-dark">Género</label>
+                <select name="genero" id="genero" class="form-select">
+                    <option value="">Seleccione...</option>
+                    <?php
+                        foreach ($genero as $gen) {
+                            echo "<option value='" . $gen['sexo_id'] . "'>" . $gen['sexo_nombre'] . "</option>";
+                        }
+                    ?>
+                </select>
+                <div class="text-danger" id="error_genero"></div>
+            </div>
+            <!-- Rol -->
+            <div class="col-md-6 mb-3">
+                <label for="rol_id" id="label-dark">Rol</label>
+                <select name="rol_id" id="rol_id" class="form-select">
+                    <option value="">Seleccione...</option>
+                    <?php
                     foreach ($roles as $rol) {
-                        $selected = ($usu['rol_id'] == $rol['rol_id']) ? "selected" : "";
-                        echo "<option value='" . $rol['rol_id'] . "' $selected>" . $rol['rol_nombre'] . "</option>";
+                        echo "<option value='" . $rol['rol_id'] . "'>" . $rol['rol_nombre'] . "</option>";
                     }
-                ?>
-            </select>
+                    ?>
+                </select>
+                <div class="text-danger" id="error_rol_id"></div>
+            </div>
         </div>
-
-        <!-- Estado -->
-        <div class="col-md-4">
-            <label for="estado_id" class="form-label">Estado</label>
-            <select name="estado_id" class="form-select">
-                <?php
-                    foreach ($estado as $est) {
-                        $selected = ($usu['estado_id'] == $est['estado_id']) ? "selected" : "";
-                        echo "<option value='" . $est['estado_id'] . "' $selected>" . $est['estado_nombre'] . "</option>";
-                    }
-                ?>
-            </select>
+        <div class="row mt-4">
+            <h5 id="label-dark">Dirección</h5>
+            <!-- Carrera -->
+            <div class="col-md-3 mb-3">
+                <label for="carrera" id="label-dark">Carrera</label>
+                <input type="text" id="carrera" name="carrera" class="form-control" placeholder="Ej. 23">
+                <div class="text-danger" id="error_carrera"></div>
+            </div>
+            <!-- Calle -->
+            <div class="col-md-3 mb-3">
+                <label for="calle" id="label-dark">Calle</label>
+                <input type="text" id="calle" name="calle" class="form-control" placeholder="Ej. 13">
+                <div class="text-danger" id="error_calle"></div>
+            </div>
+            <!-- Número Adicional -->
+            <div class="col-md-3 mb-3">
+                <label for="numero_adicional" id="label-dark">Número Adicional</label>
+                <input type="text" id="numero_adicional" name="numero_adicional" class="form-control" placeholder="Ej. 13A o 12-45">
+                <div class="text-danger" id="error_numero_adicional"></div>
+            </div>
+            <!-- Complemento (Apartamento, Casa, Local) -->
+            <div class="col-md-3 mb-3">
+                <label for="complemento" id="label-dark">Complemento</label>
+                <input type="text" id="complemento" name="complemento" class="form-control" placeholder="Ej. Apt 101, Casa 5">
+                <div class="text-danger" id="error_complemento"></div>
+            </div>
         </div>
-
-    </div>
-
-    <div class="mt-4 text-center">
-        <button type="submit" class="btn btn-success btn-lg">Actualizar Usuario</button>
-    </div>
-</form>
-<?php
-    }
-?>
+        <div class="row mt-4">
+            <!-- Barrio -->
+            <div class="col-md-6 mb-3">
+                <label for="barrio" id="label-dark">Barrio</label>
+                <input type="text" id="barrio" name="barrio" class="form-control" placeholder="Ej. San Fernando">
+                <div class="text-danger" id="error_barrio"></div>
+            </div>
+        </div>
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-success">Registrar</button>
+        </div>
+    </form>
+</div>

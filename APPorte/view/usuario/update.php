@@ -78,12 +78,12 @@
                 <!-- Clave y Confirmar Clave -->
                 <div class="col-md-6 mb-3">
                     <label for="usu_clave">Clave</label>
-                    <input type="password" id="usu_clave" name="usu_clave" class="form-control" placeholder="Clave" value="<?php echo $usu['"usu_clave"']; ?>" autocomplete="off">
+                    <input type="password" id="usu_clave" name="usu_clave" class="form-control" placeholder="Clave" value="<?php echo $usu['usu_clave']; ?>" autocomplete="off">
                     <div class="text-danger" id="error_clave"></div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="confirmar_clave">Confirmar Clave</label>
-                    <input type="password" id="confirmar_clave" name="confirmar_clave" class="form-control" placeholder="Confirmar Clave"  value="<?php echo $usu['"usu_clave"']; ?>" autocomplete="off">
+                    <input type="password" id="confirmar_clave" name="confirmar_clave" class="form-control" placeholder="Confirmar Clave"  value="<?php echo $usu['usu_clave']; ?>" autocomplete="off">
                     <div class="text-danger" id="error_confirmar_clave"></div>
                 </div>
             </div>
