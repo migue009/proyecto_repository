@@ -3,10 +3,10 @@ include_once '../lib/conf/connection.php';
 /*Podemos decir que se puede trabajar un modulo cuando podemos hacer un CRUD */
 class MasterModel extends Connection{
 
-    public function insertAndGetLastId($sql) {
+    public function insertUltimoId($sql) {
         $result = pg_query($this->getConnect(),$sql);
-        $lastId = pg_fetch_result($result, 0, 0);  
-        return $lastId;
+        $UltimoId = pg_fetch_result($result, 0, 0);  
+        return $UltimoId;
     }
 
     public function insert($sql){

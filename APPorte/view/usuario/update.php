@@ -9,8 +9,8 @@
     </div>
     <div class="mt-5">
         <form action="<?php echo getUrl('Administrador', 'Administrador', 'postUpdateUsuarios'); ?>" method="post" id="actualizar-admin-form">
-            <input type="hidden" name="usu_id" value="<?php echo $usu['usu_id']; ?>">
-
+        <input type="hidden" id="usu_id" name="usu_id" value="<?php echo $usu['usuario_id']; ?>">
+        <input type="hidden" id="direccion_id" name="direccion_id" value="<?php echo $usu['usu_direccion']; ?>">
             <div class="row mt-4">
                 <!-- tipo de documento y numero -->
                 <div class="col-md-6 mb-3">
@@ -18,9 +18,14 @@
                     <select name="usu_tipo_documento" id="usu_tipo_documento" class="form-select">
                         <?php
                             foreach ($tipoDocu as $tipo) {
-                                $selected = ($usu['usu_tipo_documento'] == $tipo['tipo_documento_id']) ? "selected" : "";
-                                echo "<option value='" . $tipo['tipo_documento_id'] . "' $selected>" . $tipo['tip_doc_nombre'] . "</option>";
+                                if($usu['tip_doc'] == $tipo['tipo_documento_id']){
+                                    $selected = "selected";
+                                }else{
+                                    $selected = "";
+                                }
+                                echo "<option value='" . $tipo['tipo_documento_id'] . "'$selected>" . $tipo['tip_doc_nombre'] . "</option>";
                             }
+
                         ?>
                     </select>
                     <div class="text-danger" id="error_usu_tipo_documento"></div>
@@ -123,6 +128,23 @@
                     <input type="text" name="barrio" class="form-control" id="barrio" placeholder="Barrio" value="<?php echo $usu['usu_barrio']; ?>" autocomplete="off">
                     <div id="error_barrio" class="text-danger"></div>
                 </div>
+                <!-- Sexo -->
+                <div class="col-md-6 mb-3">
+                    <label for="genero_id">Género</label>
+                    <select name="genero_id" id="genero_id" class="form-select">
+                        <?php
+                            foreach ($genero as $gen) {
+                                if($usu['sex_id'] == $gen['sexo_id']){
+                                    $selected = "selected";
+                                }else{
+                                    $selected = "";
+                                }
+                                echo "<option value='" . $gen['sexo_id'] . "'$selected>" . $gen['sexo_nombre'] . "</option>";
+                            }
+                        ?>
+                    </select>
+                    <div class="text-danger" id="error_genero"></div>
+                </div>
             </div>
 
             <div class="row mt-4">
@@ -132,8 +154,12 @@
                     <select name="rol_id" id="rol_id" class="form-select">
                         <?php
                             foreach ($roles as $rol) {
-                                $selected = ($usu['rol_id'] == $rol['rol_id']) ? "selected" : "";
-                                echo "<option value='" . $rol['rol_id'] . "' $selected>" . $rol['rol_nombre'] . "</option>";
+                                if($usu['rol_id'] == $rol['rol_id']){
+                                    $selected = "selected";
+                                }else{
+                                    $selected = "";
+                                }
+                                echo "<option value='" . $rol['rol_id'] . "'$selected>" . $rol['rol_nombre'] . "</option>";
                             }
                         ?>
                     </select>
@@ -146,7 +172,11 @@
                     <select name="estado_id" id="estado_id" class="form-select">
                         <?php
                             foreach ($estados as $est) {
-                                $selected = ($usu['estado_id'] == $est['estado_id']) ? "selected" : "";
+                                if($usu['est_id'] == $est['estado_id']){
+                                    $selected = "selected";
+                                }else{
+                                    $selected = "";
+                                }
                                 echo "<option value='" . $est['estado_id'] . "' $selected>" . $est['est_nombre'] . "</option>";
                             }
                         ?>

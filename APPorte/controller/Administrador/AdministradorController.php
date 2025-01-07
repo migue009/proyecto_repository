@@ -59,7 +59,7 @@
             $sql_direccion = "INSERT INTO direccion (usu_carrera, usu_calle, usu_num_adicional, usu_complemento, usu_barrio) 
                               VALUES ('$carrera', '$calle', '$numero_adicional', '$complemento', '$barrio') RETURNING direccion_id";
             
-            $direccion_id = $obj->insertAndGetLastId($sql_direccion); // Método que ejecuta la consulta y devuelve el último ID insertado.
+            $direccion_id = $obj->insertUltimoId($sql_direccion); // Método que ejecuta la consulta y devuelve el último ID insertado.
             
             if ($direccion_id) {
                 // Paso 2: Insertar en la tabla usuarios con el direccion_id
@@ -137,43 +137,13 @@
             $usu_id = $_GET['usu_id'];
             
             // Consulta para obtener los datos del usuario incluyendo la dirección
-            $sql = "SELECT 
-                        u.usuario_id, 
-                        u.usu_num_doc,
-                        u.usu_primer_nom,
-                        u.usu_segundo_nom,
-                        u.usu_primer_ape,
-                        u.usu_segundo_ape,
-                        u.usu_correo, 
-                        u.usu_num_cel, 
-                        u.usu_clave, 
-                        u.est_id,
-                        u.usu_momento_creacion,
-                        u.usu_direccion,  -- Obtenemos el id de la dirección
-                        r.rol_nombre, 
-                        td.tip_doc_nombre, 
-                        s.sexo_nombre,
-                        e.est_nombre,
-                        d.usu_carrera, 
-                        d.usu_calle, 
-                        d.usu_num_adicional, 
-                        d.usu_complemento, 
-                        d.usu_barrio
-                    FROM 
-                        usuarios u
-                    JOIN roles r ON u.rol_id = r.rol_id      
-                    JOIN tipos_documentos td ON u.tip_doc = td.tipo_documento_id
-                    JOIN sexos s ON u.sex_id = s.sexo_id  
-                    JOIN estados e ON u.est_id = e.estado_id
-                    JOIN direccion d ON u.usu_direccion = d.direccion_id  -- Unimos la tabla direccion
-                    WHERE u.usuario_id = $usu_id";  // Filtrar por el ID de usuario
+            $sql = "SELECT u.*, d.* FROM usuarios u JOIN direccion d ON u.usu_direccion = d.direccion_id   WHERE u.usuario_id = $usu_id";  
             
             // Ejecutar la consulta
             $usuario = $obj->consult($sql);
-        
             // Obtener los estados
-            $sqlRoles = "SELECT * FROM estados WHERE tip_est_id = 1";
-            $estados = $obj->consult($sqlRoles);
+            $sqlEstados = "SELECT * FROM estados WHERE tip_est_id = 1";
+            $estados = $obj->consult($sqlEstados);
 
             // Obtener los roles
             $sqlRoles = "SELECT * FROM roles";
@@ -186,14 +156,12 @@
             // Obtener los géneros
             $sqlSexo = "SELECT * FROM sexos";
             $genero = $obj->consult($sqlSexo);
-
             // Incluir la vista de actualización
             include_once '../view/usuario/update.php';
         }
 
         public function postUpdateUsuarios() {
             $obj = new UsuariosModel();
-    
             // Obtener los datos del formulario
             $usu_id = $_POST['usu_id'];
             $usu_tipo_documento = $_POST['usu_tipo_documento'];
@@ -205,18 +173,31 @@
             $usu_correo = $_POST['usu_correo'];
             $usu_telefono = $_POST['usu_telefono'];
             $rol_id = $_POST['rol_id'];
-            $genero_id = $_POST['genero'];
+            $genero_id = $_POST['genero_id'];
             $estado_id = $_POST['estado_id'];
-            
+
             // Concatenar dirección (si es necesario)
+            $direccion_id = $_POST['direccion_id'];
             $carrera = $_POST['carrera'];
             $calle = $_POST['calle'];
             $numero_adicional = $_POST['numero_adicional'];
             $complemento = $_POST['complemento'];
             $barrio = $_POST['barrio'];
             
-            $usu_direccion = "$carrera $calle $numero_adicional $complemento, $barrio";
-            
+            if ($carrera || $calle || $numero_adicional || $complemento || $barrio) {
+                // Si hay algún cambio en la dirección, actualizamos la tabla `direccion`
+                $sql_direccion = "UPDATE direccion
+                                  SET usu_carrera = '$carrera', usu_calle = '$calle', usu_num_adicional = '$numero_adicional',
+                                      usu_complemento = '$complemento', usu_barrio = '$barrio'
+                                  WHERE direccion_id = $direccion_id";  // Actualizamos la dirección
+        
+                $direccion_actualizada = $obj->update($sql_direccion);  // Ejecutamos la actualización
+        
+                if (!$direccion_actualizada) {
+                    echo "Error al actualizar la dirección.";
+                    return;
+                }
+            }
             // Generar la sal y encriptar la contraseña si es modificada
             $usu_clave = $_POST['usu_clave'];
             if (!empty($usu_clave)) {
@@ -242,7 +223,7 @@
                         rol_id = $rol_id,
                         sex_id = $genero_id,
                         est_id = $estado_id,
-                        usu_direccion = '$usu_direccion'
+                        usu_direccion = $direccion_id
                     WHERE usuario_id = $usu_id";  // Actualizamos el usuario según su ID
             
             // Ejecutar la consulta
@@ -256,101 +237,93 @@
             }
         }
 
-        public function getDelete(){
-            $obj = new UsuariosModel();
+        // public function getDelete(){
+        //     $obj = new UsuariosModel();
         
-            $usu_id = $_GET['usu_id'];
-            $sql = "SELECT 
-                        u.usu_id,
-                        u.usu_numero_documento,
-                        u.usu_primer_nombre,
-                        u.usu_segundo_nombre,
-                        u.usu_primer_apellido,
-                        u.usu_segundo_apellido,
-                        u.usu_correo,
-                        u.usu_telefono,
-                        u.usu_clave,
-                        r.rol_nombre,              
-                        td.tipo_doc_nombre,          
-                        e.estado_nombre
-                    FROM 
-                        usuario u
-                    JOIN rol r ON u.rol_id = r.rol_id      
-                    JOIN tipo_documento td ON u.usu_tipo_documento = td.tipo_doc_id
-                    JOIN estado e ON u.estado_id = e.estado_id
-                    WHERE u.usu_id = $usu_id";  // Filtramos por el ID del usuario
+        //     $usu_id = $_GET['usu_id'];
+        //     $sql = "SELECT 
+        //                 u.usu_id,
+        //                 u.usu_numero_documento,
+        //                 u.usu_primer_nombre,
+        //                 u.usu_segundo_nombre,
+        //                 u.usu_primer_apellido,
+        //                 u.usu_segundo_apellido,
+        //                 u.usu_correo,
+        //                 u.usu_telefono,
+        //                 u.usu_clave,
+        //                 r.rol_nombre,              
+        //                 td.tipo_doc_nombre,          
+        //                 e.estado_nombre
+        //             FROM 
+        //                 usuario u
+        //             JOIN rol r ON u.rol_id = r.rol_id      
+        //             JOIN tipo_documento td ON u.usu_tipo_documento = td.tipo_doc_id
+        //             JOIN estado e ON u.estado_id = e.estado_id
+        //             WHERE u.usu_id = $usu_id";  // Filtramos por el ID del usuario
         
-            $usuario = $obj->consult($sql);
+        //     $usuario = $obj->consult($sql);
         
-            if ($usuario) {
-                include_once '../view/usuario/delete.php';  // Vista para confirmar eliminación
-            } else {
-                echo "No se encontró el usuario con el ID proporcionado.";
-            }
-        }
+        //     if ($usuario) {
+        //         include_once '../view/usuario/delete.php';  // Vista para confirmar eliminación
+        //     } else {
+        //         echo "No se encontró el usuario con el ID proporcionado.";
+        //     }
+        // }
 
-        public function postDelete() {
-            $obj = new UsuariosModel();
+        // public function postDelete() {
+        //     $obj = new UsuariosModel();
             
-            $usu_id = $_POST['usu_id']; // Obtener el ID del usuario desde el formulario
+        //     $usu_id = $_POST['usu_id']; // Obtener el ID del usuario desde el formulario
             
-            $sql = "DELETE FROM usuario WHERE usu_id = $usu_id"; // Consulta SQL para eliminar al usuario
-            $ejecutar = $obj->update($sql); // Ejecutar la consulta
+        //     $sql = "DELETE FROM usuario WHERE usu_id = $usu_id"; // Consulta SQL para eliminar al usuario
+        //     $ejecutar = $obj->update($sql); // Ejecutar la consulta
             
-            if ($ejecutar) {
-                redirect(getUrl("Administrador", "Administrador", "getUsuarios")); // Redirigir al listado de usuarios si la eliminación es exitosa
-            } else {
-                echo "Se ha presentado un error al eliminar"; // Mostrar error si algo falla
-            }
-        } 
+        //     if ($ejecutar) {
+        //         redirect(getUrl("Administrador", "Administrador", "getUsuarios")); // Redirigir al listado de usuarios si la eliminación es exitosa
+        //     } else {
+        //         echo "Se ha presentado un error al eliminar"; // Mostrar error si algo falla
+        //     }
+        // } 
 
-        public function buscar(){
-            $obj = new UsuariosModel();
+        public function buscar() {
+            // Obtener el término de búsqueda
             $buscar = $_POST['buscar'];
+            
+            // Crear la instancia del modelo UsuariosModel
+            $obj = new UsuariosModel();
+            
+            // Consulta SQL con todas las uniones y campos requeridos
             $sql = "SELECT 
-                        u.usu_id,
-                        u.usu_numero_documento,
-                        u.usu_primer_nombre,
-                        u.usu_segundo_nombre,
-                        u.usu_primer_apellido,
-                        u.usu_segundo_apellido,
-                        u.usu_correo,
-                        u.usu_telefono,
-                        u.usu_clave,
-                        r.rol_nombre,              
-                        td.tipo_doc_nombre,          
-                        u.estado_id
+                        u.*, 
+                        r.rol_nombre, 
+                        e.est_nombre,
+                        td.tip_doc_nombre,
+                        s.sexo_nombre,
+                        d.usu_carrera, 
+                        d.usu_calle, 
+                        d.usu_num_adicional, 
+                        d.usu_complemento, 
+                        d.usu_barrio
                     FROM 
-                        usuario u
-                    JOIN rol r ON u.rol_id = r.rol_id      
-                    JOIN tipo_documento td ON u.usu_tipo_documento = td.tipo_doc_id 
+                        usuarios u
+                    JOIN roles r ON u.rol_id = r.rol_id      
+                    JOIN estados e ON u.est_id = e.estado_id
+                    JOIN tipos_documentos td ON u.tip_doc = td.tipo_documento_id
+                    JOIN sexos s ON u.sex_id = s.sexo_id
+                    JOIN direccion d ON u.usu_direccion = d.direccion_id
                     WHERE 
-                        u.usu_primer_nombre LIKE '%$buscar%' 
-                        OR u.usu_segundo_nombre LIKE '%$buscar%' 
-                        OR u.usu_primer_apellido LIKE '%$buscar%' 
-                        OR u.usu_segundo_apellido LIKE '%$buscar%' 
-                        OR u.usu_correo LIKE '%$buscar%' 
-                        OR u.usu_numero_documento LIKE '%$buscar%' 
-                    ORDER BY u.usu_id ASC";
-        
+                        u.usu_primer_nom LIKE '%$buscar%' 
+                        OR u.usu_segundo_nom LIKE '%$buscar%'
+                        OR u.usu_primer_ape LIKE '%$buscar%'
+                        OR u.usu_segundo_ape LIKE '%$buscar%'
+                        OR u.usu_correo LIKE '%$buscar%'
+                    ORDER BY u.usuario_id ASC";
+            
+            // Ejecutar la consulta con el término de búsqueda
             $usuarios = $obj->consult($sql);
             
-            if ($usuarios === false) {
-                // Error en la consulta
-                echo "Hubo un problema con la consulta SQL.";
-            }     
-            // }else {
-            //     // Mostrar los resultados de la consulta (esto es solo para depuración)
-            //     echo "<pre>";
-            //     var_dump($usuarios);  // Mostrar el contenido de los usuarios
-            //     echo "</pre>";
-            // }
-            // Retornar solo el contenido de la tabla
-            if ($usuarios !== false && !empty($usuarios)) {
+
                 include_once '../view/usuario/buscar.php';
-            } else {
-                echo "No se encontraron usuarios con ese término de búsqueda.";
-            }
         }
         
 
