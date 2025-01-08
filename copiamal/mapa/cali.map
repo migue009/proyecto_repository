@@ -1,0 +1,100 @@
+MAP
+    NAME Colombia
+        SIZE 1344 600
+        STATUS ON
+        #EXTENT -81.7201 -4.23687 -66.8705 12.5903
+        EXTENT -76.5928 3.33181  -76.4613 3.50587
+        SHAPEPATH "shape"
+
+   	    FONTSET "misc/fonts/fonts.txt"
+   	    SYMBOLSET "misc/symbols/symbols.sym"
+
+        IMAGECOLOR "#0381e7"
+        UNITS dd
+
+        WEB
+        IMAGEPATH "C:/ms4w/tmp/ms_tmp" #Esto puede variar depende de tu configuracion
+            IMAGEURL "/ms_tmp/"
+        END
+
+     LAYER   
+        NAME "Cali"
+        STATUS ON
+        DATA "cinco.shp"
+        TYPE POLYGON
+
+        CLASS
+            STYLE
+                 SIZE 10
+                 COLOR "#66ECC7"
+                 OUTLINECOLOR 0 255 0
+            END
+        END
+    END
+
+
+    
+
+    LAYER   
+        NAME "Comunas"
+        STATUS ON
+        DATA "SIX.shp"
+        
+        TYPE POLYGON
+        CLASS
+            STYLE
+                COLOR "#66ECC7"
+                OUTLINECOLOR 0 0 0
+            END
+        END
+    END
+
+    LAYER
+
+        NAME "Barrios"
+        STATUS ON
+        DATA "one.shp"
+        TYPE POLYGON
+        LABELITEM "BARRIO"
+            CLASS
+                NAME "LABEL"
+                STYLE 
+                COLOR 130 206 125
+                OUTLINECOLOR 85 107 47
+                END
+                LABEL
+                SIZE SMALL
+                COLOR 0 0 0
+                END 
+        END
+    END
+
+    LAYER   
+        NAME "Vias"
+        STATUS ON
+        DATA "two.shp"
+        LABELITEM "nomenclatu"
+        TRANSPARENCY 200
+        
+        TYPE LINE
+        CLASS
+          NAME "LABEL"
+            STYLE
+                 SIZE 10
+                 COLOR "#0b0b0b"
+                 OUTLINECOLOR 0 255 0
+            END
+            LABEL
+                SIZE SMALL
+                    COLOR 0 0 0
+                END     
+        END
+    END
+END
+
+
+
+
+
+
+

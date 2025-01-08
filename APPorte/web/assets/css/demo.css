@@ -1,3 +1,29 @@
+body.darkmode .user-greeting {
+  color: #ffffff !important;
+}
+
+/* Responsividad: Asegura que el contenedor sea flexible en dispositivos pequeños */
+@media (max-width: 768px) {
+  .table-responsive {
+    height: auto;
+    overflow-x: scroll;  /* Habilita el scroll horizontal en pantallas pequeñas */
+  }
+  .container.card {
+    max-width: 100%; /* Permite que el contenedor ocupe el 100% en pantallas pequeñas */
+    max-height: 80%;
+    overflow-y: auto;
+  }
+  .main-wrapper{
+    overflow-y: auto !important;
+  }
+
+  .sidebar {
+      width: 200px;  /* Reduce el tamaño del sidebar en pantallas pequeñas */
+  }
+}
+
+
+
 
 
 body.darkmode .form-select.is-invalid {
@@ -110,6 +136,8 @@ body.darkmode .card{
 .darkmode .main-nav--bg {
   background-color: #16184A !important;
 }
+
+
 /* Color de los textos en el logo en modo oscuro */
 body.darkmode .sidebar-head .logo-text .logo-title {
   color: #EDF5FF !important; /* Color blanco suave */
@@ -186,6 +214,14 @@ body.dark-mode .text-danger {
 .sidebar-body-menu a {
   font-size: 16px;
   text-decoration: none;
+}
+
+/* Estilos Responsivos */
+@media (max-width: 1280px) {
+  .sidebar {
+    width: 300px;  /* Reducir el ancho del sidebar en pantallas más pequeñas */
+  }
+
 }
 
 /* Estilo general para las tarjetas en modo claro */
@@ -377,10 +413,10 @@ body.darkmode #buscar::placeholder {
 
 /* Establecer el margen para asegurar que el contenido no se solape con el sidebar */
 .container {
-  overflow-y: auto;   /* Permite desplazamiento vertical solo en este contenedor */
+  overflow-x: auto;   /* Permite desplazamiento vertical solo en este contenedor */
   min-height: 5vh;
   max-height: 70vh;   /* Limita la altura máxima del contenedor */
-  padding-left: 10px;
+  padding-left: 5px;
   
 }
 html, body {

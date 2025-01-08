@@ -1,0 +1,72 @@
+MAP
+	NAME Colombia
+		SIZE 900 600
+		STATUS ON
+		EXTENT -81 -4 -66 12
+		SHAPEPATH "shape"
+		
+		FONTSET "misc/fonts/fonts.txt"
+		SYMBOLSET "misc/symbols/symbols.sym"
+		
+     	IMAGECOLOR 255 255 255
+		UNITS dd
+
+	WEB
+	IMAGEPATH "C:/ms4w/tmp/ms_tmp"  #Esto puede variar segun tu configuracion
+		IMAGEURL "/ms_tmp/"
+	END
+
+	LAYER
+		CONNECTIONTYPE postgis
+			NAME "Poligonos"
+			STATUS ON
+			#DATA "poligono.shp"
+			CONNECTION "user=postgres password=sam242005 dbname=nueva host=localhost port=5433"
+			DATA "geom FROM (select * from poligono ) as poligono using unique gid SRID=-1"
+			TYPE POLYGON
+			CLASS
+				STYLE
+					COLOR "#33a8ff"
+					OUTLINECOLOR "#2aff00"
+				END
+			END
+		END
+
+	
+	
+	LAYER
+		NAME "Lineas"
+		STATUS ON
+		DATA "lineas.shp"
+		TYPE LINE
+		CLASS
+			STYLE
+				COLOR "#2aff00"
+				OUTLINECOLOR 0 0 0
+			END
+		END
+	END
+	
+
+
+
+
+	LAYER
+        NAME "Puntos"
+        STATUS ON
+        DATA "puntos.shp"
+        TYPE POINT
+        CLASS
+            STYLE
+                SYMBOL star
+                SIZE 20
+                COLOR 0 0 0
+                OUTLINECOLOR 0 255 0
+            END
+        END
+	END
+	
+	
+
+END
+

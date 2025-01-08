@@ -1,4 +1,27 @@
 $(document).ready(function(){
+// Show the zoom controls when needed
+document.querySelector(".mscross_tool").style.display = "block";
+
+// Hide the zoom controls
+document.querySelector(".mscross_tool").style.display = "none";
+
+// Example to modify the position or add functionality to the tools
+document.querySelectorAll(".mscross_tool").forEach(function(tool) {
+    tool.style.position = "absolute";
+    tool.style.left = "500px"; // Example: Change the position dynamically
+});
+    $('.nav-user-btn').on('click', function(event) {
+        $(this).siblings('.dropdown-menu').parent().toggleClass('show');
+        event.stopPropagation(); // Evita que el clic en el botón cierre el dropdown
+      });
+    
+      // Si se hace clic fuera del dropdown, ciérralo
+      $(document).on('click', function(event) {
+        if (!$(event.target).closest('.dropdown-menu, .nav-user-btn').length) {
+          $('.dropdown-menu').parent().removeClass('show');
+        }
+      });
+      
     $('#registrar-ciudadano-form').submit(function(event) {
         // Evita el envío del formulario si hay errores
         event.preventDefault();
@@ -677,6 +700,331 @@ $(document).ready(function(){
         });
     });
     
+    $('#tipo_solicitud').change(function () {
+        // Llamamos a la función mostrarFormulario cuando cambia el valor del select
+        mostrarFormulario();
+    });
+    
+    function mostrarFormulario() {
+        // Obtener el valor del tipo de solicitud seleccionado
+        const tipoSolicitud = document.getElementById('tipo_solicitud').value;
+        
+        // Obtener el contenedor donde se insertarán los campos adicionales
+        const formularioAdicional = document.getElementById('formulario_adicional');
+        
+        // Limpiar los campos existentes
+        formularioAdicional.innerHTML = '';
+    
+        if (tipoSolicitud === '1') { // Registro de accidentes
+            formularioAdicional.innerHTML = `
+                <h4>Formulario de Registro de Accidentes</h4>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="gravedad_accidente" id="label-dark">Gravedad del Accidente</label>
+                        <select name="gravedad_accidente" id="gravedad_accidente" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="con_muertos">Con Muertos</option>
+                            <option value="con_heridos">Con Heridos</option>
+                            <option value="solo_danos">Solo Daños</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lugar_accidente" id="label-dark">Lugar del Accidente</label>
+                        <input type="text" name="lugar_accidente" id="lugar_accidente" class="form-control" placeholder="Ingrese el lugar del accidente">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="fecha_accidente" id="label-dark">Fecha y Hora del Accidente</label>
+                        <input type="datetime-local" name="fecha_accidente" id="fecha_accidente" class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="clase_accidente" id="label-dark">Clase de Accidente</label>
+                        <select name="clase_accidente" id="clase_accidente" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="choque">Choque</option>
+                            <option value="atropello">Atropello</option>
+                            <option value="volcamiento">Volcamiento</option>
+                            <option value="caida_ocupante">Caída Ocupante</option>
+                            <option value="incendio">Incendio</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="detalle_accidente" id="label-dark">Choque con:</label>
+                        <select name="detalle_accidente" id="detalle_accidente" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="vehiculo">Vehículo</option>
+                            <option value="tren">Tren</option>
+                            <option value="semoviente">Semoviente</option>
+                            <option value="objeto_fijo">Objeto Fijo (muro, poste, etc.)</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="caracteristicas_lugar" id="label-dark">Características del Lugar</label>
+                        <input type="text" name="caracteristicas_lugar" id="caracteristicas_lugar" class="form-control" placeholder="Área, sector, zona, etc.">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="caracteristicas_vias" id="label-dark">Características de las Vías</label>
+                        <input type="text" name="caracteristicas_vias" id="caracteristicas_vias" class="form-control" placeholder="Condición de la vía, superficie, etc.">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="datos_vehiculos" id="label-dark">Datos del Vehículo</label>
+                        <input type="text" name="datos_vehiculos" id="datos_vehiculos" class="form-control" placeholder="Marca, modelo, placa, etc.">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="hipotesis_accidente" id="label-dark">Hipótesis del Accidente</label>
+                        <textarea name="hipotesis_accidente" id="hipotesis_accidente" class="form-control" placeholder="Descripción de la hipótesis"></textarea>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="datos_conocedor_accidente" id="label-dark">Datos de quien conoce el accidente</label>
+                        <input type="text" name="datos_conocedor_accidente" id="datos_conocedor_accidente" class="form-control" placeholder="Nombre, contacto, etc.">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="victimas_accidente" id="label-dark">Víctimas del Accidente</label>
+                        <textarea name="victimas_accidente" id="victimas_accidente" class="form-control" placeholder="Descripción de las víctimas (número de heridos, fallecidos, etc.)"></textarea>
+                    </div>
+                </div>
+            `;
+        }else if (tipoSolicitud === '2') { // Señalización vial en mal estado
+            formularioAdicional.innerHTML = `
+                <h4>Formulario de Señalización Vial en Mal Estado</h4>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="categoria_senal" id="label-dark">Categoría de la Señal</label>
+                        <select name="categoria_senal" id="categoria_senal" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="reglamentaria">Reglamentaria</option>
+                            <option value="informativa">Informativa</option>
+                            <option value="preventiva">Preventiva</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="tipo_senal" id="label-dark">Tipo de Señal</label>
+                        <select name="tipo_senal" id="tipo_senal" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="alto">Alto</option>
+                            <option value="limite_velocidad">Límite de velocidad</option>
+                            <option value="ceda_paso">Ceda el paso</option>
+                            <option value="prohibido_girar">Prohibido girar</option>
+                            <option value="prohibido_estacionar">Prohibido estacionar</option>
+                            <option value="zona_escolar">Zona escolar</option>
+                            <option value="paradero_bus">Paradero de autobús</option>
+                            <option value="curva_peligrosa">Curva peligrosa</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="descripcion_senal" id="label-dark">Descripción del Daño</label>
+                        <input type="text" name="descripcion_senal" id="descripcion_senal" class="form-control" placeholder="Descripción del daño">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="foto_senal" id="label-dark">Foto de la Señalización</label>
+                        <input type="file" name="foto_senal" id="foto_senal" class="form-control" accept="image/*">
+                    </div>
+                </div>
+        
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="direccion_senal" id="label-dark">Dirección de la Señalización</label>
+                        <input type="text" name="direccion_senal" id="direccion_senal" class="form-control" placeholder="Dirección donde se encuentra la señal">
+                    </div>
+                </div>
+            `;
+        }else if (tipoSolicitud === '3') { // Nueva Señalización Vial
+            formularioAdicional.innerHTML = `
+                <h4>Formulario de Nueva Señalización Vial</h4>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="categoria_senal_nueva" id="label-dark">Categoría de la Señalización</label>
+                        <select name="categoria_senal_nueva" id="categoria_senal_nueva" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="reglamentaria">Reglamentaria</option>
+                            <option value="informativa">Informativa</option>
+                            <option value="preventiva">Preventiva</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="tipo_senal_nueva" id="label-dark">Tipo de Señal</label>
+                        <select name="tipo_senal_nueva" id="tipo_senal_nueva" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="alto">Alto</option>
+                            <option value="limite_velocidad">Límite de velocidad</option>
+                            <option value="ceda_paso">Ceda el paso</option>
+                            <option value="prohibido_girar_izquierda">Prohibido girar a la izquierda</option>
+                            <option value="prohibido_girar_derecha">Prohibido girar a la derecha</option>
+                            <option value="prohibido_estacionar">Prohibido estacionar</option>
+                            <option value="prohibido_paso">Prohibido el paso</option>
+                            <option value="hospital">Hospital</option>
+                            <option value="zona_escolar">Zona escolar</option>
+                            <option value="paradero_autobus">Paradero de autobús</option>
+                            <option value="direccion_unica">Dirección única</option>
+                            <option value="calle_sin_salida">Calle sin salida</option>
+                            <option value="curva_peligrosa">Curva peligrosa</option>
+                            <option value="reduccion_carril">Reducción de carril</option>
+                            <option value="pendiente_pronunciada">Pendiente pronunciada</option>
+                            <option value="cruce_peatones">Cruce de peatones</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="descripcion_senal_nueva" id="label-dark">Descripción de la Señal</label>
+                        <input type="text" name="descripcion_senal_nueva" id="descripcion_senal_nueva" class="form-control" placeholder="Descripción de la nueva señalización">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="foto_senal_nueva" id="label-dark">Foto de la Ubicación de la Señal</label>
+                        <input type="file" name="foto_senal_nueva" id="foto_senal_nueva" class="form-control" accept="image/*">
+                    </div>
+                </div>
+        
+
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="direccion_senal_nueva" id="label-dark">Dirección de la Señal</label>
+                        <input type="text" name="direccion_senal_nueva" id="direccion_senal_nueva" class="form-control" placeholder="Dirección de la ubicación de la señal">
+                    </div>
+                </div>
+        
+            `;
+        }else if (tipoSolicitud === '4') { // Reductores de velocidad en mal estado
+            formularioAdicional.innerHTML = `
+                <h4>Formulario de Reductores de Velocidad en Mal Estado</h4>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="categoria_reductor_mal_estado" id="label-dark">Categoría de Reductor</label>
+                        <select name="categoria_reductor_mal_estado" id="categoria_reductor_mal_estado" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="estructural">Estructural</option>
+                            <option value="modular">Modular</option>
+                            <option value="senalizacion">Señalización</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="tipo_reductor_mal_estado" id="label-dark">Tipo de Reductor</label>
+                        <input type="text" name="tipo_reductor_mal_estado" id="tipo_reductor_mal_estado" class="form-control" placeholder="Tipo del reductor">
+                    </div>
+                </div>
+        
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="descripcion_reductor_mal_estado" id="label-dark">Descripción del Daño</label>
+                        <input type="text" name="descripcion_reductor_mal_estado" id="descripcion_reductor_mal_estado" class="form-control" placeholder="Descripción del daño">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="foto_reductor_mal_estado" id="label-dark">Foto del Reductor</label>
+                        <input type="file" name="foto_reductor_mal_estado" id="foto_reductor_mal_estado" class="form-control" accept="image/*">
+                    </div>
+                </div>
+        
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="direccion_reductor_mal_estado" id="label-dark">Dirección del Reductor</label>
+                        <input type="text" name="direccion_reductor_mal_estado" id="direccion_reductor_mal_estado" class="form-control" placeholder="Dirección de ubicación del reductor">
+                    </div>
+                </div>
+            `;
+        }else if (tipoSolicitud === '5') { // Nuevo reductor de velocidad
+            formularioAdicional.innerHTML = `
+                <h4>Formulario de Nuevo Reductor de Velocidad</h4>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="categoria_reductor" id="label-dark">Categoría de Reductor</label>
+                        <select name="categoria_reductor" id="categoria_reductor" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="estructural">Estructural</option>
+                            <option value="modular">Modular</option>
+                            <option value="senalizacion">Señalización</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="tipo_reductor" id="label-dark">Tipo de Reductor</label>
+                        <input type="text" name="tipo_reductor" id="tipo_reductor" class="form-control" placeholder="Tipo del reductor (ej. tipo de material)">
+                    </div>
+                </div>
+        
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="descripcion_reductor" id="label-dark">Descripción del Reductor</label>
+                        <input type="text" name="descripcion_reductor" id="descripcion_reductor" class="form-control" placeholder="Descripción del reductor">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="foto_reductor" id="label-dark">Foto del Reductor</label>
+                        <input type="file" name="foto_reductor" id="foto_reductor" class="form-control" accept="image/*">
+                    </div>
+                </div>
+        
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="direccion_reductor" id="label-dark">Dirección del Reductor</label>
+                        <input type="text" name="direccion_reductor" id="direccion_reductor" class="form-control" placeholder="Dirección donde está ubicado el reductor">
+                    </div>
+                </div>
+            `;
+        }else if (tipoSolicitud === '6') { // Vía pública en mal estado
+            formularioAdicional.innerHTML = `
+                <h4>Formulario de Vía Pública en Mal Estado</h4>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="descripcion_via" id="label-dark">Descripción del Daño</label>
+                        <input type="text" name="descripcion_via" id="descripcion_via" class="form-control" placeholder="Descripción del daño (baches, grietas, etc.)">
+                    </div>
+                </div>
+        
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="foto_via" id="label-dark">Foto del Daño en la Vía</label>
+                        <input type="file" name="foto_via" id="foto_via" class="form-control" accept="image/*">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="direccion_via" id="label-dark">Dirección de la Vía</label>
+                        <input type="text" name="direccion_via" id="direccion_via" class="form-control" placeholder="Dirección de la vía pública">
+                    </div>
+                </div>
+            `;
+        }else if (tipoSolicitud === '7') { // PQRS
+            formularioAdicional.innerHTML = `
+                <h4>Formulario de PQRS</h4>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="tipo_pqrs" id="label-dark">Tipo de PQRS</label>
+                        <select name="tipo_pqrs" id="tipo_pqrs" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="peticion">Petición</option>
+                            <option value="queja">Queja</option>
+                            <option value="reclamo">Reclamo</option>
+                            <option value="sugerencia">Sugerencia</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="mensaje_pqrs" id="label-dark">Mensaje</label>
+                        <textarea name="mensaje_pqrs" id="mensaje_pqrs" class="form-control" placeholder="Escriba su mensaje aquí..."></textarea>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Aquí puedes agregar más condiciones para otros tipos de solicitudes.
+    }
+    
+
     // $(document).on("click","#cambiar_estado_tarea",function(){
     //     let id = $(this).attr('data-id');
     //     let url = $(this).attr('data-url');

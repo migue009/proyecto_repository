@@ -17,7 +17,9 @@
   <link rel="stylesheet" href="assets/css/plugins.min.css" />
   <link rel="stylesheet" href="assets/css/demo.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" type="text/css" href="../mapa/misc/img/dc.css">
+  
+  <script src="../mapa/misc/lib/mscross-1.1.9.js" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="assets/js/plugin/webfont/webfont.min.js"></script>
@@ -39,6 +41,59 @@
         },
       });
   </script>
+  <style>
+  #dcmain {
+    border: 1px solid #7ea3bf !important;
+    /* color: #000000; */
+    overflow: hidden !important;
+    width: 500px !important;
+    height: 300px !important;
+    position: relative !important;
+  }
 
+  .mscross_reference_zoombox {
+    width:  125px !important;
+    height: 100px !important;
+    margin-left: 10px !important;
+  }
+    #dc_main div {
+      background-color: rgba(0, 0, 0, 0.1); 
+      position: relative !important;
+  }
 
+  #dc_main img {
+      border: none; 
+      opacity: 1.2; 
+      position: relative !important;
+
+  }
+
+  .mscross_tool {
+      background-color: rgba(0, 0, 0, 0.5); 
+      border-radius: 5px;
+      position: absolute !important;
+  }
+  #dc_main2{
+    overflow: hidden;
+    width: 150px !important;
+    height: 100px !important;
+    position: relative !important;
+    z-index: 100;
+  }
+  #dc_main2 div img{
+    width: 150px !important;
+    height: 150px !important;
+    border: 0px none;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+  #dc_main2 div {
+    position: relative !important;
+    margin-top: -50px !important;
+
+  }
+  
+  </style>
 </head>

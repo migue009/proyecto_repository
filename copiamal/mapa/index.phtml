@@ -1,0 +1,181 @@
+<html>
+<head>
+<title>MS4W - MapServer 4 Windows</title>
+<style type="text/css">
+<!--
+body {  font-family: Arial, Helvetica, sans-serif; font-size: 12px} -->
+</style>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#0000FF">
+<h1>MS4W - MapServer 4 Windows - version 2.2.7</h1>
+<h2>Introduction</h2>
+<p>Welcome to MS4W v2.2.7, the MapServer package for Windows. This package is intended
+  to simplify your life if you are:</p>
+<ul>
+  <li>a novice MapServer user with little knowledge (or time) to compile
+      MapServer from scratch.</li>
+  <li>interested in one of the MS4W addon packages and looking to avoid
+      configuration issues.</li>
+  <li>any MapServer user who needs a quick and dirty installation on Windows.</li>
+</ul>
+<p>In any of these cases, and probably more, MS4W can help you. However, a few
+  notes about this package:</p>
+<ul>
+  <li>This is not a true installer, it will not modify any file or registry
+      setting outside of the MS4W directory.</li>
+  <li>Since it is not a true installer, it will not install to any location. It
+      <i><b>*** MUST ***</b></i> be installed at the root of one of the drives
+      on your system.</li>
+  <li>The MS4W addon packages must be extracted at the same root as the base
+      installer, and files must be overwritten.</li>
+</ul>
+<h2>Features<a name="Features"></a></h2>
+<p>MS4W contains default installations of Apache, PHP, MapServ, MapScript (CSharp, Java, PHP, Python)
+  and some sample applications. It is structured in such a way as to facilitate
+  upgrading individual components without messing up the rest of the install.
+  The base installer package comes pre-configured with the following software:</p>
+<ul>
+  <li><a href="/manual/">Apache 2.2.8</a></li>
+  <li><a href="phpinfo.php">PHP 5.2.5</a></li>
+  <li>mapserv 5.0.2 at <a href="/cgi-bin/mapserv.exe">/cgi-bin/mapserv.exe</a></li>  
+  <li>mapscript 5.0.2 flavours:</li>
+    <ul>
+     <li>php_mapscript.dll (<a href="/phpinfo_mapscript.php">phpinfo</a>)</li>
+     <li>CSharp mapscript at <i>\ms4w\Apache\cgi-bin\mapscript\csharp</i></li>
+     <li>Java mapscript at <i>\ms4w\Apache\cgi-bin\mapscript\java</i></li>
+     <li>Python mapscript at <i>\ms4w\Apache\cgi-bin\mapscript\python</i></li>
+    </ul>  
+  <li>mapserv utils at <i>\ms4w\tools\mapserv\</i> which include:</li>
+    <ul>
+     <li>legend.exe <a href="http://mapserver.gis.umn.edu/docs/reference/utilityreference">MapServer utility documentation</a></li>
+     <li>scalebar.exe</li>
+     <li>shp2img.exe</li>
+     <li>shptree.exe      (execute <b>\ms4w\setenv.bat</b> before using mapserv utilities)</li>
+     <li>shptreevis.exe</li>
+     <li>sortshp.exe</li>
+     <li>tile4ms.exe</li>
+    </ul>
+  <li>GDAL/OGR utilities at <i>\ms4w\tools\gdal-ogr\</i> which include:</li>
+    <ul>
+     <li>gdal_contour.exe <a href="http://www.gdal.org/gdal_utilities.html">GDAL utility documentation</a></li>
+     <li>gdal_grid.exe</li>
+     <li>gdal_rasterize.exe</li>     
+     <li>gdal_translate.exe</li>
+     <li>gdaladdo.exe</li> 
+     <li>gdalenhance.exe</li>      
+     <li>gdalinfo.exe     (execute <b>\ms4w\setenv.bat</b> before using gdal-ogr utilities)</li> 
+     <li>gdalmanage.exe</li>           
+     <li>gdaltindex.exe</li>
+     <li>gdaltransform.exe</li>           
+     <li>gdalwarp.exe</li>      
+     <li>ogrinfo.exe <a href="http://www.gdal.org/ogr/ogr_utilities.html">OGR utility documentation</a></li>
+     <li>ogr2ogr.exe</li>
+     <li>ogrtindex.exe</li>
+    </ul>
+  <li>PROJ.4 utilities at <i>\ms4w\proj\bin\</i> which include:</li>
+    <ul>
+     <li>cs2cs.exe <a href="http://proj.maptools.org/man_cs2cs.html">usage</a></li>
+     <li>geod.exe <a href="http://proj.maptools.org/man_geod.html">usage</a></li>
+     <li>nad2bin.exe <a href="http://linux.com.hk/penguin/man/1/nad2bin.html">usage</a> (execute <b>\ms4w\setenv.bat</b> before using proj utilities)</li>
+     <li>nad2nad.exe <a href="http://linux.com.hk/penguin/man/1/nad2nad.html">usage</a></li>    
+     <li>proj.exe <a href="http://proj.maptools.org/man_proj.html">usage</a></li>
+    </ul>    
+  <li>Shapelib utilities at <i>\ms4w\tools\shapelib\</i> which include:</li>
+    <ul>
+     <li>dbfadd.exe <a href="http://shapelib.maptools.org/shapelib-tools.html">Shapelib utility documentation</a></li>
+     <li>dbfcreate.exe</li>
+     <li>dbfdump.exe</li> 
+     <li>shpadd.exe</li>
+     <li>shpcreate.exe    (execute <b>\ms4w\setenv.bat</b> before using shapelib utilities)</li>
+     <li>shpdump.exe</li>      
+     <li>shprewind.exe</li>
+     <li>shptest.exe</li>
+     <li>shptreedump.exe</li>
+     <li>shpproj.exe</li>
+     <li>shpinfo.exe</li>
+     <li>shpdxf.exe</li>
+     <li>shpcentrd.exe</li>
+     <li>shpcat.exe</li>
+    </ul>
+  <li>Shpdiff utility at <i>\ms4w\tools\shpdiff\</i> which includes:</li>
+    <ul>
+     <li>shpdiff.exe      (execute <b>\ms4w\setenv.bat</b> before using shpdiff.exe)</li>
+    </ul>  
+  <li>Shp2tile utility at <i>\ms4w\tools\shp2tile\</i> which includes:</li>
+    <ul>
+     <li>shp2tile.exe      (execute <b>\ms4w\setenv.bat</b> before using shp2tile.exe)</li>
+    </ul> 
+  <li>AVCE00 utility at <i>\ms4w\tools\avce00\</i> which includes:</li>
+    <ul>
+     <li>avcexport.exe <a href="http://avce00.maptools.org/avce00/avce00.html">AVCE00 utility documentation</a></li>
+     <li>avcimport.exe     (execute <b>\ms4w\setenv.bat</b> before using avce00 utilities)</li>     
+    </ul>     
+  <li>OWTChart utility:</li>
+    <ul>
+      <li><a href="/owtchart/owtchart.html">introduction</a></li>
+      <li><a href="/cgi-bin/owtchart.exe">owtchart.exe</a></li>
+      <li><a href="/cgi-bin/gifsample.exe">gifsample.exe</a></li>
+    </ul>
+  <li>OGR/PHP Extension (<a href="/php_ogr/php_ogr_documentation.html">documentation</a>) (<a href="/phpinfo_php_ogr.php">phpinfo</a>)</li>
+  <li>DEMtools at <i>\ms4w\tools\demtools\</i> which include:</li>
+    <ul>
+     <li>aspect.exe <a href="http://www.perrygeo.net/wordpress/?p=7">DEMtools documentation</a></li>
+     <li>color-relief.exe</li>
+     <li>hillshade.exe (execute <b>\ms4w\setenv.bat</b> before using DEMtools)</li> 
+     <li>slope.exe</li>
+    </ul>
+</ul>
+
+<?php
+// *include* pkg files in the form app_name.pkg.html
+$nApps = 0;
+$szApps = "";
+$szDir = dirname(__FILE__);
+//remove old index.html if possible
+if (is_file( $szDir."/index.html" ))
+{
+    $bResult = @unlink( $szDir."/index.html" );
+    if ($bResult === false)
+    {
+        echo "<p>Note: unable to remove <b>index.html</b>.  Please remove this";
+        echo "file manually ($szDir\\index.html).  You will see this message";
+        echo "until this file is removed.</p>";
+    }
+    else
+    {
+        echo "<p>Note: old index.phtml page sucessfully removed (you will not";
+        echo "see this message again)</p>";
+    }
+}
+if (is_dir($szDir))
+{
+    if ($hDir = opendir($szDir))
+    {
+        while (($szFile = readdir( $hDir )) !== false)
+        {
+            if ( strcasecmp( substr( $szFile, -9 ), ".pkg.html" ) == 0 )
+            {
+                $szApps .= implode( "\n", file( $szDir."/".$szFile ) )."\n";
+                $nApps ++;
+            }
+        }
+        closedir( $hDir );
+    }
+    else
+    {
+        echo "<p>No packages, unable to open $szDir.</p>";
+    }
+}
+else
+{
+    echo "<p>No packages, $szDir is not a directory.</p>";
+}
+?>
+<h2>Applications<a name="Applications"></a></h2>
+<p>There <?php echo ($nApps == 1) ? "is" : "are" ?> currently
+   <?php echo $nApps?> ms4w application<?php echo ($nApps == 1) ? "" : "s" ?>
+   installed.
+</p>
+<?php echo $szApps; ?>
+</body>
+</html>
