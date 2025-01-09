@@ -1,18 +1,30 @@
 
+
+.container.card .container.map-container {
+  height: 60vh !important;
+  overflow-y: hidden !important;
+}
+.container.card .container.map-container #dc_main{
+  height:50vh !important;
+}
 .container.card .container.map-container #layer2{
-  height:200px !important;
+  height:30vh !important;
 }
 .container.card .container.map-container #dc_main2.mscross{
   z-index: 0!important;
   width: 100px !important;
   height: 100px !important; 
 }
-.container.card .container.map-container #dc_main2.mscross div img{
-  z-index: 0!important;
-  width: 100px !important;
-  height: 100px !important; 
-}
 
+.container.card .container.map-container #dc_main2.mscross .mscross_reference_zoombox{
+  z-index: 1!important;
+  position: absolute !important;
+  margin-top: -20px !important;
+}
+.container.card .container.map-container #dc_main.mscross div img.mscross_tool{
+  height: 5vh !important;
+  margin-bottom: -20px !important;
+}
 body, html {
   margin: 0 !important;
   padding: 0 !important;

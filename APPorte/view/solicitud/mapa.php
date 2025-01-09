@@ -37,7 +37,6 @@
       </div>
     </div>
   </div>
-</div>
 <script type="text/javascript">
   //<![CDATA[
   myMap1 = new msMap(document.getElementById("dc_main"),'standardRight');
