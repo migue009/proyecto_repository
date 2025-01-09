@@ -1,4 +1,4 @@
-MAP 
+MAP
     NAME Colombia
     SIZE 1900 900
     STATUS ON
@@ -17,7 +17,7 @@ MAP
     END
 
     LAYER 
-        NAME "Countries" #PUEDE SER EL QUE QUIERA PERO DEBE ESTAR RELACIONADO
+        NAME "Countries"
         STATUS ON
         DATA "ne_110m_admin_0_countries.shp"
         TYPE POLYGON
@@ -25,7 +25,7 @@ MAP
         CLASS
             NAME "LABEL"
                 STYLE
-                    COLOR 40 250 112
+                    COLOR 40 250 112 
                     OUTLINECOLOR 85 107 47
                 END
                 LABEL
@@ -35,23 +35,21 @@ MAP
         END
     END
 
-    
     LAYER 
-        NAME "Poligonos" #PUEDE SER EL QUE QUIERA PERO DEBE ESTAR RELACIONADO
+        NAME "Poligonos"
         STATUS ON
         DATA "poligono.shp"
         TYPE POLYGON
         CLASS
             STYLE
-                COLOR 255 123 0
+                COLOR 162 200 255 
                 OUTLINECOLOR 0 0 0
             END
         END
     END
 
-  
     LAYER 
-        NAME "Provincias" #PUEDE SER EL QUE QUIERA PERO DEBE ESTAR RELACIONADO
+        NAME "Provincias"
         STATUS ON
         DATA "provincias.shp"
         TYPE POLYGON
@@ -60,7 +58,7 @@ MAP
             NAME "LABEL"
                 STYLE
                     COLOR 202 255 112
-                    OUTLINECOLOR 85 107 47
+                    OUTLINECOLOR 85 107 47 
                 END
                 LABEL
                     SIZE SMALL
@@ -69,20 +67,19 @@ MAP
         END
     END
 
-    
-
-   LAYER 
+    LAYER 
         NAME "Lineas"
         STATUS ON
         DATA "lineas.shp"
         TYPE LINE
         CLASS
             STYLE
-                COLOR 255 0 1      
-                OUTLINECOLOR 85 107 47 
+                COLOR 169 184 194
+                OUTLINECOLOR 85 107 47
             END
         END
     END
+
     LAYER 
         NAME "Puntos"
         STATUS ON
@@ -90,14 +87,14 @@ MAP
         TYPE POINT
         CLASS
             STYLE
-                SYMBOL star     
-                SIZE 10           
-                COLOR 255 100 0   
-                OUTLINECOLOR 85 107 47  # Color del contorno de los puntos
+                SYMBOL star
+                SIZE 10
+                COLOR 255 159 77
+                OUTLINECOLOR 85 107 47
             END
         END
     END
-    
+
     LAYER 
         NAME "cali"
         STATUS ON
@@ -105,7 +102,7 @@ MAP
         TYPE POLYGON
         CLASS
             STYLE
-                COLOR 0 0 255
+                COLOR 76 83 255
                 OUTLINECOLOR 0 0 0
             END
         END
@@ -144,13 +141,9 @@ MAP
         TYPE LINE
         CLASS
             STYLE
-                COLOR 255 255 0
+                COLOR 202 202 0 
                 OUTLINECOLOR 0 0 0
             END
         END
     END
 END
-
-
-
-

@@ -42,58 +42,98 @@
       });
   </script>
   <style>
-  #dcmain {
-    border: 1px solid #7ea3bf !important;
-    /* color: #000000; */
-    overflow: hidden !important;
-    width: 500px !important;
-    height: 300px !important;
-    position: relative !important;
+  
+  .container .container.map-container{
+    overflow-y:hidden !important;
+  }
+  #Layer1{
+    width:162px !important;
+    height:158px !important;
+    z-index:101 !important;
+    left:751px !important; 
+    top:26px !important;
+  }
+      
+  #Layer2{
+      width:141px !important;
+      height:315px !important;
+      z-index:102 !important;
+      left:751px !important;
+      top:216px !important;
+      padding: 20px !important;
+      border-radius: 50px !important; 
+      background-color: #E1E8ED !important;
   }
 
-  .mscross_reference_zoombox {
-    width:  125px !important;
-    height: 100px !important;
-    margin-left: 10px !important;
-  }
-    #dc_main div {
-      background-color: rgba(0, 0, 0, 0.1); 
-      position: relative !important;
+  #dc_main {
+    border: 5px solid rgba(0, 17, 255, 0.7) !important; 
+    border-radius:10px;
+    overflow: hidden !important;
+    width: 900px !important;
+    height: 400px !important;
+    position: relative !important;
   }
 
   #dc_main img {
-      border: none; 
-      opacity: 1.2; 
+      border: none !important; 
+      opacity: 1.2 !important; 
       position: relative !important;
 
   }
+  #dc_main.mscross div div{
+    left: 0px !important;
+    height: 400px !important;
+  }
+  #dc_main.mscross div img{
+    height:400px !important;
+    width:900px !important;
+  }
+  #dc_main.mscross div img.mscross_tool{
+    height:30px !important;
+    width:30px !important;
+    border-radius: 50px !important;
+    border: 4px solid rgba(0, 17, 255, 0.5) !important;
+    padding:0px !important;
+    left: 5px !important;
+  }
+
 
   .mscross_tool {
-      background-color: rgba(0, 0, 0, 0.5); 
-      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.5) !important; 
+      border-radius: 5px !important;
       position: absolute !important;
   }
-  #dc_main2{
-    overflow: hidden;
-    width: 150px !important;
-    height: 100px !important;
-    position: relative !important;
-    z-index: 100;
-  }
-  #dc_main2 div img{
-    width: 150px !important;
-    height: 150px !important;
-    border: 0px none;
-    padding: 0px;
-    position: absolute;
+
+
+  #dc_main2.mscross div img{
+    z-index: 0!important;
+    width: 100px !important;
+    height: 100px !important; 
+    border: 0px none !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    position: absolute !important;
     top: 0px;
     left: 0px;
   }
+ 
+  #dc_main2.mscross .mscross_reference_zoombox{
+    background-color: rgb(119, 119, 119) !important; 
+    opacity: 0.5 !important
+}
+  #dc_main2 {
+    border: 5px solid rgba(0, 17, 255, 0.7) !important; 
+    border-radius:10px;
+  }
   #dc_main2 div {
     position: relative !important;
-    margin-top: -50px !important;
-
   }
-  
+
+  #dc_main img.mscross_tool{
+    position: relative !important;
+    left: 465px !important;
+    padding: 0px !important;
+    display: block !important;
+  }
   </style>
 </head>

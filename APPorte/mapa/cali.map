@@ -1,39 +1,46 @@
 MAP
     NAME Colombia
-        SIZE 1344 600
+        SIZE 1300 600
         STATUS ON
-        #EXTENT -81.7201 -4.23687 -66.8705 12.5903
         EXTENT -76.5928 3.33181  -76.4613 3.50587
         SHAPEPATH "shape"
 
-   	    FONTSET "misc/fonts/fonts.txt"
-   	    SYMBOLSET "misc/symbols/symbols.sym"
+        FONTSET "misc/fonts/fonts.txt"
+        SYMBOLSET "misc/symbols/symbols.sym"
 
-        IMAGECOLOR "#0381e7"
+        IMAGECOLOR "#EEF6FF"
         UNITS dd
 
         WEB
-        IMAGEPATH "C:/ms4w/tmp/ms_tmp" #Esto puede variar depende de tu configuracion
+        IMAGEPATH "C:/ms4w/tmp/ms_tmp" # Esto puede variar dependiendo de tu configuración
             IMAGEURL "/ms_tmp/"
         END
-
-     LAYER   
+        
+    LAYER 
+        NAME "Poligonos" 
+        STATUS ON
+        DATA "poligono.shp"
+        TYPE POLYGON
+        CLASS
+            STYLE
+                COLOR 162 200 255 # A2C8FF (Azul claro suave)
+                OUTLINECOLOR 0 0 0
+            END
+        END
+    END
+    
+    LAYER 
         NAME "Cali"
         STATUS ON
         DATA "cinco.shp"
         TYPE POLYGON
-
         CLASS
             STYLE
-                 SIZE 10
-                 COLOR "#66ECC7"
-                 OUTLINECOLOR 0 255 0
+                COLOR 76 83 255 # 4C53FF (Azul más intenso)
+                OUTLINECOLOR 0 0 0
             END
         END
     END
-
-
-    
 
     LAYER   
         NAME "Comunas"
@@ -43,7 +50,7 @@ MAP
         TYPE POLYGON
         CLASS
             STYLE
-                COLOR "#66ECC7"
+                COLOR 102 255 195 # 66FFC3 (Verde menta claro)
                 OUTLINECOLOR 0 0 0
             END
         END
@@ -59,7 +66,7 @@ MAP
             CLASS
                 NAME "LABEL"
                 STYLE 
-                COLOR 130 206 125
+                COLOR 142 237 150 # 8EED96 (Verde suave)
                 OUTLINECOLOR 85 107 47
                 END
                 LABEL
@@ -81,20 +88,13 @@ MAP
           NAME "LABEL"
             STYLE
                  SIZE 10
-                 COLOR "#0b0b0b"
+                 COLOR 167 184 194 # A7B8C2 (Gris azulado suave)
                  OUTLINECOLOR 0 255 0
             END
             LABEL
                 SIZE SMALL
-                    COLOR 0 0 0
-                END     
+                COLOR 0 0 0
+            END     
         END
     END
 END
-
-
-
-
-
-
-
