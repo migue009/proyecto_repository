@@ -40,7 +40,7 @@
           </a></li>
           <li><a class="dropdown-item" href="##">
             <i data-feather="settings" aria-hidden="true"></i>
-            <span>Configuracion</span>
+            <span>Configuración</span>
           </a></li>
           <li><a class="dropdown-item danger" href="<?php echo getUrl("Acceso","Acceso","logout", false, "ajax"); ?>">
             <i data-feather="log-out" aria-hidden="true"></i>
