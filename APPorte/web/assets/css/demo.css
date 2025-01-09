@@ -1,3 +1,6 @@
+.container.card .container.map-container{
+  overflow-y:auto !important;
+}
 
 .container .container.map-container{
   overflow-y:hidden !important;

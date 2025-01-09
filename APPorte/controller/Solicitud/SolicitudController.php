@@ -13,55 +13,33 @@
 
             // Método para procesar el formulario de solicitud
         public function postCreateSolicitud() {
-            // Obtener los datos enviados desde el formulario
-            $tipo_solicitud = $_POST['tipo_solicitud'];
-            $escenario = $_POST['escenario'];
-            // Otros campos del formulario dependiendo del tipo de solicitud
-
-            // Validación básica (ajustar según sea necesario)
-            if (!$tipo_solicitud || !$escenario) {
-                echo "Faltan campos requeridos.";
-                return;
-            }
-
-            // Dependiendo del tipo de solicitud, realiza diferentes acciones.
-            if ($tipo_solicitud == '1') {  // Registro de accidentes
-                // Procesar los datos del registro de accidentes
-                $lugar_accidente = $_POST['lugar_accidente'];
-                $fecha_accidente = $_POST['fecha_accidente'];
-                $gravedad_accidente = $_POST['gravedad_accidente'];
-                // Otros campos...
-
-                // Insertar los datos en la base de datos
-                $sql_accidente = "INSERT INTO registros_accidentes (lugar, fecha, gravedad, tipo_solicitud) 
-                                    VALUES ('$lugar_accidente', '$fecha_accidente', '$gravedad_accidente', '$tipo_solicitud')";
-                $ejecutar = Database::query($sql_accidente);
-
-                if ($ejecutar) {
-                    echo "Solicitud de accidente registrada con éxito";
-                    // Redirigir a la lista de solicitudes o a alguna otra página
+            try {
+                if (isset($_POST['nombres'], $_POST['coord_x'], $_POST['coord_y'])) {
+                    $nombres = $_POST['nombres'];  
+                    $coord_x = $_POST['coord_x']; 
+                    $coord_y = $_POST['coord_y']; 
+        
+                    $obj = new SolicitudModel();
+        
+                    // Paso 1: Insertar en la tabla de lugares y obtener el lugar_id
+                    $sql_lugar = "INSERT INTO lugares (nombre, geom) 
+                                  VALUES ('$nombres', ST_SetSRID(ST_GeomFromText('POINT($coord_x $coord_y)'), 4326))";
+        
+                    $lugar_id = $obj->insert($sql_lugar);
+        
+                    if ($lugar_id) {
+                        $mensaje = "Datos del lugar guardados exitosamente.";
+                    } else {
+                        $mensaje = "Se ha presentado un error al guardar los datos del lugar.";
+                    }
                 } else {
-                    echo "Error al registrar el accidente";
+                    $mensaje = "Error: Faltan datos en el formulario.";
                 }
-            } 
-            else if ($tipo_solicitud == '2') {  // Señalización vial en mal estado
-                // Procesar los datos de señalización vial
-                $tipo_senal = $_POST['tipo_senal'];
-                $descripcion_senal = $_POST['descripcion_senal'];
-                // Otros campos...
-
-                // Insertar en la base de datos
-                $sql_senal = "INSERT INTO senalizacion_vial (tipo_senal, descripcion, tipo_solicitud) 
-                                VALUES ('$tipo_senal', '$descripcion_senal', '$tipo_solicitud')";
-                $ejecutar = Database::query($sql_senal);
-
-                if ($ejecutar) {
-                    echo "Solicitud de señalización registrada con éxito";
-                    // Redirigir a la lista de solicitudes o a alguna otra página
-                } else {
-                    echo "Error al registrar la señalización";
-                }
+            } catch (Exception $e) {
+                $mensaje = "Se produjo un error: " . $e->getMessage();
             }
-            // Puedes agregar más tipos de solicitud según sea necesario
+        
+            // Pasar mensaje a la vista
+            include_once '../view/solicitud/create.php';
         }
     }
