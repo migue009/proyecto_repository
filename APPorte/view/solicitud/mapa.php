@@ -1,128 +1,117 @@
+<?php
 
-  <div class="container map-container">
-    <div class="row">
-      <div class="col-10"> <!-- Primera columna -->
-        <div class="mscross" style="overflow: hidden; width: 500px; height: 600px; -moz-user-select: none; position:relative;" id="dc_main">
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  try {
+      $db = new PostgresConnection();
+      $connection = $db->getConnect();
+
+      if (isset($_POST['nombres'], $_POST['coord_x'], $_POST['coord_y'])) {
+          $nombres = pg_escape_string($connection, $_POST['nombres']);
+          $coord_x = (float) $_POST['coord_x'];
+          $coord_y = (float) $_POST['coord_y'];
+
+          $query = "INSERT INTO lugares (nombre, geom) VALUES ('$nombres', ST_SetSRID(ST_GeomFromText('POINT($coord_x $coord_y)'), 4326))";
+
+          $result = pg_query($connection, $query);
+
+          if ($result) {
+              echo "<div class='alert alert-success'>Datos guardados exitosamente.</div>";
+          } else {
+              echo "<div class='alert alert-danger'>Error al guardar los datos: " . "</div>";
+          }
+      }
+
+      $db->close(); // Cerrar la conexión al finalizar.
+  } catch (Exception $e) {
+      echo "<div class='alert alert-danger'>Se produjo un error: " . $e->getMessage() . "</div>";
+  }
+}
+if (!extension_loaded("MapScript")) {
+    dl('php_mapscript.'.PHP_SHLIB_SUFFIX);
+}
+
+$mapObject = ms_newMapObj("/ms4w/apache/htdocs/proyecto_repository/APPorte/mapa/cali.map");
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image_x']) && isset($_POST['image_y'])) {
+    $map_pt = click2map($_POST['image_x'], $_POST['image_y']);
+    
+    $pt = ms_newPointObj();
+    $pt->setXY($map_pt[0], $map_pt[1]);
+}
+
+$mapImage = $mapObject->draw();
+$urlImage = $mapImage->saveWebImage();
+
+function click2map($click_x, $click_y) {
+    global $mapObject;
+    $e = $mapObject->extent;
+    $x_pct = ($click_x / $mapObject->width);
+    $y_pct = 1 - ($click_y / $mapObject->height);
+    $x_map = $e->minx + (($e->maxx - $e->minx) * $x_pct);
+    $y_map = $e->miny + (($e->maxy - $e->miny) * $y_pct);
+    return array($x_map, $y_map);
+}
+?>
+
+
+    <div class="container map-container">
+        <h1>Seleccione las coordenadas</h1>
+        <?php if (!empty($mensaje)): ?>
+            <div class="alert alert-info" role="alert">
+                <?php echo $mensaje; ?>
+            </div>
+        <?php endif; ?>
+        <div id="map-container">
+            <img src="<?php echo $urlImage; ?>" id="map-image" class="img-fluid" alt="Mapa">
         </div>
-      </div>
-      <div class="col-2"> <!-- Segunda columna -->
-        <div id="Layer2">
-          <form name="select_layers">
-            <p align="left">
-              <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[0]" value="Poligonos">
-              <strong>Poligonos</strong>
-            </p>
-            <p align="left">
-              <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[0]" value="Cali">
-              <strong>Cali</strong>
-            </p>
-            <p align="left">
-              <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[1]" value="Comunas">
-              <strong>Comunas</strong>
-            </p>
-            <p align="left">
-              <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[2]" value="Barrios">
-              <strong>Barrios</strong>
-            </p>
-            <p align="left">
-              <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[3]" value="Vias">
-              <strong>Vias</strong>
-            </p>
-          </form>
-        </div>
-        <div id="Layer1">
-          <div style="overflow:auto; width: 100%; height: 140px; -moz-user-select: none; position:relative; z-index: 100;" id="dc_main2">
+
+      <!-- Modal -->
+      <div class="modal fade" id="coordModal" tabindex="-1" aria-labelledby="coordModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="coordModalLabel">Reporte de Accidente</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <p><strong>Coordenadas en píxeles:</strong> <span id="pixelCoords"></span></p>
+                      <p><strong>Coordenadas del mapa:</strong> <span id="mapCoords"></span></p>
+                      <form id="accidenteForm" method="POST">
+                          <input type="hidden" id="coord_x" name="coord_x">
+                          <input type="hidden" id="coord_y" name="coord_y">
+                          <div class="mb-3">
+                              <label for="nombres" class="form-label">Nombre del lugar</label>
+                              <input type="text" class="form-control" id="nombres" name="nombres" required>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Enviar Reporte</button>
+                      </form>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
     </div>
-  </div>
-<script type="text/javascript">
-  //<![CDATA[
-  myMap1 = new msMap(document.getElementById("dc_main"),'standardRight');
-  myMap1.setCgi('/cgi-bin/mapserv.exe');
-  myMap1.setMapFile('/ms4w/apache/htdocs/proyecto_repository/APPorte/mapa/cali.map');
-  myMap1.setFullExtent(-76.6 , -76.45  , 3.35);
-  myMap1.setLayers('Poligonos Cali Comunas Barrios Vias');
 
-  myMap2 = new msMap(document.getElementById("dc_main2"));
-  myMap2.setActionNone();
-  myMap2.setFullExtent(-76.6 , -76.45  , 3.35);
-  myMap2.setMapFile('/ms4w/apache/htdocs/proyecto_repository/APPorte/mapa/cali.map');
-  myMap2.setLayers('Poligonos Cali Comunas Barrios Vias');
-  myMap1.setReferenceMap(myMap2);
+    <script>
+        document.getElementById('map-image').addEventListener('click', function(e) {
+            var rect = e.target.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
 
-  var infola= new  msTool('crear punto', infolay,'../mapa/misc/img/marker-gold.png',investiguen);
-  myMap1.getToolbar(0).addMapTool(infola);
+            // Mostrar las coordenadas en píxeles en el modal
+            document.getElementById('pixelCoords').textContent = x + ', ' + y;
+            document.getElementById('coord_x').value = x;
+            document.getElementById('coord_y').value = y;
 
+            // Aquí puedes hacer la conversión a coordenadas geográficas. 
+            // Por ejemplo, si el mapa tiene un área de 100x100 unidades geográficas
+            var mapX = (x / e.target.width) * 100; // Coordenada X en el mapa (en unidades geográficas)
+            var mapY = (y / e.target.height) * 100; // Coordenada Y en el mapa (en unidades geográficas)
+            
+            // Mostrar las coordenadas geográficas en el modal
+            document.getElementById('mapCoords').textContent = mapX.toFixed(2) + ', ' + mapY.toFixed(2);
 
-  myMap1.redraw(); 
-  myMap2.redraw();
-  chgLayers();
-
-  var selectlayer = -1;
-  var lyactive = false;
-  var legendactive = false;
-
-  function chgLayers()
-  {
-      var list = "Layers ";
-      var objForm = document.forms[0];
-      for(i = 0; i < document.forms[0].length; i++){
-          if (objForm.elements["layer[" + i + "]"].checked) {
-              list = list + objForm.elements["layer[" + i + "]"].value + " ";
-          }
-      }
-      myMap1.setLayers( list );
-      myMap1.redraw();
-      myMap2.setLayers( list );
-      myMap2.redraw();
-  }
-  var seleccionado = false;
-  function infolay(e,map){
-      map.getTagMap().style.cursor="crosshair";
-      seleccionado=true;
-  }
-  
-  function objectoAjax(){
-      var xmlhttp=false;
-
-      try{
-          xmlhttp = new ActiveXObject("Msxm2.XMLHttpRequest");
-      }catch (e){
-          try{
-              xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-          }catch (E){
-              xmlhttp=false;
-          }
-
-      }
-      if(!xmlhttp && typeof XMLHttpRequest != 'undefined'){
-          xmlhttp = new XMLHttpRequest();
-          return xmlhttp;
-      }
-  }
-  function investiguen(event, map, x, y, xx, yy){
-    if(seleccionado){
-        alert("Click sobre las coordenadas : x " +x+ "y: " +y+ "y reales : x" +xx+ "y: "+yy);
-        //document.getElementById("boton1").click();
-        consultar1 = new objectoAjax();
-
-        consultar1.open("GET", "Insertar_punto.php?x="+xx+"&y="+yy,true);
-        
-        consultar1.onreadystatechange=function(){
-            if(consultar1.readyState==4){
-                var result= consultar1.responseText;
-                alert(result); //resultado de consulta
-            }
-        }
-
-        consultar1.send(null);
-        seleccionado=false;
-        map.getTagMap().style.cursor="default";
-    }
-  }
-      //  abrr modal xx yy 
-      //  obj = dpci,emt get element by 
-  //]]>
-</script>
+            // Abrir el modal
+            var myModal = new bootstrap.Modal(document.getElementById('coordModal'));
+            myModal.show();
+        });
+    </script>

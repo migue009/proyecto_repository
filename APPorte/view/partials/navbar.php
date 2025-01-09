@@ -16,22 +16,13 @@
         <i class="sun-icon" data-feather="sun" aria-hidden="true"></i>
         <i class="moon-icon" data-feather="moon" aria-hidden="true"></i>
       </button>
-      <span class="user-greeting">
-        <?php 
-          if (isset($_SESSION['nombre']) && isset($_SESSION['apellido'])) {
-            echo "Hola, " . $_SESSION['nombre'] . " " . $_SESSION['apellido'];
-          } else {
-            echo "Hola, Invitado";
-          }
-        ?>
-      </span>
+      
       <div class="nav-user-dropdown">
-
         <button class="nav-user-btn gray-circle-btn" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="sr-only">Mi perfil</span>
           <span class="nav-user-img">
             <picture><source srcset="../img/avatar/avatar-illustrated-02.webp" type="image/webp"><img src="./img/avatar/avatar-illustrated-02.png" alt="User name"></picture>
           </span>
-
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <li><a class="dropdown-item" href="##">
@@ -40,7 +31,7 @@
           </a></li>
           <li><a class="dropdown-item" href="##">
             <i data-feather="settings" aria-hidden="true"></i>
-            <span>Configuración</span>
+            <span>Configuracion</span>
           </a></li>
           <li><a class="dropdown-item danger" href="<?php echo getUrl("Acceso","Acceso","logout", false, "ajax"); ?>">
             <i data-feather="log-out" aria-hidden="true"></i>
@@ -50,3 +41,21 @@
       </div>
     </div>
 </div>
+
+  <script>
+    // Selecciona el botón del dropdown
+  const dropdownButton = document.querySelector('.nav-user-btn');
+  const dropdownMenu = document.querySelector('.dropdown-menu');
+
+  // Cuando se hace clic en el botón, alterna la clase 'show'
+  dropdownButton.addEventListener('click', function() {
+    dropdownMenu.parentElement.classList.toggle('show');
+  });
+
+  // Si se hace clic fuera del dropdown, ciérralo
+  document.addEventListener('click', function(event) {
+    if (!dropdownMenu.contains(event.target) && !dropdownButton.contains(event.target)) {
+      dropdownMenu.parentElement.classList.remove('show');
+    }
+  });
+  </script>

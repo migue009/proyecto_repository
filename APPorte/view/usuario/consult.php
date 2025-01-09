@@ -1,4 +1,4 @@
-<div class="container card" style="max-width: 1050px;">
+<div class="container card">
     <div class="mt-5">
         <h3 class="display-4 text-center main-title">Consultar Usuarios</h3>
     </div>

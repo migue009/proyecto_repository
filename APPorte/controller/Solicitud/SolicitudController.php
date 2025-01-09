@@ -1,7 +1,6 @@
 <?php
     include_once '../model/Solicitud/SolicitudModel.php';
     class SolicitudController{
-    
             // Método para cargar la vista con los tipos de solicitud
         public function getCreateSolicitud() {
             $obj = new SolicitudModel();

@@ -1,4 +1,3 @@
-
 .mscross
 {
   border: 1px solid #7ea3bf;
@@ -88,11 +87,6 @@ BODY
 
 TD {
 	vertical-align: top;
-}
-
-SPAN
-{
-  display: none;
 }
 
 .topmenu, .topmenu_set
