@@ -15,7 +15,9 @@
         <div class="col-md-4 mt-4 mb-5">
             <button type="button" class="btn btn-primary" onclick="window.location.href='<?php echo getUrl('Administrador', 'Administrador', 'getCreate'); ?>'">Agregar otro usuario</button>
         </div>
+        
     </div>
+    
     <div class="table-responsive">
         <table class="table users-table">
             <thead>
