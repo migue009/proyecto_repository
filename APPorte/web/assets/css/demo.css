@@ -1,3 +1,12 @@
+@media (max-width: 1199.98px) {
+  .sidebar.hidden {
+      left: 0;
+  }
+  .sidebar-toggle.transparent-btn.rotated {
+    width: -1px;
+    color:#003d7a;
+  }
+}
 .sidebar{
   z-index:102;
 }
