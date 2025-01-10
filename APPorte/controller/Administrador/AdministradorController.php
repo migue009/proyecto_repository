@@ -14,6 +14,19 @@
                         WHERE u.usuario_id = $usuario_id";
                 
                 $usuario = $obj->consult($sql);
+                
+                $sqlEstados = "SELECT * FROM estados WHERE tip_est_id = 1";
+                $estados = $obj->consult($sqlEstados);
+
+                $sqlRoles = "SELECT * FROM roles";
+                $roles = $obj->consult($sqlRoles);
+
+                $sqlTipoDocu = "SELECT * FROM tipos_documentos";
+                $tipoDocu = $obj->consult($sqlTipoDocu);
+
+                $sqlSexo = "SELECT * FROM sexos";
+                $genero = $obj->consult($sqlSexo);
+                
                 include_once '../view/usuario/perfil.php';
             } else {
                 // Si no hay sesión activa, redirigir al usuario a la página de inicio de sesión

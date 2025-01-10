@@ -662,52 +662,22 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on("click","#cambiar_estado_usuario",function(){
-        let id = $(this).attr('data-id');
-        let url = $(this).attr('data-url');
-        let user = $(this).attr('data-user');
+    $(document).on("click", "#cambiar_estado_pqrs", function(){
+        let estado_id = $(this).attr('data-id');  
+        let url = $(this).attr('data-url');        
+        let pqrs_id = $(this).attr('data-pqrs-id'); 
         
         $.ajax({
-            url: url,
-            data: {id,user},
-            type: 'POST',
+            url: url,  
+            data: {id: estado_id, pqrs_id: pqrs_id}, 
+            type: 'POST',  
             success: function(data){
-                $('tbody').html(data);
+                $('tbody').html(data);  
+            },
+            error: function(){
+                alert("Error al actualizar el estado.");
             }
         });
     });
     
-    // $(document).on("click","#cambiar_estado_tarea",function(){
-    //     let id = $(this).attr('data-id');
-    //     let url = $(this).attr('data-url');
-    //     let tar = $(this).attr('data-tar');
-
-    //     $.ajax({
-    //         url: url,
-    //         data: {id,tar},
-    //         type: 'POST',
-    //         success: function(data){
-    //             $('tbody').html(data);
-    //         }
-    //     });
-    // });
-
-    // $(document).on("click","#copyList",function(){
-    //     let listUser = $('#listUser').html();
-    //     $('#responsables').append(
-    //         "<div classs='col-md-4 form-group'>"+
-    //             "<label>Responsable</label>"+
-    //             "<div class='row'>"+
-    //                 "<div class ='col-md-10'>"+listUser+"</div>"+
-    //                 "<div class = 'col-md-2'>"+
-    //                     "<button class='btn btn-danger' type='button' id='removeList'>x</button>"+
-    //                 "</div>"+
-    //             "</div>"+  
-    //         "</div>" 
-    //     )
-    // });
-
-    // $(document).on("click","#removeList",function(){
-    //     $(this).parent().parent().parent().remove();
-    // });
 });

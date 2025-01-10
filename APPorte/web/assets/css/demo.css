@@ -1,4 +1,6 @@
-
+.card{
+  border-radius: 10px !important;
+}
 .sidebar{
   z-index:102;
 }
@@ -197,6 +199,7 @@ body.darkmode .text-center {
   background-color: #4C53FF !important;
   -webkit-box-shadow: none;
   box-shadow: none;
+  height: 150px;
 }
 .darkmode .form {
   background-color: #3E618C;

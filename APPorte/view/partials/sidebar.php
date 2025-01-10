@@ -32,8 +32,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="##">
-                        <span class="icon mail" aria-hidden="true"></span>Configuración
+                    <a href="<?php echo getUrl('Pqrs', 'Pqrs', 'getCreate'); ?>">
+                        <span class="icon" data-feather="clipboard" aria-hidden="true"></span>PQRS
                     </a>
                 </li>
             </ul>

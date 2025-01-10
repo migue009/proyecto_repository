@@ -37,7 +37,7 @@
             <i data-feather="user" aria-hidden="true"></i>
             <span>Perfil</span>
           </a></li>
-          <li><a class="dropdown-item" href="##">
+          <li><a class="dropdown-item" href="<?php echo getUrl('Pqrs', 'Pqrs', 'getConsult'); ?>">
             <i data-feather="mail" aria-hidden="true"></i>
             <span>Mensajes</span>
           </a></li>
