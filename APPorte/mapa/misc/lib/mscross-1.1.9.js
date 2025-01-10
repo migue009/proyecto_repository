@@ -1965,7 +1965,7 @@ function msToolbar(p_msMap, _control, _default)
     var t_zoomout = new msTool('Zoom Out', _msMap.setActionZoomOut, _iconZoomoutButton);
     this.addMapTool(t_fullext);
     this.addMapTool(t_pan);
-    this.addMapTool(t_zoom);
+    // this.addMapTool(t_zoom);
     this.addMapTool(t_zoomin);
     this.addMapTool(t_zoomout);
   }

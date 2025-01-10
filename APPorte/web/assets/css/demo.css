@@ -1,7 +1,15 @@
-.container.card .container.map-container{
-  overflow-y:auto !important;
+.sidebar{
+  z-index:102;
 }
-
+.navbar{
+  z-index:101;
+}
+.darkmode .nav-user-greeting{
+  color: #ffffff;
+}
+.darkmode .container.card label{
+  color: #ffffff;
+}
 .container .container.map-container{
   overflow-y:hidden !important;
 }

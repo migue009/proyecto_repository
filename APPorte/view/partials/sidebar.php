@@ -33,7 +33,7 @@
                 </li>
                 <li>
                     <a href="##">
-                        <span class="icon setting" aria-hidden="true"></span>Configuración
+                        <span class="icon mail" aria-hidden="true"></span>Configuración
                     </a>
                 </li>
             </ul>

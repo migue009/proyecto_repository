@@ -13,9 +13,9 @@ include_once '../lib/helpers.php';
             include_once "../view/partials/sidebar.php";
             echo "</aside>";
 
-         
+
                 echo "<div class= 'main-wrapper'>";
-                    
+
                         echo "<nav class= 'main-nav--bg'>";
                             include_once "../view/partials/navbar.php";
                             echo "<main class = 'main users chart-page' id = 'skip-target'>";
@@ -23,7 +23,7 @@ include_once '../lib/helpers.php';
                                     resolve();
                                 }else{
                                     include_once "../view/partials/content.php";
-                                }   
+                                }
                             echo "</main>";
                         echo "</nav>";
                         echo "<footer class = 'footer'>";

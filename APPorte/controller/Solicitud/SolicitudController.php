@@ -20,7 +20,7 @@
                     $coord_y = $_POST['coord_y']; 
         
                     $obj = new SolicitudModel();
-        
+
                     // Paso 1: Insertar en la tabla de lugares y obtener el lugar_id
                     $sql_lugar = "INSERT INTO lugares (nombre, geom) 
                                   VALUES ('$nombres', ST_SetSRID(ST_GeomFromText('POINT($coord_x $coord_y)'), 4326))";

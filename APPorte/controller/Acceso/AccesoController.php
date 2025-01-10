@@ -96,6 +96,7 @@
                             $_SESSION['apellido'] = $usu['usu_primer_ape'];
                             $_SESSION['correo'] = $usu['usu_correo'];
                             $_SESSION['rol'] = $usu['rol_id'];
+                            $_SESSION['id'] = $usu['usuario_id'];
                             $_SESSION['auth'] = "ok";
         
                             redirect("index.php"); // Redirige al dashboard

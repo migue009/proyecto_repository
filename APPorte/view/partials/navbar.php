@@ -16,7 +16,15 @@
         <i class="sun-icon" data-feather="sun" aria-hidden="true"></i>
         <i class="moon-icon" data-feather="moon" aria-hidden="true"></i>
       </button>
-      
+      <span class="nav-user-greeting">
+        <?php
+          if (isset($_SESSION['nombre'])) {
+            echo 'Hola, ' .$_SESSION['nombre'] .' '. $_SESSION['apellido']; // Mostramos el nombre de usuario
+          } else {
+            echo 'Hola, Invitado'; // En caso de no estar logueado
+          }
+        ?>
+      </span>
       <div class="nav-user-dropdown">
         <button class="nav-user-btn gray-circle-btn" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
           <span class="sr-only">Mi perfil</span>
@@ -25,18 +33,19 @@
           </span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li><a class="dropdown-item" href="##">
+          <li><a class="dropdown-item" href="<?php echo getUrl('Administrador', 'Administrador', 'getPerfil'); ?>">
             <i data-feather="user" aria-hidden="true"></i>
             <span>Perfil</span>
           </a></li>
           <li><a class="dropdown-item" href="##">
-            <i data-feather="settings" aria-hidden="true"></i>
-            <span>Configuracion</span>
+            <i data-feather="mail" aria-hidden="true"></i>
+            <span>Mensajes</span>
           </a></li>
           <li><a class="dropdown-item danger" href="<?php echo getUrl("Acceso","Acceso","logout", false, "ajax"); ?>">
             <i data-feather="log-out" aria-hidden="true"></i>
             <span>Cerrar sesión</span>
           </a></li>
+          
         </ul>
       </div>
     </div>

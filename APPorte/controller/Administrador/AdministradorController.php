@@ -4,6 +4,23 @@
         // public function test(){
         //     echo "probando";
         // }
+        public function getPerfil() {
+            if (isset($_SESSION['id'])) {
+                $usuario_id = $_SESSION['id'];
+                
+                $obj = new UsuariosModel();
+                $sql = "SELECT u.*, d.* FROM usuarios u 
+                        JOIN direccion d ON u.usu_direccion = d.direccion_id 
+                        WHERE u.usuario_id = $usuario_id";
+                
+                $usuario = $obj->consult($sql);
+                include_once '../view/usuario/perfil.php';
+            } else {
+                // Si no hay sesión activa, redirigir al usuario a la página de inicio de sesión
+                echo "Por favor, inicia sesión para ver tu perfil.";
+
+            }
+        }
         public function getCreate(){
         /*El sistema debe permitir registrar usuarios ingresando un tipo de documento, un número de identificación, primer nombre, segundo nombre, primer apellido, segundo apellido, contraseña, correo electrónico, un número de teléfono celular, una dirección residencial.*/
             $obj = new UsuariosModel();

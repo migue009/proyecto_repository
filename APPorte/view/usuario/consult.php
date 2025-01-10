@@ -9,7 +9,7 @@
                 <i class="fas fa-search"></i> 
                 <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Buscar por Nombre o Correo" 
                 data-url='<?php echo getUrl("Administrador", "Administrador", "buscar", false, "ajax"); ?>' 
-                aria-label="Buscar por Nombre o Correo">
+                aria-label="Buscar por Nombre o Correo" autocomplete="off">
             </span>
         </div>
         <div class="col-md-4 mt-4 mb-5">
@@ -34,7 +34,6 @@
                     <th>Sexo</th>
                     <th>Estado</th>
                     <th>Actualizar</th>
-                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -73,11 +72,6 @@
                         echo "<td>"
                             . "<a href='" . getUrl("Administrador", "Administrador", "getUpdateUsuarios", array("usu_id" => $usu['usuario_id'])) . "'>"
                             . "<button class='btn btn-primary'>Editar</button>"
-                            . "</a>"
-                            . "</td>";
-                        echo "<td>"
-                            . "<a href='" . getUrl("Administrador", "Administrador", "getdelete", array("usu_id" => $usu['usuario_id'])) . "'>"
-                            . "<button class='btn btn-danger'>Eliminar</button>"
                             . "</a>"
                             . "</td>";
                         echo "</tr>";
