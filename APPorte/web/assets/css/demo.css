@@ -1,8 +1,13 @@
+.container.card .stat-cards-info p{
+  color: #cbd9ff;
+}
+
 .card{
   border-radius: 10px !important;
 }
 .sidebar{
   z-index:102;
+  width: 40vh;
 }
 .navbar{
   z-index:101;
@@ -26,14 +31,14 @@
     
 #Layer2{
     width:141px !important;
-    height:315px !important;
+    height:215px !important;
     z-index:102 !important;
-    left:751px !important;
-    top:216px !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
     padding: 15px !important;
-    border-radius: 40px !important; 
+    border-radius: 10px !important; 
     background-color: #E1E8ED !important;
-  border: 5px solid rgba(0, 17, 255, 0.7) !important; 
+    box-shadow: 0 0 10px 5px #a8a8a8;
 }
 
 #dc_main {
@@ -209,11 +214,14 @@ body.darkmode .stat-cards-icon {
   color: #16184A !important;
 }
 .darkmode .stat-cards-item{
-  background-color: #3a5b85 !important;
+  background-color: #699de0 !important;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+.darkmode .stat-cards-info p{
+  color: #032149 !important;
 
+}
 
 body.darkmode .card{
   background-color: #3E618C !important;

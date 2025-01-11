@@ -1,7 +1,7 @@
 <div class="container card">
   <div class="row">
     <div class="mt-4">
-      <h3 class="text-center">Dashboard</h3>
+      <h3 class="text-center">Geovisor APPorte</h3>
     </div>
     <div class="row stat-cards">
       <div class="col-md-6 col-xl-3">
@@ -10,13 +10,13 @@
             <i data-feather="bar-chart-2" aria-hidden="true"></i>
           </div>
           <div class="stat-cards-info">
-            <p class="stat-cards-info__num">1478 286</p>
-            <p class="stat-cards-info__title">Total visits</p>
+            <p class="stat-cards-info__num">10</p>
+            <p class="stat-cards-info__title">Vias en mal estado</p>
             <p class="stat-cards-info__progress">
               <span class="stat-cards-info__profit success">
-                <i data-feather="trending-up" aria-hidden="true"></i>4.07%
+                <i data-feather="trending-up" aria-hidden="true"></i>1
               </span>
-              Last month
+              Ultimo mes
             </p>
           </div>
         </article>
@@ -27,13 +27,13 @@
             <i data-feather="file" aria-hidden="true"></i>
           </div>
           <div class="stat-cards-info">
-            <p class="stat-cards-info__num">1478 286</p>
-            <p class="stat-cards-info__title">Total visits</p>
+            <p class="stat-cards-info__num">10</p>
+            <p class="stat-cards-info__title">Reportes de accidente</p>
             <p class="stat-cards-info__progress">
               <span class="stat-cards-info__profit success">
-                <i data-feather="trending-up" aria-hidden="true"></i>0.24%
+                <i data-feather="trending-up" aria-hidden="true"></i>2
               </span>
-              Last month
+              Ultimo mes
             </p>
           </div>
         </article>
@@ -44,13 +44,13 @@
             <i data-feather="file" aria-hidden="true"></i>
           </div>
           <div class="stat-cards-info">
-            <p class="stat-cards-info__num">1478 286</p>
-            <p class="stat-cards-info__title">Total visits</p>
+            <p class="stat-cards-info__num">20</p>
+            <p class="stat-cards-info__title">Señales en mal estado</p>
             <p class="stat-cards-info__progress">
               <span class="stat-cards-info__profit danger">
-                <i data-feather="trending-down" aria-hidden="true"></i>1.64%
+                <i data-feather="trending-down" aria-hidden="true"></i>1
               </span>
-              Last month
+              Ultimo mes
             </p>
           </div>
         </article>
@@ -61,13 +61,13 @@
             <i data-feather="feather" aria-hidden="true"></i>
           </div>
           <div class="stat-cards-info">
-            <p class="stat-cards-info__num">1478 286</p>
-            <p class="stat-cards-info__title">Total visits</p>
+            <p class="stat-cards-info__num">19</p>
+            <p class="stat-cards-info__title">Reductores en mal estado</p>
             <p class="stat-cards-info__progress">
               <span class="stat-cards-info__profit warning">
-                <i data-feather="trending-up" aria-hidden="true"></i>0.00%
+                <i data-feather="trending-up" aria-hidden="true"></i>2
               </span>
-              Last month
+              Ultimo mes
             </p>
           </div>
         </article>

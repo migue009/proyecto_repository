@@ -40,7 +40,7 @@
             </div>
             <br>
             <div class="remember-forgot">
-                    <a href="#">Has olvidado tu contraseña?</a>
+                    <a href="#">¿Has olvidado tu contraseña?</a>
             </div>
             <button type="submit" class="btn">Ingresar</button>
             <div class="register-link">

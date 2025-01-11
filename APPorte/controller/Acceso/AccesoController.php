@@ -38,36 +38,43 @@
             $complemento = $_POST['complemento'];
             $barrio = $_POST['barrio'];
             
-            $usu_direccion = "$carrera $calle $numero_adicional $complemento, $barrio";
+            $sql_direccion = "INSERT INTO direccion (carrera, calle, num_adicional, complemento, barrio) 
+                              VALUES ('$carrera', '$calle', '$numero_adicional', '$complemento', '$barrio') RETURNING direccion_id";
+            $direccion_id = $obj->insertUltimoId($sql_direccion);
+
             // Generar la sal usando mt_rand (generador de números aleatorios)
             $salt = '$2y$10$' . substr(md5(mt_rand()), 0, 22) . '$';  // Usando mt_rand() para generar la sal
             
+
             // Encriptar la clave usando crypt
             $hashedPassword = crypt($usu_clave, $salt);
             
             // ID del tipo de documento
-            $tip_doc = $usu_tipo_documento;
             $rol_id = 2;  // Rol predeterminado (puede ser modificado según la lógica)
             $est_id = 1;  // Estado predeterminado (activo)
             
-            // Crear la consulta SQL
-            $sql = "INSERT INTO usuarios
-                (tip_doc, usu_num_doc, usu_primer_nom, usu_segundo_nom, 
-                usu_primer_ape, usu_segundo_ape, usu_correo, usu_num_cel, usu_clave, 
-                rol_id, sex_id, est_id, usu_momento_creacion, usu_direccion) 
-                VALUES 
-                ('$tip_doc', '$usu_documento', '$usu_primer_nombre', '$usu_segundo_nombre', 
-                '$usu_primer_apellido', '$usu_segundo_apellido', '$usu_correo', '$usu_telefono', 
-                '$hashedPassword', $rol_id, $sex_id, $est_id, NOW(), '$usu_direccion')";
-            
-            // Ejecutar la consulta
-            $ejecutar = $obj->insert($sql);
-            
-            // Verificar si la inserción fue exitosa
-            if ($ejecutar) {
-                redirect("login.php");
+            if ($direccion_id) {
+                // Paso 2: Insertar en la tabla usuarios con el direccion_id
+                $sql_usuario = "INSERT INTO usuarios
+                                (tip_doc, usu_num_doc, usu_primer_nom, usu_segundo_nom, 
+                                 usu_primer_ape, usu_segundo_ape, usu_correo, usu_num_cel, usu_clave, 
+                                 rol_id, sex_id, est_id, usu_momento_creacion, usu_direccion) 
+                                VALUES 
+                                ('$usu_tipo_documento', '$usu_documento', '$usu_primer_nombre', '$usu_segundo_nombre', 
+                                 '$usu_primer_apellido', '$usu_segundo_apellido', '$usu_correo', '$usu_telefono', 
+                                 '$hashedPassword', $rol_id, $genero_id, $est_id, NOW(), $direccion_id)";
+                
+                // Ejecutar la consulta de inserción en la tabla usuarios
+                $ejecutar = $obj->insert($sql_usuario);
+                
+                // Verificar si la inserción fue exitosa
+                if ($ejecutar) {
+                    redirect('index.php');
+                } else {
+                    echo "Se ha presentado un error al insertar el usuario";
+                }
             } else {
-                echo "Se ha presentado un error al insertar.";
+                echo "Se ha presentado un error al insertar la dirección";
             }
         }
         

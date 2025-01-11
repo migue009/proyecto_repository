@@ -2,9 +2,9 @@
 
 include_once '../lib/helpers.php';
 
-    // if (!isset($_SESSION['auth'])) {
-    //     redirect('login.php');
-    // }
+    if (!isset($_SESSION['auth'])) {
+        redirect('login.php');
+    }
     echo"<body>";
      include_once "../view/partials/header.php";
      echo "<div class = 'layer'>"; echo "</div>";

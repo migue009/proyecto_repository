@@ -9,24 +9,28 @@
       <div id="Layer2">
           <form name="select_layers">
               <p align="left">
-                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[0]" value="Cali">
-                  <strong>Poligonos</strong>
+                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[0]" value="Poligonos">
+                  <strong>Colombia</strong>
               </p>
               <p>
-                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[1]" value="Comunas">
+                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[1]" value="Cali">
+                  <strong>Cali</strong>
+              </p>
+              <p>
+                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[2]" value="Comunas">
                   <strong>Comunas</strong>
               </p>
               <p>
-                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[2]" value="Barrios">
-                  <strong>Barrio</strong>
+                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[3]" value="Barrios">
+                  <strong>Barrios</strong>
               </p>
               <p>
-                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[3]" value="Vias">
-                  <strong>Calles</strong>
+                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[4]" value="Vias">
+                  <strong>Vias</strong>
               </p>
               <p>
-                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[4]" value="Puntos">
-                  <strong>Solicitudes</strong>
+                  <input CHECKED onClick="chgLayers()" type="checkbox" name="layer[5]" value="Puntos">
+                  <strong>Reportes</strong>
               </p>
           </form>
       </div>
@@ -43,13 +47,13 @@
   myMap1.setCgi('/cgi-bin/mapserv.exe');
   myMap1.setMapFile('/ms4w/apache/htdocs/proyecto_repository/APPorte/mapa/cali.map');
   myMap1.setFullExtent(-76.53 , -76.45  , 3.414);
-  myMap1.setLayers('Poligonos Cali Comunas Barrios Vias');
+  myMap1.setLayers('Poligonos Cali Comunas Barrios Vias Puntos');
 
   myMap2 = new msMap(document.getElementById("dc_main2"));
   myMap2.setActionNone();
   myMap2.setFullExtent(-76.6 , -76.45  , 3.35);
   myMap2.setMapFile('/ms4w/apache/htdocs/proyecto_repository/APPorte/mapa/cali.map');
-  myMap2.setLayers('Poligonos Cali Comunas Barrios Vias');
+  myMap2.setLayers('Poligonos Cali Comunas Barrios Vias Puntos');
   myMap1.setReferenceMap(myMap2);
   myMap1.redraw(); 
   myMap2.redraw();

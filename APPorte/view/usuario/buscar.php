@@ -10,7 +10,7 @@
             echo "<td>" . $usu['usu_primer_ape'] . " " . $usu['usu_segundo_ape'] . "</td>";
             echo "<td>" . $usu['usu_num_cel'] . "</td>";
             echo "<td>" . $usu['usu_correo'] . "</td>";
-            $direccion_completa = $usu['usu_carrera'] . ", " . $usu['usu_calle'] . ", " . ($usu['usu_num_adicional'] ? $usu['usu_num_adicional'] . ", " : "") .($usu['usu_complemento'] ? $usu['usu_complemento'] . ", " : "") . $usu['usu_barrio'];
+            $direccion_completa = $usu['carrera'] . ", " . $usu['calle'] . ", " . ($usu['num_adicional'] ? $usu['num_adicional'] . ", " : "") .($usu['complemento'] ? $usu['complemento'] . ", " : "") . $usu['barrio'];
             echo "<td>" . $direccion_completa . "</td>";
             echo "<td>" . $usu['usu_num_cel'] . "</td>";
             echo "<td>" . $usu['usu_momento_creacion'] . "</td>";

@@ -97,13 +97,13 @@
                 <!-- Dirección -->
                 <div class="col-md-6 mb-3">
                     <label for="carrera">Carrera</label>
-                    <input type="text" name="carrera" class="form-control" id="carrera" placeholder="Carrera" value="<?php echo $usu['usu_carrera']; ?>" autocomplete="off">
+                    <input type="text" name="carrera" class="form-control" id="carrera" placeholder="Carrera" value="<?php echo $usu['carrera']; ?>" autocomplete="off">
                     <div id="error_carrera" class="text-danger"></div>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label for="calle">Calle</label>
-                    <input type="text" name="calle" class="form-control" id="calle" placeholder="Calle" value="<?php echo $usu['usu_calle']; ?>" autocomplete="off">
+                    <input type="text" name="calle" class="form-control" id="calle" placeholder="Calle" value="<?php echo $usu['calle']; ?>" autocomplete="off">
                     <div id="error_calle" class="text-danger"></div>
                 </div>
             </div>
@@ -111,13 +111,13 @@
             <div class="row mt-4">
                 <div class="col-md-6 mb-3">
                     <label for="numero_adicional">Número Adicional</label>
-                    <input type="text" name="numero_adicional" class="form-control" id="numero_adicional" placeholder="Número Adicional" value="<?php echo $usu['usu_num_adicional']; ?>" autocomplete="off">
+                    <input type="text" name="numero_adicional" class="form-control" id="numero_adicional" placeholder="Número Adicional" value="<?php echo $usu['num_adicional']; ?>" autocomplete="off">
                     <div id="error_numero_adicional" class="text-danger"></div>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label for="complemento">Complemento</label>
-                    <input type="text" name="complemento" class="form-control" id="complemento" placeholder="Complemento (Apartamento, Casa, Local)" value="<?php echo $usu['usu_complemento']; ?>" autocomplete="off">
+                    <input type="text" name="complemento" class="form-control" id="complemento" placeholder="Complemento (Apartamento, Casa, Local)" value="<?php echo $usu['complemento']; ?>" autocomplete="off">
                     <div id="error_complemento" class="text-danger"></div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
             <div class="row mt-4">
                 <div class="col-md-6 mb-3">
                     <label for="barrio">Barrio</label>
-                    <input type="text" name="barrio" class="form-control" id="barrio" placeholder="Barrio" value="<?php echo $usu['usu_barrio']; ?>" autocomplete="off">
+                    <input type="text" name="barrio" class="form-control" id="barrio" placeholder="Barrio" value="<?php echo $usu['barrio']; ?>" autocomplete="off">
                     <div id="error_barrio" class="text-danger"></div>
                 </div>
                 <!-- Sexo -->

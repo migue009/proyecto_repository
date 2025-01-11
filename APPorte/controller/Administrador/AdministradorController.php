@@ -80,13 +80,10 @@
             // Encriptar la clave usando crypt
             $hashedPassword = crypt($usu_clave, $salt);
             
-            // ID del tipo de documento
-            $tip_doc = $usu_tipo_documento;
-            
             $est_id = 1;  // Valor predeterminado (esto puede cambiar según tus necesidades)
             
             // Paso 1: Insertar en la tabla direccion y obtener el direccion_id
-            $sql_direccion = "INSERT INTO direccion (usu_carrera, usu_calle, usu_num_adicional, usu_complemento, usu_barrio) 
+            $sql_direccion = "INSERT INTO direccion (carrera, calle, num_adicional, complemento, barrio) 
                               VALUES ('$carrera', '$calle', '$numero_adicional', '$complemento', '$barrio') RETURNING direccion_id";
             
             $direccion_id = $obj->insertUltimoId($sql_direccion); // Método que ejecuta la consulta y devuelve el último ID insertado.
@@ -98,7 +95,7 @@
                                  usu_primer_ape, usu_segundo_ape, usu_correo, usu_num_cel, usu_clave, 
                                  rol_id, sex_id, est_id, usu_momento_creacion, usu_direccion) 
                                 VALUES 
-                                ('$tip_doc', '$usu_documento', '$usu_primer_nombre', '$usu_segundo_nombre', 
+                                ('$usu_tipo_documento', '$usu_documento', '$usu_primer_nombre', '$usu_segundo_nombre', 
                                  '$usu_primer_apellido', '$usu_segundo_apellido', '$usu_correo', '$usu_telefono', 
                                  '$hashedPassword', $rol_id, $genero_id, $est_id, NOW(), $direccion_id)";
                 
@@ -139,11 +136,11 @@
                         td.tip_doc_nombre, 
                         s.sexo_nombre,
                         e.est_nombre,
-                        d.usu_carrera, 
-                        d.usu_calle, 
-                        d.usu_num_adicional, 
-                        d.usu_complemento, 
-                        d.usu_barrio
+                        d.carrera, 
+                        d.calle, 
+                        d.num_adicional, 
+                        d.complemento, 
+                        d.barrio
                     FROM 
                         usuarios u
                     JOIN roles r ON u.rol_id = r.rol_id      
@@ -217,8 +214,8 @@
             if ($carrera || $calle || $numero_adicional || $complemento || $barrio) {
                 // Si hay algún cambio en la dirección, actualizamos la tabla `direccion`
                 $sql_direccion = "UPDATE direccion
-                                  SET usu_carrera = '$carrera', usu_calle = '$calle', usu_num_adicional = '$numero_adicional',
-                                      usu_complemento = '$complemento', usu_barrio = '$barrio'
+                                  SET carrera = '$carrera', calle = '$calle', num_adicional = '$numero_adicional',
+                                      complemento = '$complemento', barrio = '$barrio'
                                   WHERE direccion_id = $direccion_id";  // Actualizamos la dirección
         
                 $direccion_actualizada = $obj->update($sql_direccion);  // Ejecutamos la actualización
@@ -329,11 +326,11 @@
                         e.est_nombre,
                         td.tip_doc_nombre,
                         s.sexo_nombre,
-                        d.usu_carrera, 
-                        d.usu_calle, 
-                        d.usu_num_adicional, 
-                        d.usu_complemento, 
-                        d.usu_barrio
+                        d.carrera, 
+                        d.calle, 
+                        d.num_adicional, 
+                        d.complemento, 
+                        d.barrio
                     FROM 
                         usuarios u
                     JOIN roles r ON u.rol_id = r.rol_id      

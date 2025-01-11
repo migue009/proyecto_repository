@@ -97,4 +97,18 @@ MAP
             END     
         END
     END
+    LAYER 
+        NAME "Puntos"
+        STATUS ON
+        DATA "puntos.shp"
+        TYPE POINT
+        CLASS
+            STYLE
+                SYMBOL star
+                SIZE 10
+                COLOR 255 159 77
+                OUTLINECOLOR 85 107 47
+            END
+        END
+    END
 END

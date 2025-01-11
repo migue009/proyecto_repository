@@ -18,7 +18,7 @@
                 </ul>
                 <li>
                     <a href="index.php">
-                        <span class="icon home" aria-hidden="true"></span>Casa
+                        <span class="icon home" aria-hidden="true"></span>Inicio
                     </a>
                 </li>
                 <li>
